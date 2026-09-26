@@ -903,6 +903,11 @@
       border-color: #ffd780;
       box-shadow: 0 0 12px rgba(255, 215, 128, 0.2);
     }
+    .shop-item.best-value {
+      background: linear-gradient(135deg, #1f2a1f, #2a3a2a);
+      border-color: #5a8a5a;
+      box-shadow: 0 0 10px rgba(90, 138, 90, 0.15);
+    }
     .shop-item-icon {
       font-size: 32px;
       line-height: 1;
@@ -937,6 +942,15 @@
     }
     .shop-item-name .exchange-badge {
       background: #a050c0;
+      color: #1a1a1a;
+      padding: 1px 8px;
+      border-radius: 12px;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+    .shop-item-name .value-badge {
+      background: #5a8a5a;
       color: #1a1a1a;
       padding: 1px 8px;
       border-radius: 12px;
@@ -1194,8 +1208,8 @@
 
     const XP_TO_SOAP_RATE = 500;
     const SOAP_REWARD = 20;
-    const HARD_QUEST_SOAP = 5;   // НОВОЕ: 5 мыла за сложный квест
-    const NORMAL_QUEST_SOAP = 1; // 1 мыло за обычный квест
+    const HARD_QUEST_SOAP = 5;
+    const NORMAL_QUEST_SOAP = 1;
 
     const SHOP_ITEMS = {
       relics: [
@@ -1219,8 +1233,8 @@
           desc: '+1 обновление обычных квестов (действует до конца дня).' },
         { id: 'extra_hard', name: 'Второй сложный квест', icon: '⭐', price: 30,
           desc: '+1 попытка взять сложный квест сегодня.' },
-        { id: 'instant_xp', name: 'Эликсир опыта', icon: '🧪', price: 40,
-          desc: 'Мгновенно даёт +50 XP.' },
+        { id: 'instant_xp', name: 'Эликсир опыта', icon: '🧪', price: 5, xpReward: 100,
+          desc: 'Мгновенно даёт +100 XP. Самый выгодный обмен XP за мыло!', bestValue: true },
         { id: 'full_reset_daily', name: 'Песочные часы', icon: '⏳', price: 80,
           desc: 'Полный сброс дневных лимитов: 2 обновления + 1 сложный квест.' },
         { id: 'streak_shield', name: 'Щит серии', icon: '🛡️', price: 50,
@@ -1513,7 +1527,6 @@
       return Math.round(quest.xp * (1 + boost));
     }
 
-    // НОВОЕ: функция получения мыла за квест
     function getQuestSoapReward(quest) {
       return quest.isHard ? HARD_QUEST_SOAP : NORMAL_QUEST_SOAP;
     }
@@ -1797,7 +1810,7 @@
 
       const boostedXp = getQuestXpWithBoost(quest);
       const boost = getBoostForQuest(quest);
-      const soapReward = getQuestSoapReward(quest); // НОВОЕ
+      const soapReward = getQuestSoapReward(quest);
 
       state.xp += boostedXp;
       state.completedToday.push(index);
@@ -1806,7 +1819,6 @@
         state.modeLocked = true;
       }
 
-      // НОВОЕ: начисление мыла в зависимости от типа квеста
       state.soap += soapReward;
       state.stats.totalSoapEarned += soapReward;
 
@@ -1944,7 +1956,6 @@
         const xpClass = hasBoost ? 'xp-boosted' : 'xp';
         const boostIndicator = hasBoost ? `<span class="boost-indicator">🔥+${Math.round(boost * 100)}%</span>` : '';
         
-        // НОВОЕ: показываем мыло в зависимости от типа квеста
         const soapReward = getQuestSoapReward(quest);
         const soapClass = quest.isHard ? 'soap-reward-big' : 'soap-reward';
 
@@ -2094,12 +2105,23 @@
       SHOP_ITEMS.consumables.forEach(item => {
         const canAfford = state.soap >= item.price;
         let btnHtml = `<button class="shop-buy-btn" data-action="buy-consumable" data-id="${item.id}" ${!canAfford ? 'disabled' : ''}>Купить • ${item.price} 🧼</button>`;
+        let itemClass = 'shop-item consumable-item';
+        let valueBadge = '';
+        
+        // Особый стиль для эликсира (лучшая цена)
+        if (item.bestValue) {
+          itemClass += ' best-value';
+          valueBadge = `<span class="value-badge">ЛУЧШАЯ ЦЕНА</span>`;
+        }
 
         html += `
-          <div class="shop-item consumable-item">
+          <div class="${itemClass}">
             <div class="shop-item-icon">${item.icon}</div>
             <div class="shop-item-info">
-              <div class="shop-item-name">${item.name}</div>
+              <div class="shop-item-name">
+                ${item.name}
+                ${valueBadge}
+              </div>
               <div class="shop-item-desc">${item.desc}</div>
             </div>
             ${btnHtml}
@@ -2226,10 +2248,12 @@
           effectMessage = `+1 сложный квест (теперь ${state.hardRefreshCount})`;
           break;
         case 'instant_xp':
-          state.xp += 50;
-          state.stats.totalXpEarned += 50;
+          // НОВОЕ: теперь даёт 100 XP за 5 мыла
+          const xpGain = item.xpReward || 100;
+          state.xp += xpGain;
+          state.stats.totalXpEarned += xpGain;
           recalcLevel();
-          effectMessage = `+50 XP`;
+          effectMessage = `+${xpGain} XP за ${item.price} 🧼`;
           break;
         case 'full_reset_daily':
           state.refreshCount = 2;
@@ -2247,7 +2271,7 @@
       saveState();
       render();
       renderShop();
-      showToast(`${item.icon} ${effectMessage}`, 2200);
+      showToast(`${item.icon} ${effectMessage}`, 2400);
     }
 
     function openShop() {
