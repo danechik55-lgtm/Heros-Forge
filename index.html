@@ -38,8 +38,15 @@
       letter-spacing: -0.3px;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 10px;
       margin-bottom: 6px;
+      flex-wrap: wrap;
+    }
+    h1 .title-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
       flex-wrap: wrap;
     }
     h1 span {
@@ -50,11 +57,195 @@
       font-weight: 400;
       color: #b0c4d0;
     }
+    .header-buttons {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .btn-header {
+      background: #1e2a30;
+      border: 1px solid #3a4f58;
+      color: #b8d4e0;
+      padding: 6px 12px;
+      border-radius: 60px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      touch-action: manipulation;
+      -webkit-touch-callout: none;
+      user-select: none;
+    }
+    .btn-header:active { transform: scale(0.95); }
+    .btn-header:hover {
+      background: #2a3f48;
+      border-color: #5a8596;
+      color: #e0f4ff;
+    }
+    .btn-header.shop-btn {
+      background: #2a3a2a;
+      border-color: #5a8a5a;
+      color: #b0e0b0;
+    }
+    .btn-header.shop-btn:hover {
+      background: #3a5a3a;
+      border-color: #7aba7a;
+      color: #d0f4d0;
+    }
+
+    .wallet-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(135deg, #1e2a3a, #2a3a4a);
+      padding: 12px 18px;
+      border-radius: 24px;
+      border: 1px solid #3a5a6a;
+      margin: 14px 0 0;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .wallet-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .soap-icon {
+      font-size: 32px;
+      line-height: 1;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-3px); }
+    }
+    .wallet-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .wallet-label {
+      font-size: 11px;
+      color: #8aacbc;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    .wallet-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: #e0f4ff;
+      letter-spacing: -0.5px;
+      line-height: 1;
+    }
+    .wallet-value small {
+      font-size: 13px;
+      font-weight: 400;
+      color: #7a9aac;
+      margin-left: 4px;
+    }
+    .wallet-hint {
+      font-size: 11px;
+      color: #6a8a9a;
+      text-align: right;
+      line-height: 1.3;
+    }
+
+    .active-relic-banner {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #2a2a1a, #3a3a2a);
+      border: 1px solid #6a6a3a;
+      padding: 10px 16px;
+      border-radius: 20px;
+      margin-top: 10px;
+    }
+    .relic-icon-big { font-size: 24px; line-height: 1; }
+    .relic-active-info { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+    .relic-active-name { font-size: 13px; font-weight: 600; color: #ffd780; }
+    .relic-active-desc { font-size: 11px; color: #b0a880; }
+
+    .mode-switcher {
+      display: flex;
+      gap: 6px;
+      background: #1e2529;
+      padding: 5px;
+      border-radius: 60px;
+      border: 1px solid #2f383d;
+      margin: 14px 0 8px;
+      position: relative;
+    }
+    .mode-switcher.locked::after {
+      content: '🔒';
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 14px;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+    .mode-btn {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: #8a9ba5;
+      padding: 8px 6px;
+      border-radius: 60px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      touch-action: manipulation;
+      -webkit-touch-callout: none;
+      user-select: none;
+      white-space: nowrap;
+    }
+    .mode-btn:active:not(:disabled) { transform: scale(0.96); }
+    .mode-btn.active {
+      background: #2a3b44;
+      color: #e0f0fa;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    .mode-btn.active[data-mode="mind"] {
+      background: #2a3a44;
+      color: #b0d8ff;
+    }
+    .mode-btn.active[data-mode="body"] {
+      background: #3a2f24;
+      color: #ffb088;
+    }
+    .mode-btn.active[data-mode="balance"] {
+      background: #2a3b35;
+      color: #b0e0c8;
+    }
+    .mode-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+    .mode-hint {
+      text-align: center;
+      font-size: 11px;
+      color: #6a8a96;
+      margin-bottom: 12px;
+      min-height: 16px;
+      letter-spacing: 0.2px;
+    }
+    .mode-hint.locked-hint { color: #e0a080; }
     .stats-grid {
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
-      margin: 16px 0 20px;
+      margin: 8px 0 16px;
       background: #1e2529;
       padding: 12px 14px;
       border-radius: 28px;
@@ -72,11 +263,7 @@
       border: 1px solid #2f383d;
       font-size: 13px;
     }
-    .stat-item .label {
-      font-size: 11px;
-      color: #8a9ba5;
-      white-space: nowrap;
-    }
+    .stat-item .label { font-size: 11px; color: #8a9ba5; white-space: nowrap; }
     .stat-item .value {
       font-weight: 600;
       font-size: 16px;
@@ -139,9 +326,9 @@
       gap: 8px;
       flex-wrap: wrap;
     }
-    .quest-item:last-child {
-      margin-bottom: 0;
-    }
+    .quest-item:last-child { margin-bottom: 0; }
+    .quest-item.mind-quest { border-left-color: #5a8ac0; }
+    .quest-item.body-quest { border-left-color: #c08a5a; }
     .quest-item .info {
       display: flex;
       flex-direction: column;
@@ -157,11 +344,7 @@
       flex-wrap: wrap;
       gap: 4px;
     }
-    .quest-item .desc {
-      font-size: 12px;
-      color: #a6bbc8;
-      line-height: 1.3;
-    }
+    .quest-item .desc { font-size: 12px; color: #a6bbc8; line-height: 1.3; }
     .quest-item .badge {
       background: #2a3b44;
       padding: 4px 12px;
@@ -174,31 +357,26 @@
       flex-wrap: wrap;
       margin-top: 4px;
     }
-    .quest-item .badge .xp {
-      color: #b8d9b0;
-      font-weight: 500;
-    }
+    .quest-item .badge .xp { color: #b8d9b0; font-weight: 500; }
+    .quest-item .badge .xp-boosted { color: #ffd780; font-weight: 700; }
+    .quest-item .badge .soap-reward { color: #a0d8ff; font-weight: 500; }
+    .quest-item .badge .soap-reward-big { color: #ffd780; font-weight: 700; }
     .quest-item.hard-quest {
       border-left-color: #ff6b35;
       background: #1f2a2e;
     }
-    .quest-item.hard-quest .title {
-      color: #ff8a5c;
-    }
+    .quest-item.hard-quest .title { color: #ff8a5c; }
     .quest-item.hard-quest .badge {
       background: #2f3f3a;
       border: 1px solid #ff6b35;
     }
-    .quest-item.hard-quest .badge .xp {
-      color: #ffb088;
-    }
+    .quest-item.hard-quest .badge .xp { color: #ffb088; }
+    .quest-item.hard-quest .badge .xp-boosted { color: #ffd780; font-weight: 700; }
+    .quest-item.hard-quest .badge .soap-reward-big { color: #ffd780; }
     .quest-item.hard-quest .btn-done {
       background: #3f2f28;
       border-color: #ff6b35;
       color: #ffb088;
-    }
-    .quest-item.hard-quest .btn-done:active {
-      transform: scale(0.94);
     }
     .hard-icon {
       background: #ff6b35;
@@ -208,6 +386,12 @@
       font-size: 9px;
       font-weight: 700;
       display: inline-block;
+    }
+    .boost-indicator {
+      color: #ffd780;
+      font-size: 10px;
+      font-weight: 700;
+      margin-left: 4px;
     }
     .btn-done {
       background: #2b3f3a;
@@ -227,9 +411,7 @@
       -webkit-touch-callout: none;
       user-select: none;
     }
-    .btn-done:active {
-      transform: scale(0.94);
-    }
+    .btn-done:active { transform: scale(0.94); }
     .btn-done.completed {
       background: #1f3a35;
       color: #7aa89b;
@@ -273,9 +455,7 @@
       border: 1px solid #3a4f58;
       color: #b8d4e0;
     }
-    .btn-refresh:active:not(:disabled) {
-      transform: scale(0.95);
-    }
+    .btn-refresh:active:not(:disabled) { transform: scale(0.95); }
     .btn-refresh:disabled {
       opacity: 0.4;
       cursor: not-allowed;
@@ -286,9 +466,7 @@
       border: 1px solid #ff6b35;
       color: #ffb088;
     }
-    .btn-hard:active:not(:disabled) {
-      transform: scale(0.95);
-    }
+    .btn-hard:active:not(:disabled) { transform: scale(0.95); }
     .btn-hard:disabled {
       opacity: 0.5;
       cursor: not-allowed;
@@ -311,18 +489,6 @@
       background: #ff6b35;
       color: #0b0d0e;
     }
-    .btn-refresh .badge-count {
-      background: #3a4f58;
-      color: #b8d4e0;
-    }
-    .btn-refresh.completed-all .badge-count {
-      background: #4a7a7a;
-      color: #b0d0d0;
-    }
-    .btn-hard.completed-all .badge-count {
-      background: #4a4a4a;
-      color: #888;
-    }
     .reset-area {
       display: flex;
       justify-content: flex-end;
@@ -341,9 +507,7 @@
       -webkit-touch-callout: none;
       user-select: none;
     }
-    .reset-btn:active {
-      transform: scale(0.94);
-    }
+    .reset-btn:active { transform: scale(0.94); }
     .footnote {
       margin-top: 12px;
       font-size: 11px;
@@ -381,20 +545,14 @@
       text-align: center;
       white-space: nowrap;
     }
-    .toast.show {
-      opacity: 1;
-    }
+    .toast.show { opacity: 1; }
     .empty-quests {
       padding: 20px 12px;
       text-align: center;
       color: #7e959f;
       font-size: 14px;
     }
-    .empty-quests .emoji {
-      font-size: 36px;
-      display: block;
-      margin-bottom: 8px;
-    }
+    .empty-quests .emoji { font-size: 36px; display: block; margin-bottom: 8px; }
     .all-completed-notice {
       margin-top: 12px;
       padding: 8px 12px;
@@ -405,11 +563,490 @@
       font-size: 13px;
       color: #8ac0a0;
     }
+    .mode-locked-notice {
+      margin-top: 8px;
+      padding: 10px 14px;
+      background: #2a1f1a;
+      border-radius: 16px;
+      border: 1px solid #7a4a2a;
+      text-align: center;
+      font-size: 12px;
+      color: #e0a080;
+      line-height: 1.4;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+      padding: 12px;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: auto; }
+    .modal {
+      background: #14181a;
+      border-radius: 32px;
+      padding: 24px 20px;
+      width: 100%;
+      max-width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
+      border: 1px solid #2a3135;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.9);
+      transform: scale(0.95);
+      transition: transform 0.25s ease;
+      scrollbar-width: thin;
+      scrollbar-color: #3a4f58 #14181a;
+    }
+    .modal-overlay.open .modal { transform: scale(1); }
+    .modal::-webkit-scrollbar { width: 6px; }
+    .modal::-webkit-scrollbar-track { background: #14181a; }
+    .modal::-webkit-scrollbar-thumb { background: #3a4f58; border-radius: 3px; }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      gap: 10px;
+    }
+    .modal-header h2 {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+      color: #e0f0fa;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .modal-close {
+      background: #1e2a30;
+      border: 1px solid #3a4f58;
+      color: #b8d4e0;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      font-size: 18px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      touch-action: manipulation;
+      -webkit-touch-callout: none;
+      user-select: none;
+      line-height: 1;
+    }
+    .modal-close:active { transform: scale(0.9); }
+    .modal-close:hover {
+      background: #3a2a2a;
+      border-color: #7a4a4a;
+      color: #ffb0b0;
+    }
+    .stat-block {
+      background: #101618;
+      border-radius: 24px;
+      padding: 16px 16px;
+      margin-bottom: 14px;
+      border: 1px solid #263034;
+    }
+    .stat-block h3 {
+      font-size: 13px;
+      font-weight: 500;
+      color: #8a9ba5;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .big-numbers {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .big-number {
+      background: #1b2429;
+      border-radius: 18px;
+      padding: 12px 14px;
+      border: 1px solid #2a3b44;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .big-number .num {
+      font-size: 24px;
+      font-weight: 700;
+      color: #e0f0fa;
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+    }
+    .big-number .num.mind-color { color: #8ab8e8; }
+    .big-number .num.body-color { color: #e8b888; }
+    .big-number .num.xp-color { color: #b8e0a0; }
+    .big-number .num.soap-color { color: #a0d8ff; }
+    .big-number .num.streak-color { color: #ffd780; }
+    .big-number .lbl {
+      font-size: 11px;
+      color: #8a9ba5;
+      letter-spacing: 0.2px;
+    }
+    .progress-line {
+      margin-top: 10px;
+      background: #1b2429;
+      border-radius: 12px;
+      padding: 10px 14px;
+      border: 1px solid #2a3b44;
+    }
+    .progress-line .pl-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #a6bbc8;
+      margin-bottom: 8px;
+    }
+    .progress-line .pl-top .pl-label { font-weight: 500; }
+    .progress-line .pl-top .pl-value { color: #e0f0fa; font-weight: 600; }
+    .progress-bar-bg {
+      width: 100%;
+      height: 8px;
+      background: #0b0d0e;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #4a7a8c, #6a9aac);
+      border-radius: 10px;
+      transition: width 0.4s ease;
+    }
+    .quest-type-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .type-stat {
+      background: #1b2429;
+      border-radius: 18px;
+      padding: 14px 14px;
+      border: 1px solid #2a3b44;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .type-stat .ts-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #a6bbc8;
+      font-weight: 500;
+    }
+    .type-stat .ts-count {
+      font-size: 22px;
+      font-weight: 700;
+      color: #e0f0fa;
+      line-height: 1;
+    }
+    .type-stat .ts-bar {
+      width: 100%;
+      height: 5px;
+      background: #0b0d0e;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .type-stat .ts-bar-fill {
+      height: 100%;
+      border-radius: 10px;
+      transition: width 0.4s ease;
+    }
+    .ts-bar-fill.mind-fill { background: #5a8ac0; }
+    .ts-bar-fill.body-fill { background: #c08a5a; }
+    .type-stat .ts-pct { font-size: 11px; color: #7a8b96; }
+    .activity-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      margin-top: 4px;
+    }
+    .activity-day {
+      aspect-ratio: 1;
+      background: #1b2429;
+      border-radius: 6px;
+      border: 1px solid #2a3b44;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      color: #6a7a85;
+      transition: 0.2s;
+    }
+    .activity-day.active {
+      background: #3a6a5a;
+      border-color: #5a9a8a;
+      color: #c0f0e0;
+      font-weight: 600;
+    }
+    .activity-day.today {
+      border-color: #ffd700;
+      box-shadow: 0 0 6px rgba(255, 215, 0, 0.3);
+    }
+    .activity-legend {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 8px;
+      font-size: 10px;
+      color: #6a7a85;
+    }
+    .empty-stats {
+      text-align: center;
+      padding: 30px 20px;
+      color: #7e959f;
+      font-size: 14px;
+    }
+    .empty-stats .emoji { font-size: 42px; display: block; margin-bottom: 12px; }
+
+    .shop-balance {
+      background: linear-gradient(135deg, #1e2a3a, #2a3a4a);
+      padding: 14px 18px;
+      border-radius: 20px;
+      border: 1px solid #3a5a6a;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .shop-balance-left { display: flex; align-items: center; gap: 10px; }
+    .shop-balance-icon { font-size: 26px; }
+    .shop-balance-text {
+      font-size: 20px;
+      font-weight: 700;
+      color: #e0f4ff;
+      letter-spacing: -0.3px;
+    }
+    .shop-balance-label {
+      font-size: 11px;
+      color: #8aacbc;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .shop-balance-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .shop-xp-badge {
+      background: #1a2f1a;
+      border: 1px solid #4a7a4a;
+      padding: 8px 14px;
+      border-radius: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      align-items: center;
+    }
+    .shop-xp-badge .xp-val {
+      font-size: 16px;
+      font-weight: 700;
+      color: #b8e0a0;
+      line-height: 1;
+    }
+    .shop-xp-badge .xp-lbl {
+      font-size: 9px;
+      color: #7aa87a;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .shop-section-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #8a9ba5;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin: 18px 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .shop-section-title:first-of-type { margin-top: 4px; }
+    .shop-item {
+      background: #1b2429;
+      border-radius: 20px;
+      padding: 14px 14px;
+      margin-bottom: 10px;
+      border: 1px solid #2a3b44;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: 0.15s;
+      flex-wrap: wrap;
+    }
+    .shop-item.relic-item { border-left: 4px solid #c0a050; }
+    .shop-item.consumable-item { border-left: 4px solid #50a0c0; }
+    .shop-item.exchange-item { border-left: 4px solid #a050c0; }
+    .shop-item.owned { background: #1a2a1a; border-color: #4a7a4a; }
+    .shop-item.active-relic {
+      background: #2a2a1a;
+      border-color: #ffd780;
+      box-shadow: 0 0 12px rgba(255, 215, 128, 0.2);
+    }
+    .shop-item-icon {
+      font-size: 32px;
+      line-height: 1;
+      flex-shrink: 0;
+      width: 44px;
+      text-align: center;
+    }
+    .shop-item-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      min-width: 120px;
+    }
+    .shop-item-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: #e0f0fa;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .shop-item-name .relic-badge {
+      background: #c0a050;
+      color: #1a1a1a;
+      padding: 1px 8px;
+      border-radius: 12px;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+    .shop-item-name .exchange-badge {
+      background: #a050c0;
+      color: #1a1a1a;
+      padding: 1px 8px;
+      border-radius: 12px;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+    .shop-item-desc {
+      font-size: 12px;
+      color: #a6bbc8;
+      line-height: 1.35;
+    }
+    .shop-item-effect {
+      font-size: 11px;
+      color: #ffd780;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+    .shop-item-effect.mind-effect { color: #8ab8e8; }
+    .shop-item-effect.body-effect { color: #e8b888; }
+    .shop-item-effect.exchange-effect { color: #d8a0e8; }
+    .shop-buy-btn {
+      background: #2a3a2a;
+      border: 1px solid #5a8a5a;
+      color: #b0e0b0;
+      padding: 8px 14px;
+      border-radius: 40px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+      touch-action: manipulation;
+      -webkit-touch-callout: none;
+      user-select: none;
+      flex-shrink: 0;
+    }
+    .shop-buy-btn:active:not(:disabled) { transform: scale(0.94); }
+    .shop-buy-btn:hover:not(:disabled) {
+      background: #3a5a3a;
+      border-color: #7aba7a;
+      color: #d0f4d0;
+    }
+    .shop-buy-btn:disabled {
+      background: #2a2a2a;
+      border-color: #4a4a4a;
+      color: #6a6a6a;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+    .shop-buy-btn.activate-btn {
+      background: #3a3a1a;
+      border-color: #c0a050;
+      color: #ffd780;
+    }
+    .shop-buy-btn.activate-btn:hover:not(:disabled) {
+      background: #5a5a2a;
+      border-color: #e0c060;
+      color: #ffe8a0;
+    }
+    .shop-buy-btn.active-btn {
+      background: #2a2a1a;
+      border-color: #ffd780;
+      color: #ffd780;
+    }
+    .shop-buy-btn.exchange-btn {
+      background: #3a2a4a;
+      border-color: #a050c0;
+      color: #d8a0e8;
+    }
+    .shop-buy-btn.exchange-btn:hover:not(:disabled) {
+      background: #4a3a5a;
+      border-color: #c070e0;
+      color: #e8c0f8;
+    }
+    .relic-category-note {
+      background: #1a1a2a;
+      border: 1px solid #3a3a5a;
+      border-radius: 14px;
+      padding: 10px 14px;
+      font-size: 11px;
+      color: #8a9ac8;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+    .exchange-category-note {
+      background: #2a1a2a;
+      border: 1px solid #5a3a5a;
+      border-radius: 14px;
+      padding: 10px 14px;
+      font-size: 11px;
+      color: #c89ac8;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
     @media (max-width: 420px) {
       body { padding: 8px; }
       .app { padding: 14px 12px; border-radius: 24px; }
       h1 { font-size: 19px; gap: 6px; }
       h1 span { font-size: 12px; padding: 2px 10px; }
+      .btn-header { font-size: 11px; padding: 5px 10px; }
+      .wallet-bar { padding: 10px 14px; }
+      .soap-icon { font-size: 26px; }
+      .wallet-value { font-size: 20px; }
+      .wallet-hint { font-size: 10px; }
+      .mode-btn { font-size: 11px; padding: 7px 4px; }
       .stats-grid { padding: 8px 10px; gap: 6px; }
       .stat-item { padding: 3px 10px 3px 8px; font-size: 11px; min-width: 60px; }
       .stat-item .value { font-size: 14px; }
@@ -423,6 +1060,13 @@
       .badge-count { width: 18px; height: 18px; font-size: 10px; }
       .action-row .left-buttons { gap: 6px; }
       .toast { font-size: 12px; padding: 8px 16px; bottom: 16px; }
+      .modal { padding: 18px 14px; border-radius: 24px; max-height: 94vh; }
+      .modal-header h2 { font-size: 17px; }
+      .big-number .num { font-size: 20px; }
+      .type-stat .ts-count { font-size: 19px; }
+      .shop-item-icon { font-size: 26px; width: 36px; }
+      .shop-item-name { font-size: 14px; }
+      .shop-buy-btn { font-size: 11px; padding: 7px 12px; }
     }
     @media (max-width: 360px) {
       .stats-grid { flex-direction: column; gap: 4px; }
@@ -430,9 +1074,21 @@
       .quest-item { flex-direction: column; align-items: stretch; }
       .quest-item .badge { justify-content: space-between; }
       .btn-refresh, .btn-hard { min-width: 60px; font-size: 10px; padding: 5px 10px; }
+      .mode-btn { font-size: 10px; }
+      .big-numbers { grid-template-columns: 1fr; }
+      .quest-type-stats { grid-template-columns: 1fr; }
+      .activity-grid { gap: 3px; }
+      .activity-day { font-size: 8px; }
+      .wallet-bar { flex-direction: column; text-align: center; gap: 6px; }
+      .wallet-left { justify-content: center; }
+      .wallet-hint { text-align: center; }
+      .shop-item { flex-direction: column; align-items: flex-start; }
+      .shop-item-icon { width: auto; }
+      .shop-buy-btn { width: 100%; justify-content: center; }
+      .shop-balance { flex-direction: column; }
     }
     @media (hover: none) {
-      .btn-refresh:hover, .btn-hard:hover, .btn-done:hover, .reset-btn:hover {
+      .btn-refresh:hover, .btn-hard:hover, .btn-done:hover, .reset-btn:hover, .mode-btn:hover, .btn-header:hover, .modal-close:hover, .shop-buy-btn:hover {
         transform: none;
       }
     }
@@ -441,9 +1097,42 @@
 <body>
 <div class="app" id="app">
   <h1>
-    🧠⚡ Hero's Forge
-    <span>v1</span>
+    <div class="title-left">
+      🧠⚡ Hero's Forge
+      <span>v1</span>
+    </div>
+    <div class="header-buttons">
+      <button class="btn-header shop-btn" id="shopBtn">🏪 Магазин</button>
+      <button class="btn-header" id="statsBtn">📊</button>
+    </div>
   </h1>
+
+  <div class="wallet-bar">
+    <div class="wallet-left">
+      <div class="soap-icon">🧼</div>
+      <div class="wallet-info">
+        <div class="wallet-label">Мыло</div>
+        <div class="wallet-value" id="soapDisplay">0 <small>🧼</small></div>
+      </div>
+    </div>
+    <div class="wallet-hint">Обычный: +1 🧼<br>Сложный: +5 🧼</div>
+  </div>
+
+  <div class="active-relic-banner" id="activeRelicBanner" style="display: none;">
+    <div class="relic-icon-big" id="activeRelicIcon">🏛️</div>
+    <div class="relic-active-info">
+      <div class="relic-active-name" id="activeRelicName">Реликвия</div>
+      <div class="relic-active-desc" id="activeRelicDesc">Буст +0%</div>
+    </div>
+  </div>
+
+  <div class="mode-switcher" id="modeSwitcher">
+    <button class="mode-btn" data-mode="mind">🧠 Ум</button>
+    <button class="mode-btn" data-mode="body">💪 Тело</button>
+    <button class="mode-btn active" data-mode="balance">⚖️ Баланс</button>
+  </div>
+  <div class="mode-hint" id="modeHint">⚖️ Баланс: тело и ум вместе</div>
+
   <div class="stats-grid" id="statsPanel">
     <div class="stat-item"><span class="label">🏋️ Уровень</span><span class="value" id="levelDisplay">1</span></div>
     <div class="stat-item"><span class="label">🧘 Очки</span><span class="value" id="xpDisplay">0 <small>XP</small></span></div>
@@ -477,15 +1166,69 @@
   <div class="footnote">Каждый день — новые квесты для тела и ума</div>
 </div>
 
+<div class="modal-overlay" id="statsModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>📊 Статистика героя</h2>
+      <button class="modal-close" id="statsCloseBtn">✕</button>
+    </div>
+    <div id="statsContent"></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="shopModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>🏪 Магазин реликвий</h2>
+      <button class="modal-close" id="shopCloseBtn">✕</button>
+    </div>
+    <div id="shopContent"></div>
+  </div>
+</div>
+
 <div id="toast" class="toast"></div>
 
 <script>
   (function(){
     "use strict";
 
-    // ---- РАСШИРЕННАЯ БАЗА КВЕСТОВ С АДЕКВАТНЫМИ ПРОМЕЖУТКАМИ ВРЕМЕНИ ----
+    const XP_TO_SOAP_RATE = 500;
+    const SOAP_REWARD = 20;
+    const HARD_QUEST_SOAP = 5;   // НОВОЕ: 5 мыла за сложный квест
+    const NORMAL_QUEST_SOAP = 1; // 1 мыло за обычный квест
+
+    const SHOP_ITEMS = {
+      relics: [
+        { id: 'demeter', name: 'Реликвия Деметры', icon: '🌾', price: 25, boost: 0.15, type: 'all',
+          desc: 'Древняя реликвия плодородия. Даёт стабильный буст ко всему опыту.' },
+        { id: 'dionysus', name: 'Реликвия Диониса', icon: '🍇', price: 35, boost: 0.20, type: 'all',
+          desc: 'Реликвия веселья и вдохновения. Усиливает весь получаемый опыт.' },
+        { id: 'hermes', name: 'Реликвия Гермеса', icon: '🪽', price: 50, boost: 0.40, type: 'all',
+          desc: 'Реликвия скорости и ловкости. Значительно ускоряет рост.' },
+        { id: 'poseidon', name: 'Реликвия Посейдона', icon: '🔱', price: 60, boost: 0.50, type: 'all',
+          desc: 'Реликвия мощи океана. Мощный буст ко всему опыту.' },
+        { id: 'hera', name: 'Реликвия Геры', icon: '👑', price: 70, boost: 0.65, type: 'all',
+          desc: 'Реликвия царственности. Один из лучших универсальных бустов.' },
+        { id: 'athena', name: 'Реликвия Афины', icon: '🦉', price: 150, boost: 0.75, type: 'mind',
+          desc: 'Реликвия мудрости. Даёт +75% XP ТОЛЬКО за когнитивные квесты.' },
+        { id: 'hephaestus', name: 'Реликвия Гефеста', icon: '⚒️', price: 150, boost: 0.75, type: 'body',
+          desc: 'Реликвия кузнеца. Даёт +75% XP ТОЛЬКО за физические квесты.' },
+      ],
+      consumables: [
+        { id: 'extra_refresh', name: 'Дополнительное обновление', icon: '🔄', price: 15,
+          desc: '+1 обновление обычных квестов (действует до конца дня).' },
+        { id: 'extra_hard', name: 'Второй сложный квест', icon: '⭐', price: 30,
+          desc: '+1 попытка взять сложный квест сегодня.' },
+        { id: 'instant_xp', name: 'Эликсир опыта', icon: '🧪', price: 40,
+          desc: 'Мгновенно даёт +50 XP.' },
+        { id: 'full_reset_daily', name: 'Песочные часы', icon: '⏳', price: 80,
+          desc: 'Полный сброс дневных лимитов: 2 обновления + 1 сложный квест.' },
+        { id: 'streak_shield', name: 'Щит серии', icon: '🛡️', price: 50,
+          desc: 'Защищает серию дней от сброса при пропуске (1 раз).' },
+      ],
+    };
+
     const QUEST_TEMPLATES = [
-      // === ФИЗИЧЕСКИЕ КВЕСТЫ (17) ===
       { type: 'body', baseTitle: 'Отжимания', baseDesc: (lvl) => {
           const count = 10 + lvl * 2;
           const sets = 3 + Math.floor(lvl / 3);
@@ -571,8 +1314,6 @@
           const sets = 3 + Math.floor(lvl / 3);
           return `${sets} подхода по ${count} раз на сторону`;
         }, baseXp: 22 },
-
-      // === МЕНТАЛЬНЫЕ КВЕСТЫ (17) С АДЕКВАТНЫМ ВРЕМЕНЕМ ===
       { type: 'mind', baseTitle: 'Чтение книги', baseDesc: (lvl) => {
           const minutes = 30 + lvl * 5;
           return `${minutes} минут чтения (≈${Math.round(minutes/60)} ч)`;
@@ -651,9 +1392,7 @@
         }, baseXp: 24 },
     ];
 
-    // ---- РАСШИРЕННАЯ БАЗА СЛОЖНЫХ КВЕСТОВ ----
     const HARD_QUEST_POOL = [
-      // Физические сложные
       { type: 'body', title: 'Интенсивная тренировка', desc: 'Отжимания 5×20, приседания 5×30, планка 3×60с', xp: 80 },
       { type: 'body', title: 'Челлендж на выносливость', desc: '100 отжиманий за 10 минут', xp: 90 },
       { type: 'body', title: 'Силовой комплекс', desc: 'Подтягивания 5×макс, бёрпи 5×15, выпады 5×15', xp: 85 },
@@ -662,7 +1401,6 @@
       { type: 'body', title: 'Марафон приседаний', desc: '200 приседаний за 15 минут', xp: 80 },
       { type: 'body', title: 'Отжимания на брусьях', desc: '5 подходов по 15-20 раз', xp: 85 },
       { type: 'body', title: 'Тренировка на баланс', desc: 'Стойка на руках 3×45с + планка на одной руке', xp: 70 },
-      // Ментальные сложные с адекватным временем
       { type: 'mind', title: 'Глубокая медитация', desc: '30-40 минут осознанности с фокусом на дыхание', xp: 75 },
       { type: 'mind', title: 'Интеллектуальный марафон', desc: '1.5-2 часа чтения сложной научной литературы', xp: 80 },
       { type: 'mind', title: 'Изучение языка: интенсив', desc: '1 час практики + запоминание 40 слов', xp: 85 },
@@ -674,6 +1412,12 @@
     ];
 
     const STORAGE_KEY = 'hero_forge_data';
+
+    const MODES = {
+      mind: { label: '🧠 Ум', hint: '🧠 Режим ума: только когнитивные квесты', questTypes: ['mind'] },
+      body: { label: '💪 Тело', hint: '💪 Режим тела: только физические квесты', questTypes: ['body'] },
+      balance: { label: '⚖️ Баланс', hint: '⚖️ Баланс: тело и ум вместе', questTypes: ['mind', 'body'] },
+    };
 
     let state = {
       level: 1,
@@ -687,11 +1431,24 @@
       hardQuestIndex: -1,
       refreshCount: 2,
       hardRefreshCount: 1,
+      mode: 'balance',
+      soap: 0,
+      ownedRelics: [],
+      activeRelic: null,
+      streakShield: 0,
+      modeLocked: false,
+      stats: {
+        totalCompleted: 0, mindCompleted: 0, bodyCompleted: 0,
+        hardCompleted: 0, totalXpEarned: 0, streak: 0, bestStreak: 0,
+        activeDays: [], totalSoapEarned: 0, totalSoapSpent: 0,
+        totalXpExchanged: 0,
+      },
     };
 
     const levelDisplay = document.getElementById('levelDisplay');
     const xpDisplay = document.getElementById('xpDisplay');
     const dayCounter = document.getElementById('dayCounter');
+    const soapDisplay = document.getElementById('soapDisplay');
     const todayDate = document.getElementById('todayDate');
     const questContainer = document.getElementById('questContainer');
     const levelUpBadge = document.getElementById('levelUpBadge');
@@ -702,6 +1459,20 @@
     const resetBtn = document.getElementById('resetProgressBtn');
     const toastEl = document.getElementById('toast');
     const difficultyLevel = document.getElementById('difficultyLevel');
+    const modeHint = document.getElementById('modeHint');
+    const modeSwitcher = document.getElementById('modeSwitcher');
+    const statsBtn = document.getElementById('statsBtn');
+    const statsModal = document.getElementById('statsModal');
+    const statsContent = document.getElementById('statsContent');
+    const statsCloseBtn = document.getElementById('statsCloseBtn');
+    const shopBtn = document.getElementById('shopBtn');
+    const shopModal = document.getElementById('shopModal');
+    const shopContent = document.getElementById('shopContent');
+    const shopCloseBtn = document.getElementById('shopCloseBtn');
+    const activeRelicBanner = document.getElementById('activeRelicBanner');
+    const activeRelicIcon = document.getElementById('activeRelicIcon');
+    const activeRelicName = document.getElementById('activeRelicName');
+    const activeRelicDesc = document.getElementById('activeRelicDesc');
 
     function getTodayStr() {
       const d = new Date();
@@ -724,10 +1495,71 @@
       }, duration);
     }
 
-    function generateDailyQuests(level) {
-      const shuffled = [...QUEST_TEMPLATES].sort(() => Math.random() - 0.5);
+    function getActiveRelic() {
+      if (!state.activeRelic) return null;
+      return SHOP_ITEMS.relics.find(r => r.id === state.activeRelic) || null;
+    }
+
+    function getBoostForQuest(quest) {
+      const relic = getActiveRelic();
+      if (!relic) return 0;
+      if (relic.type === 'mind' && quest.type !== 'mind') return 0;
+      if (relic.type === 'body' && quest.type !== 'body') return 0;
+      return relic.boost;
+    }
+
+    function getQuestXpWithBoost(quest) {
+      const boost = getBoostForQuest(quest);
+      return Math.round(quest.xp * (1 + boost));
+    }
+
+    // НОВОЕ: функция получения мыла за квест
+    function getQuestSoapReward(quest) {
+      return quest.isHard ? HARD_QUEST_SOAP : NORMAL_QUEST_SOAP;
+    }
+
+    function isModeLocked() {
+      return state.modeLocked;
+    }
+
+    function updateStreakOnNewDay(oldDate, newDate) {
+      if (!oldDate) { state.stats.streak = 0; return; }
+      const oldD = new Date(oldDate + 'T00:00:00');
+      const newD = new Date(newDate + 'T00:00:00');
+      const diffDays = Math.round((newD - oldD) / (1000 * 60 * 60 * 24));
+      if (diffDays === 1) {
+        state.stats.streak = (state.stats.streak || 0) + 1;
+      } else if (diffDays > 1) {
+        if (state.streakShield > 0 && diffDays === 2) {
+          state.streakShield -= 1;
+          state.stats.streak = (state.stats.streak || 0) + 1;
+          showToast('🛡️ Щит серии использован!', 2500);
+        } else {
+          state.stats.streak = 1;
+        }
+      }
+      if (state.stats.streak > (state.stats.bestStreak || 0)) {
+        state.stats.bestStreak = state.stats.streak;
+      }
+    }
+
+    function addActiveDay(dateStr) {
+      if (!state.stats.activeDays) state.stats.activeDays = [];
+      if (!state.stats.activeDays.includes(dateStr)) {
+        state.stats.activeDays.push(dateStr);
+        if (state.stats.activeDays.length > 60) {
+          state.stats.activeDays = state.stats.activeDays.slice(-60);
+        }
+      }
+    }
+
+    function generateDailyQuests(level, mode) {
+      const modeConfig = MODES[mode] || MODES.balance;
+      const allowedTypes = modeConfig.questTypes;
+      const filtered = QUEST_TEMPLATES.filter(t => allowedTypes.includes(t.type));
+      const shuffled = [...filtered].sort(() => Math.random() - 0.5);
       const count = Math.random() < 0.5 ? 4 : 5;
-      const selected = shuffled.slice(0, count);
+      const selected = shuffled.slice(0, Math.min(count, shuffled.length));
       return selected.map(template => {
         const xpMultiplier = 1 + (level - 1) * 0.15;
         const baseXp = template.baseXp || 20;
@@ -741,8 +1573,12 @@
       });
     }
 
-    function generateHardQuest(level) {
-      const shuffled = [...HARD_QUEST_POOL].sort(() => Math.random() - 0.5);
+    function generateHardQuest(level, mode) {
+      const modeConfig = MODES[mode] || MODES.balance;
+      const allowedTypes = modeConfig.questTypes;
+      const filtered = HARD_QUEST_POOL.filter(q => allowedTypes.includes(q.type));
+      if (filtered.length === 0) return null;
+      const shuffled = [...filtered].sort(() => Math.random() - 0.5);
       const baseQuest = shuffled[0];
       const xpMultiplier = 1 + (level - 1) * 0.1;
       const scaledXp = Math.round(baseQuest.xp * xpMultiplier);
@@ -763,19 +1599,7 @@
 
     function saveState() {
       try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify({
-          level: state.level,
-          xp: state.xp,
-          dayCounter: state.dayCounter,
-          lastDate: state.lastDate,
-          completedToday: state.completedToday,
-          currentQuests: state.currentQuests,
-          hardQuestUsed: state.hardQuestUsed,
-          hardQuestCompleted: state.hardQuestCompleted,
-          hardQuestIndex: state.hardQuestIndex,
-          refreshCount: state.refreshCount,
-          hardRefreshCount: state.hardRefreshCount,
-        }));
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       } catch (e) {}
     }
 
@@ -795,6 +1619,27 @@
         state.hardQuestIndex = data.hardQuestIndex ?? -1;
         state.refreshCount = data.refreshCount ?? 2;
         state.hardRefreshCount = data.hardRefreshCount ?? 1;
+        state.mode = data.mode ?? 'balance';
+        state.soap = data.soap ?? 0;
+        state.ownedRelics = data.ownedRelics ?? [];
+        state.activeRelic = data.activeRelic ?? null;
+        state.streakShield = data.streakShield ?? 0;
+        state.modeLocked = data.modeLocked ?? false;
+        if (data.stats) {
+          state.stats = {
+            totalCompleted: data.stats.totalCompleted ?? 0,
+            mindCompleted: data.stats.mindCompleted ?? 0,
+            bodyCompleted: data.stats.bodyCompleted ?? 0,
+            hardCompleted: data.stats.hardCompleted ?? 0,
+            totalXpEarned: data.stats.totalXpEarned ?? 0,
+            streak: data.stats.streak ?? 0,
+            bestStreak: data.stats.bestStreak ?? 0,
+            activeDays: data.stats.activeDays ?? [],
+            totalSoapEarned: data.stats.totalSoapEarned ?? 0,
+            totalSoapSpent: data.stats.totalSoapSpent ?? 0,
+            totalXpExchanged: data.stats.totalXpExchanged ?? 0,
+          };
+        }
         return true;
       } catch (e) { return false; }
     }
@@ -803,20 +1648,28 @@
       const today = getTodayStr();
       todayDate.textContent = formatDate(today);
       if (state.lastDate !== today || state.currentQuests.length === 0) {
-        if (state.lastDate !== null && state.lastDate !== today) state.dayCounter += 1;
-        if (state.lastDate === null) state.dayCounter = 0;
-        state.currentQuests = generateDailyQuests(state.level);
+        if (state.lastDate !== null && state.lastDate !== today) {
+          updateStreakOnNewDay(state.lastDate, today);
+          state.dayCounter += 1;
+        }
+        if (state.lastDate === null) {
+          state.dayCounter = 0;
+          state.stats.streak = 1;
+          state.stats.bestStreak = 1;
+        }
+        state.currentQuests = generateDailyQuests(state.level, state.mode);
         state.completedToday = [];
         state.hardQuestUsed = false;
         state.hardQuestCompleted = false;
         state.hardQuestIndex = -1;
         state.refreshCount = 2;
         state.hardRefreshCount = 1;
+        state.modeLocked = false;
         state.lastDate = today;
         saveState();
       }
       if (state.currentQuests.length === 0) {
-        state.currentQuests = generateDailyQuests(state.level);
+        state.currentQuests = generateDailyQuests(state.level, state.mode);
         state.completedToday = [];
         saveState();
       }
@@ -826,6 +1679,30 @@
       const totalQuests = state.currentQuests.length;
       if (totalQuests === 0) return false;
       return state.completedToday.length === totalQuests;
+    }
+
+    function switchMode(newMode) {
+      if (state.mode === newMode) return;
+
+      if (isModeLocked()) {
+        showToast('🔒 Режим зафиксирован! Вы уже начали выполнять квесты. Смена режима доступна завтра.', 2800);
+        return;
+      }
+
+      state.mode = newMode;
+      document.querySelectorAll('.mode-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.mode === newMode);
+      });
+      modeHint.textContent = MODES[newMode].hint;
+      state.currentQuests = generateDailyQuests(state.level, newMode);
+      state.completedToday = [];
+      state.hardQuestUsed = false;
+      state.hardQuestCompleted = false;
+      state.hardQuestIndex = -1;
+      state.hardRefreshCount = 1;
+      saveState();
+      render();
+      showToast(`${MODES[newMode].label} — квесты обновлены`, 2000);
     }
 
     function refreshQuests() {
@@ -838,7 +1715,7 @@
         return;
       }
       const today = getTodayStr();
-      const newQuests = generateDailyQuests(state.level);
+      const newQuests = generateDailyQuests(state.level, state.mode);
       const completedTitles = new Set();
       state.completedToday.forEach(index => {
         const q = state.currentQuests[index];
@@ -899,8 +1776,8 @@
           state.hardQuestIndex = -1;
         }
       }
-      const hardQuest = generateHardQuest(state.level);
-      if (!hardQuest) { showToast('⚠️ Ошибка генерации', 1500); return; }
+      const hardQuest = generateHardQuest(state.level, state.mode);
+      if (!hardQuest) { showToast('⚠️ Нет сложных квестов для этого режима', 1800); return; }
       const questWithMarker = { ...hardQuest, isHard: true };
       state.currentQuests.push(questWithMarker);
       state.hardQuestIndex = state.currentQuests.length - 1;
@@ -913,13 +1790,96 @@
       render();
     }
 
+    function completeQuest(index) {
+      if (state.completedToday.includes(index)) return;
+      const quest = state.currentQuests[index];
+      if (!quest) return;
+
+      const boostedXp = getQuestXpWithBoost(quest);
+      const boost = getBoostForQuest(quest);
+      const soapReward = getQuestSoapReward(quest); // НОВОЕ
+
+      state.xp += boostedXp;
+      state.completedToday.push(index);
+
+      if (!state.modeLocked) {
+        state.modeLocked = true;
+      }
+
+      // НОВОЕ: начисление мыла в зависимости от типа квеста
+      state.soap += soapReward;
+      state.stats.totalSoapEarned += soapReward;
+
+      state.stats.totalCompleted += 1;
+      state.stats.totalXpEarned += boostedXp;
+      if (quest.isHard) {
+        state.stats.hardCompleted += 1;
+      } else if (quest.type === 'mind') {
+        state.stats.mindCompleted += 1;
+      } else if (quest.type === 'body') {
+        state.stats.bodyCompleted += 1;
+      }
+      addActiveDay(getTodayStr());
+
+      const boostText = boost > 0 ? ` (🔥 +${Math.round(boost * 100)}%)` : '';
+      const lockText = state.modeLocked ? ' • 🔒 Режим зафиксирован' : '';
+      if (quest.isHard) {
+        state.hardQuestCompleted = true;
+        state.hardQuestUsed = true;
+        showToast(`⭐ +${boostedXp} XP${boostText} • +${soapReward} 🧼`, 2200);
+      } else {
+        showToast(`✅ +${boostedXp} XP${boostText} • +${soapReward} 🧼${lockText}`, 2000);
+      }
+
+      recalcLevel();
+      saveState();
+      render();
+    }
+
     function render() {
       levelDisplay.textContent = state.level;
       xpDisplay.innerHTML = `${state.xp} <small>XP</small>`;
       dayCounter.textContent = state.dayCounter;
+      soapDisplay.innerHTML = `${state.soap} <small>🧼</small>`;
       difficultyLevel.textContent = `⚡ Lv.${state.level}`;
 
+      const relic = getActiveRelic();
+      if (relic) {
+        activeRelicBanner.style.display = 'flex';
+        activeRelicIcon.textContent = relic.icon;
+        activeRelicName.textContent = relic.name;
+        let boostText = `+${Math.round(relic.boost * 100)}% XP`;
+        if (relic.type === 'mind') boostText += ' (только ум)';
+        else if (relic.type === 'body') boostText += ' (только тело)';
+        activeRelicDesc.textContent = boostText;
+      } else {
+        activeRelicBanner.style.display = 'none';
+      }
+
       const allCompleted = isAllQuestsCompleted();
+      const modeLocked = isModeLocked();
+
+      document.querySelectorAll('.mode-btn').forEach(btn => {
+        if (btn.dataset.mode === state.mode) {
+          btn.disabled = false;
+        } else {
+          btn.disabled = modeLocked;
+        }
+      });
+
+      if (modeLocked) {
+        modeSwitcher.classList.add('locked');
+      } else {
+        modeSwitcher.classList.remove('locked');
+      }
+
+      if (modeLocked && !allCompleted) {
+        modeHint.textContent = '🔒 Режим зафиксирован на сегодня (выполнен квест)';
+        modeHint.classList.add('locked-hint');
+      } else {
+        modeHint.textContent = MODES[state.mode].hint;
+        modeHint.classList.remove('locked-hint');
+      }
 
       if (allCompleted) {
         refreshBtn.disabled = true;
@@ -976,14 +1936,27 @@
         const hardClass = quest.isHard ? 'hard-quest' : '';
         const hardBadge = quest.isHard ? '<span class="hard-icon">⭐</span>' : '';
         const displayIcon = quest.isHard ? '🔥' : icon;
+        const typeClass = !quest.isHard ? (quest.type === 'mind' ? 'mind-quest' : 'body-quest') : '';
+
+        const boost = getBoostForQuest(quest);
+        const boostedXp = getQuestXpWithBoost(quest);
+        const hasBoost = boost > 0;
+        const xpClass = hasBoost ? 'xp-boosted' : 'xp';
+        const boostIndicator = hasBoost ? `<span class="boost-indicator">🔥+${Math.round(boost * 100)}%</span>` : '';
+        
+        // НОВОЕ: показываем мыло в зависимости от типа квеста
+        const soapReward = getQuestSoapReward(quest);
+        const soapClass = quest.isHard ? 'soap-reward-big' : 'soap-reward';
+
         html += `
-          <div class="quest-item ${hardClass}" data-index="${index}">
+          <div class="quest-item ${hardClass} ${typeClass}" data-index="${index}">
             <div class="info">
-              <div class="title">${displayIcon} ${quest.title} ${hardBadge}</div>
+              <div class="title">${displayIcon} ${quest.title} ${hardBadge}${boostIndicator}</div>
               <div class="desc">${quest.desc}</div>
             </div>
             <div class="badge">
-              <span class="xp">+${quest.xp} XP</span>
+              <span class="${xpClass}">+${boostedXp} XP</span>
+              <span class="${soapClass}">+${soapReward} 🧼</span>
               <button class="btn-done ${doneClass}" data-index="${index}" ${isDone ? 'disabled' : ''}>
                 ${isDone ? '✓' : '✔'}
               </button>
@@ -996,15 +1969,15 @@
       if (allCompleted) {
         const notice = document.createElement('div');
         notice.className = 'all-completed-notice';
-        notice.textContent = '🎉 Все квесты выполнены! Обновление недоступно до завтра.';
-        const container = questContainer;
-        const existingNotice = container.querySelector('.all-completed-notice');
-        if (!existingNotice) {
-          container.appendChild(notice);
-        }
-      } else {
+        notice.textContent = '🎉 Все квесты выполнены! Обновление и смена режима недоступны до завтра.';
         const existingNotice = questContainer.querySelector('.all-completed-notice');
-        if (existingNotice) existingNotice.remove();
+        if (!existingNotice) questContainer.appendChild(notice);
+      } else if (modeLocked) {
+        const notice = document.createElement('div');
+        notice.className = 'mode-locked-notice';
+        notice.textContent = `🔒 Режим "${MODES[state.mode].label}" зафиксирован на сегодня — выполнено ${state.completedToday.length} квестов.`;
+        const existingNotice = questContainer.querySelector('.mode-locked-notice');
+        if (!existingNotice) questContainer.appendChild(notice);
       }
 
       document.querySelectorAll('.btn-done:not(.completed)').forEach(btn => {
@@ -1012,53 +1985,523 @@
           e.stopPropagation();
           const index = parseInt(this.dataset.index, 10);
           if (isNaN(index)) return;
-          if (state.completedToday.includes(index)) return;
-          const quest = state.currentQuests[index];
-          if (!quest) return;
-          state.xp += quest.xp;
-          state.completedToday.push(index);
-          if (quest.isHard) {
-            state.hardQuestCompleted = true;
-            state.hardQuestUsed = true;
-            showToast(`⭐ +${quest.xp} XP`, 1500);
-          } else {
-            showToast(`✅ +${quest.xp} XP`, 1200);
-          }
-          recalcLevel();
-          saveState();
-          render();
+          completeQuest(index);
         });
       });
       levelUpBadge.style.display = 'none';
     }
 
+    // ============ МАГАЗИН ============
+    function renderShop() {
+      let html = '';
+
+      html += `
+        <div class="shop-balance">
+          <div class="shop-balance-left">
+            <div class="shop-balance-icon">🧼</div>
+            <div>
+              <div class="shop-balance-label">Ваш баланс</div>
+              <div class="shop-balance-text">${state.soap} 🧼</div>
+            </div>
+          </div>
+          <div class="shop-balance-right">
+            <div class="shop-xp-badge">
+              <div class="xp-val">${state.xp}</div>
+              <div class="xp-lbl">Всего XP</div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      html += `
+        <div class="shop-section-title">🏛️ Реликвии (эффект не складывается)</div>
+        <div class="relic-category-note">
+          ⚠️ Одновременно активна только <b>одна</b> реликвия. Покупка новой не отменяет старую — 
+          вы можете переключаться между купленными реликвиями в любой момент.
+        </div>
+      `;
+
+      SHOP_ITEMS.relics.forEach(relic => {
+        const owned = state.ownedRelics.includes(relic.id);
+        const isActive = state.activeRelic === relic.id;
+        const canAfford = state.soap >= relic.price;
+        
+        let btnHtml = '';
+        let itemClass = 'shop-item relic-item';
+        if (isActive) {
+          itemClass += ' active-relic';
+          btnHtml = `<button class="shop-buy-btn active-btn" disabled>✓ Активна</button>`;
+        } else if (owned) {
+          itemClass += ' owned';
+          btnHtml = `<button class="shop-buy-btn activate-btn" data-action="activate-relic" data-id="${relic.id}">⚡ Активировать</button>`;
+        } else {
+          btnHtml = `<button class="shop-buy-btn" data-action="buy-relic" data-id="${relic.id}" ${!canAfford ? 'disabled' : ''}>Купить • ${relic.price} 🧼</button>`;
+        }
+
+        let effectClass = 'shop-item-effect';
+        let effectText = `+${Math.round(relic.boost * 100)}% XP ко всем квестам`;
+        if (relic.type === 'mind') {
+          effectClass += ' mind-effect';
+          effectText = `+${Math.round(relic.boost * 100)}% XP только к 🧠 умственным квестам`;
+        } else if (relic.type === 'body') {
+          effectClass += ' body-effect';
+          effectText = `+${Math.round(relic.boost * 100)}% XP только к 💪 физическим квестам`;
+        }
+
+        html += `
+          <div class="${itemClass}">
+            <div class="shop-item-icon">${relic.icon}</div>
+            <div class="shop-item-info">
+              <div class="shop-item-name">
+                ${relic.name}
+                <span class="relic-badge">РЕЛИКВИЯ</span>
+              </div>
+              <div class="shop-item-desc">${relic.desc}</div>
+              <div class="${effectClass}">${effectText}</div>
+            </div>
+            ${btnHtml}
+          </div>
+        `;
+      });
+
+      const canExchange = state.xp >= XP_TO_SOAP_RATE;
+      html += `
+        <div class="shop-section-title">💱 Обмен опыта на мыло</div>
+        <div class="exchange-category-note">
+          ⚠️ Обмен опыта <b>снижает ваш уровень</b>! Потратьте XP с умом — уровень упадёт, если станет меньше порога.
+        </div>
+        <div class="shop-item exchange-item">
+          <div class="shop-item-icon">💱</div>
+          <div class="shop-item-info">
+            <div class="shop-item-name">
+              Обмен опыта на мыло
+              <span class="exchange-badge">ОБМЕН</span>
+            </div>
+            <div class="shop-item-desc">Обменять ${XP_TO_SOAP_RATE} XP на ${SOAP_REWARD} 🧼. Уровень пересчитается автоматически.</div>
+            <div class="shop-item-effect exchange-effect">
+              ${state.xp} XP → ${Math.floor(state.xp / XP_TO_SOAP_RATE) * SOAP_REWARD} 🧼 доступно
+              (${Math.floor(state.xp / XP_TO_SOAP_RATE)} обменов)
+            </div>
+          </div>
+          <button class="shop-buy-btn exchange-btn" data-action="exchange-xp" ${!canExchange ? 'disabled' : ''}>
+            Обменять • ${XP_TO_SOAP_RATE} XP → ${SOAP_REWARD} 🧼
+          </button>
+        </div>
+      `;
+
+      html += `<div class="shop-section-title">🧪 Расходники</div>`;
+
+      SHOP_ITEMS.consumables.forEach(item => {
+        const canAfford = state.soap >= item.price;
+        let btnHtml = `<button class="shop-buy-btn" data-action="buy-consumable" data-id="${item.id}" ${!canAfford ? 'disabled' : ''}>Купить • ${item.price} 🧼</button>`;
+
+        html += `
+          <div class="shop-item consumable-item">
+            <div class="shop-item-icon">${item.icon}</div>
+            <div class="shop-item-info">
+              <div class="shop-item-name">${item.name}</div>
+              <div class="shop-item-desc">${item.desc}</div>
+            </div>
+            ${btnHtml}
+          </div>
+        `;
+      });
+
+      shopContent.innerHTML = html;
+
+      shopContent.querySelectorAll('[data-action]').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const action = this.dataset.action;
+          const id = this.dataset.id;
+          if (action === 'buy-relic') buyRelic(id);
+          else if (action === 'activate-relic') activateRelic(id);
+          else if (action === 'buy-consumable') buyConsumable(id);
+          else if (action === 'exchange-xp') exchangeXpForSoap();
+        });
+      });
+    }
+
+    function buyRelic(relicId) {
+      const relic = SHOP_ITEMS.relics.find(r => r.id === relicId);
+      if (!relic) return;
+      if (state.ownedRelics.includes(relicId)) {
+        showToast('⚠️ Реликвия уже куплена', 1800);
+        return;
+      }
+      if (state.soap < relic.price) {
+        showToast('⚠️ Недостаточно мыла', 1800);
+        return;
+      }
+      if (!confirm(`Купить "${relic.name}" за ${relic.price} 🧼?`)) return;
+
+      state.soap -= relic.price;
+      state.stats.totalSoapSpent += relic.price;
+      state.ownedRelics.push(relicId);
+      
+      if (!state.activeRelic) {
+        state.activeRelic = relicId;
+        showToast(`${relic.icon} ${relic.name} куплена и активирована!`, 2500);
+      } else {
+        showToast(`${relic.icon} ${relic.name} куплена!`, 2200);
+      }
+      
+      saveState();
+      render();
+      renderShop();
+    }
+
+    function activateRelic(relicId) {
+      if (!state.ownedRelics.includes(relicId)) return;
+      const relic = SHOP_ITEMS.relics.find(r => r.id === relicId);
+      if (!relic) return;
+      
+      state.activeRelic = relicId;
+      saveState();
+      render();
+      renderShop();
+      showToast(`${relic.icon} ${relic.name} активирована!`, 2000);
+    }
+
+    function exchangeXpForSoap() {
+      if (state.xp < XP_TO_SOAP_RATE) {
+        showToast(`⚠️ Нужно минимум ${XP_TO_SOAP_RATE} XP`, 2000);
+        return;
+      }
+
+      const exchangesPossible = Math.floor(state.xp / XP_TO_SOAP_RATE);
+      const totalXpToSpend = exchangesPossible * XP_TO_SOAP_RATE;
+      const totalSoapToGet = exchangesPossible * SOAP_REWARD;
+
+      if (!confirm(`Обменять ${totalXpToSpend} XP на ${totalSoapToGet} 🧼?\n\nВнимание: ваш уровень может понизиться!`)) return;
+
+      state.xp -= totalXpToSpend;
+      state.soap += totalSoapToGet;
+      
+      state.stats.totalXpExchanged += totalXpToSpend;
+      state.stats.totalSoapEarned += totalSoapToGet;
+      
+      recalcLevelAfterExchange();
+
+      saveState();
+      render();
+      renderShop();
+      showToast(`💱 Обменяно ${totalXpToSpend} XP → ${totalSoapToGet} 🧼`, 2500);
+    }
+
+    function recalcLevelAfterExchange() {
+      const newLevel = Math.floor(state.xp / 100) + 1;
+      if (newLevel !== state.level) {
+        const oldLevel = state.level;
+        state.level = Math.max(1, newLevel);
+        if (state.level < oldLevel) {
+          showToast(`📉 Уровень понижен: ${oldLevel} → ${state.level}`, 2500);
+        } else if (state.level > oldLevel) {
+          levelUpBadge.style.display = 'inline-block';
+          showToast(`⬆ Уровень ${state.level}!`, 2500);
+          setTimeout(() => { levelUpBadge.style.display = 'none'; }, 2800);
+        }
+      }
+    }
+
+    function buyConsumable(itemId) {
+      const item = SHOP_ITEMS.consumables.find(c => c.id === itemId);
+      if (!item) return;
+      if (state.soap < item.price) {
+        showToast('⚠️ Недостаточно мыла', 1800);
+        return;
+      }
+      if (!confirm(`Купить "${item.name}" за ${item.price} 🧼?`)) return;
+
+      state.soap -= item.price;
+      state.stats.totalSoapSpent += item.price;
+
+      let effectMessage = '';
+      switch(itemId) {
+        case 'extra_refresh':
+          state.refreshCount += 1;
+          effectMessage = `+1 обновление (теперь ${state.refreshCount})`;
+          break;
+        case 'extra_hard':
+          state.hardRefreshCount += 1;
+          effectMessage = `+1 сложный квест (теперь ${state.hardRefreshCount})`;
+          break;
+        case 'instant_xp':
+          state.xp += 50;
+          state.stats.totalXpEarned += 50;
+          recalcLevel();
+          effectMessage = `+50 XP`;
+          break;
+        case 'full_reset_daily':
+          state.refreshCount = 2;
+          state.hardRefreshCount = 1;
+          state.hardQuestUsed = false;
+          state.hardQuestCompleted = false;
+          effectMessage = `Сброшены дневные лимиты`;
+          break;
+        case 'streak_shield':
+          state.streakShield += 1;
+          effectMessage = `Щит серии: ${state.streakShield}`;
+          break;
+      }
+
+      saveState();
+      render();
+      renderShop();
+      showToast(`${item.icon} ${effectMessage}`, 2200);
+    }
+
+    function openShop() {
+      renderShop();
+      shopModal.classList.add('open');
+    }
+
+    function closeShop() {
+      shopModal.classList.remove('open');
+    }
+
+    // ============ СТАТИСТИКА ============
+    function renderStats() {
+      const s = state.stats;
+      const total = s.totalCompleted || 0;
+      const mindPct = total > 0 ? Math.round((s.mindCompleted / total) * 100) : 0;
+      const bodyPct = total > 0 ? Math.round((s.bodyCompleted / total) * 100) : 0;
+      const maxTypeCount = Math.max(s.mindCompleted, s.bodyCompleted, 1);
+
+      const xpInLevel = state.xp % 100;
+      const levelProgress = Math.min(100, Math.round((xpInLevel / 100) * 100));
+
+      const today = new Date();
+      const days = [];
+      for (let i = 27; i >= 0; i--) {
+        const d = new Date(today);
+        d.setDate(d.getDate() - i);
+        const dateStr = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+        days.push({
+          date: dateStr,
+          day: d.getDate(),
+          isActive: s.activeDays.includes(dateStr),
+          isToday: i === 0,
+        });
+      }
+
+      let html = '';
+
+      html += `
+        <div class="stat-block">
+          <h3>🧼 Мыло</h3>
+          <div class="big-numbers">
+            <div class="big-number">
+              <div class="num soap-color">${state.soap}</div>
+              <div class="lbl">Текущий баланс</div>
+            </div>
+            <div class="big-number">
+              <div class="num soap-color">${s.totalSoapEarned}</div>
+              <div class="lbl">Всего заработано</div>
+            </div>
+            <div class="big-number">
+              <div class="num" style="color:#e0a080;">${s.totalSoapSpent}</div>
+              <div class="lbl">Потрачено в магазине</div>
+            </div>
+            <div class="big-number">
+              <div class="num" style="color:#d8a0e8;">${s.totalXpExchanged || 0}</div>
+              <div class="lbl">Обменяно XP</div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      html += `
+        <div class="stat-block">
+          <h3>📈 Общий прогресс</h3>
+          <div class="big-numbers">
+            <div class="big-number">
+              <div class="num xp-color">${s.totalXpEarned}</div>
+              <div class="lbl">Всего заработано XP</div>
+            </div>
+            <div class="big-number">
+              <div class="num">${s.totalCompleted}</div>
+              <div class="lbl">Выполнено квестов</div>
+            </div>
+            <div class="big-number">
+              <div class="num streak-color">${s.streak}</div>
+              <div class="lbl">Текущая серия (дней)</div>
+            </div>
+            <div class="big-number">
+              <div class="num" style="color: #ffb088;">${s.bestStreak}</div>
+              <div class="lbl">Лучшая серия</div>
+            </div>
+          </div>
+          <div class="progress-line" style="margin-top: 12px;">
+            <div class="pl-top">
+              <span class="pl-label">До уровня ${state.level + 1}</span>
+              <span class="pl-value">${xpInLevel} / 100 XP</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" style="width: ${levelProgress}%;"></div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      html += `
+        <div class="stat-block">
+          <h3>🎯 По типам квестов</h3>
+          <div class="quest-type-stats">
+            <div class="type-stat">
+              <div class="ts-header">🧠 Ум</div>
+              <div class="ts-count mind-color">${s.mindCompleted}</div>
+              <div class="ts-bar">
+                <div class="ts-bar-fill mind-fill" style="width: ${(s.mindCompleted / maxTypeCount) * 100}%;"></div>
+              </div>
+              <div class="ts-pct">${mindPct}% от всех</div>
+            </div>
+            <div class="type-stat">
+              <div class="ts-header">💪 Тело</div>
+              <div class="ts-count body-color">${s.bodyCompleted}</div>
+              <div class="ts-bar">
+                <div class="ts-bar-fill body-fill" style="width: ${(s.bodyCompleted / maxTypeCount) * 100}%;"></div>
+              </div>
+              <div class="ts-pct">${bodyPct}% от всех</div>
+            </div>
+          </div>
+          <div class="progress-line" style="margin-top: 10px;">
+            <div class="pl-top">
+              <span class="pl-label">🔥 Сложных выполнено</span>
+              <span class="pl-value" style="color: #ffb088;">${s.hardCompleted}</span>
+            </div>
+          </div>
+        </div>
+      `;
+
+      html += `
+        <div class="stat-block">
+          <h3>📅 Активность (28 дней)</h3>
+          <div class="activity-grid">
+      `;
+      days.forEach(d => {
+        const classes = ['activity-day'];
+        if (d.isActive) classes.push('active');
+        if (d.isToday) classes.push('today');
+        html += `<div class="${classes.join(' ')}" title="${d.date}">${d.day}</div>`;
+      });
+      html += `
+          </div>
+          <div class="activity-legend">
+            <span>← 4 недели назад</span>
+            <span>Сегодня →</span>
+          </div>
+        </div>
+      `;
+
+      if (total === 0) {
+        html += `
+          <div class="empty-stats">
+            <span class="emoji">🌱</span>
+            Начните выполнять квесты, чтобы увидеть статистику!
+          </div>
+        `;
+      } else {
+        html += `
+          <div class="stat-block" style="margin-bottom: 0;">
+            <h3>💡 Итог</h3>
+            <div style="font-size: 13px; color: #a6bbc8; line-height: 1.6;">
+              Вы выполнили <b style="color:#e0f0fa;">${total}</b> квестов, заработали 
+              <b style="color:#b8e0a0;">${s.totalXpEarned} XP</b> и 
+              <b style="color:#a0d8ff;">${s.totalSoapEarned} 🧼</b>. 
+              ${s.streak > 1 ? `Держите серию — <b style="color:#ffd780;">${s.streak} дней подряд!</b>` : 'Продолжайте в том же духе!'}
+            </div>
+          </div>
+        `;
+      }
+
+      statsContent.innerHTML = html;
+    }
+
+    function openStats() {
+      renderStats();
+      statsModal.classList.add('open');
+    }
+
+    function closeStats() {
+      statsModal.classList.remove('open');
+    }
+
     function resetProgress() {
-      if (confirm('Сбросить весь прогресс?')) {
+      if (confirm('Сбросить весь прогресс? (уровень, очки, квесты, мыло, реликвии и статистика)')) {
         localStorage.removeItem(STORAGE_KEY);
-        state.level = 1; state.xp = 0; state.dayCounter = 0; state.lastDate = null;
-        state.completedToday = []; state.currentQuests = [];
-        state.hardQuestUsed = false; state.hardQuestCompleted = false; state.hardQuestIndex = -1;
-        state.refreshCount = 2; state.hardRefreshCount = 1;
+        state = {
+          level: 1, xp: 0, dayCounter: 0, lastDate: null,
+          completedToday: [], currentQuests: [],
+          hardQuestUsed: false, hardQuestCompleted: false, hardQuestIndex: -1,
+          refreshCount: 2, hardRefreshCount: 1, mode: 'balance',
+          soap: 0, ownedRelics: [], activeRelic: null, streakShield: 0,
+          modeLocked: false,
+          stats: {
+            totalCompleted: 0, mindCompleted: 0, bodyCompleted: 0,
+            hardCompleted: 0, totalXpEarned: 0, streak: 0, bestStreak: 0,
+            activeDays: [], totalSoapEarned: 0, totalSoapSpent: 0,
+            totalXpExchanged: 0,
+          },
+        };
+        document.querySelectorAll('.mode-btn').forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.mode === 'balance');
+        });
+        modeHint.textContent = MODES.balance.hint;
+        modeHint.classList.remove('locked-hint');
+        modeSwitcher.classList.remove('locked');
         initDay(); render();
+        closeStats();
+        closeShop();
         showToast('🔄 Прогресс сброшен', 1800);
       }
     }
 
     function init() {
       loadState();
+      document.querySelectorAll('.mode-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.mode === state.mode);
+      });
+      modeHint.textContent = MODES[state.mode].hint;
       initDay();
       recalcLevel();
       render();
+      
+      modeSwitcher.addEventListener('click', function(e) {
+        const btn = e.target.closest('.mode-btn');
+        if (!btn) return;
+        if (btn.disabled) return;
+        switchMode(btn.dataset.mode);
+      });
+      
       refreshBtn.addEventListener('click', refreshQuests);
       hardQuestBtn.addEventListener('click', handleHardQuest);
       resetBtn.addEventListener('click', resetProgress);
+      statsBtn.addEventListener('click', openStats);
+      statsCloseBtn.addEventListener('click', closeStats);
+      shopBtn.addEventListener('click', openShop);
+      shopCloseBtn.addEventListener('click', closeShop);
+      
+      statsModal.addEventListener('click', function(e) {
+        if (e.target === statsModal) closeStats();
+      });
+      shopModal.addEventListener('click', function(e) {
+        if (e.target === shopModal) closeShop();
+      });
+      
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          closeStats();
+          closeShop();
+        }
+      });
+      
       setInterval(() => {
         const today = getTodayStr();
         if (state.lastDate !== today) {
           initDay();
           recalcLevel();
           render();
-          showToast('🌅 Новый день!', 2000);
+          showToast('🌅 Новый день! Режим разблокирован.', 2400);
         }
       }, 3600000);
     }
