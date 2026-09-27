@@ -59,14 +59,14 @@
     }
     .header-buttons {
       display: flex;
-      gap: 6px;
+      gap: 5px;
       flex-wrap: wrap;
     }
     .btn-header {
       background: #1e2a30;
       border: 1px solid #3a4f58;
       color: #b8d4e0;
-      padding: 6px 12px;
+      padding: 6px 10px;
       border-radius: 60px;
       font-size: 12px;
       font-weight: 500;
@@ -74,7 +74,7 @@
       transition: 0.2s;
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 4px;
       touch-action: manipulation;
       -webkit-touch-callout: none;
       user-select: none;
@@ -94,6 +94,16 @@
       background: #3a5a3a;
       border-color: #7aba7a;
       color: #d0f4d0;
+    }
+    .btn-header.battle-btn {
+      background: #3a1f1f;
+      border-color: #b03030;
+      color: #f0a0a0;
+    }
+    .btn-header.battle-btn:hover {
+      background: #5a2a2a;
+      border-color: #d04040;
+      color: #ffc0c0;
     }
 
     .wallet-bar {
@@ -695,6 +705,8 @@
     .big-number .num.xp-color { color: #b8e0a0; }
     .big-number .num.soap-color { color: #a0d8ff; }
     .big-number .num.streak-color { color: #ffd780; }
+    .big-number .num.win-color { color: #90e0a0; }
+    .big-number .num.loss-color { color: #e09090; }
     .big-number .lbl {
       font-size: 11px;
       color: #8a9ba5;
@@ -1050,12 +1062,428 @@
       line-height: 1.4;
     }
 
+    /* ============ ПОЕДИНКИ ============ */
+    .battle-intro {
+      background: linear-gradient(135deg, #2a1a1a, #3a2a1a);
+      border: 1px solid #7a3a3a;
+      border-radius: 20px;
+      padding: 16px 18px;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    .battle-intro h3 {
+      color: #ffb0a0;
+      font-size: 16px;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    .battle-intro p {
+      color: #c8a0a0;
+      font-size: 12px;
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+    .battle-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .battle-action-btn {
+      padding: 10px 18px;
+      border-radius: 60px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      touch-action: manipulation;
+      -webkit-touch-callout: none;
+      user-select: none;
+      border: 1px solid;
+      flex: 1 1 auto;
+      justify-content: center;
+      min-width: 140px;
+    }
+    .battle-action-btn.share {
+      background: #1e2a30;
+      border-color: #4a7a9a;
+      color: #b8d4e0;
+    }
+    .battle-action-btn.share:hover {
+      background: #2a3f48;
+      border-color: #6aaac0;
+      color: #e0f4ff;
+    }
+    .battle-action-btn.fight {
+      background: #2f1a1a;
+      border-color: #b03030;
+      color: #f0a0a0;
+    }
+    .battle-action-btn.fight:hover {
+      background: #4a2a2a;
+      border-color: #d04040;
+      color: #ffc0c0;
+    }
+    .battle-action-btn:active {
+      transform: scale(0.95);
+    }
+    .battle-code {
+      background: #0b0d0e;
+      border: 1px solid #3a5a6a;
+      border-radius: 14px;
+      padding: 12px 14px;
+      margin-top: 12px;
+      font-family: 'Courier New', monospace;
+      font-size: 11px;
+      color: #8ab8c8;
+      word-break: break-all;
+      line-height: 1.4;
+      max-height: 100px;
+      overflow-y: auto;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .battle-code:hover {
+      background: #101618;
+      border-color: #5a8aa0;
+    }
+    .battle-code:active {
+      transform: scale(0.98);
+    }
+    .battle-code-hint {
+      font-size: 10px;
+      color: #6a8a9a;
+      margin-top: 6px;
+      text-align: center;
+    }
+
+    /* Итог поединка */
+    .battle-result-header {
+      text-align: center;
+      padding: 20px 16px;
+      border-radius: 24px;
+      margin-bottom: 16px;
+    }
+    .battle-result-header.win {
+      background: linear-gradient(135deg, #1a3a1a, #2a4a2a);
+      border: 1px solid #5a9a5a;
+    }
+    .battle-result-header.loss {
+      background: linear-gradient(135deg, #3a1a1a, #4a2a2a);
+      border: 1px solid #9a5a5a;
+    }
+    .battle-result-header.draw {
+      background: linear-gradient(135deg, #2a2a1a, #3a3a2a);
+      border: 1px solid #8a8a4a;
+    }
+    .battle-result-emoji {
+      font-size: 48px;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .battle-result-title {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      margin-bottom: 4px;
+    }
+    .battle-result-header.win .battle-result-title { color: #90e0a0; }
+    .battle-result-header.loss .battle-result-title { color: #e09090; }
+    .battle-result-header.draw .battle-result-title { color: #e0d090; }
+    .battle-result-score {
+      font-size: 14px;
+      color: #a6bbc8;
+      margin-top: 6px;
+    }
+
+    /* Сравнение */
+    .battle-stats-list {
+      background: #101618;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid #263034;
+      margin-bottom: 14px;
+    }
+    .battle-stat-row {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 12px 14px;
+      border-bottom: 1px solid #1e2529;
+      gap: 10px;
+    }
+    .battle-stat-row:last-child {
+      border-bottom: none;
+    }
+    .battle-stat-row.win-me {
+      background: linear-gradient(90deg, rgba(90, 138, 90, 0.15), transparent 50%, transparent 50%);
+    }
+    .battle-stat-row.win-enemy {
+      background: linear-gradient(270deg, rgba(180, 60, 60, 0.15), transparent 50%, transparent 50%);
+    }
+    .battle-stat-side {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .battle-stat-side.left {
+      align-items: flex-start;
+      text-align: left;
+    }
+    .battle-stat-side.right {
+      align-items: flex-end;
+      text-align: right;
+    }
+    .battle-stat-value {
+      font-size: 16px;
+      font-weight: 700;
+      color: #e0f0fa;
+      line-height: 1.1;
+    }
+    .battle-stat-value.win {
+      color: #90e0a0;
+    }
+    .battle-stat-value.lose {
+      color: #a6bbc8;
+      opacity: 0.7;
+    }
+    .battle-stat-label {
+      font-size: 10px;
+      color: #7a8b96;
+      letter-spacing: 0.2px;
+    }
+    .battle-stat-icon {
+      font-size: 20px;
+      text-align: center;
+      flex-shrink: 0;
+      width: 40px;
+    }
+    .battle-stat-category {
+      font-size: 11px;
+      color: #8a9ba5;
+      text-align: center;
+      padding: 4px 8px;
+      background: #1a2429;
+      border-radius: 8px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .battle-stat-middle {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      min-width: 70px;
+    }
+
+    /* Ввод кода */
+    .battle-input-container {
+      margin-top: 12px;
+    }
+    .battle-input-label {
+      font-size: 12px;
+      color: #a6bbc8;
+      margin-bottom: 8px;
+      display: block;
+      font-weight: 500;
+    }
+    .battle-input {
+      width: 100%;
+      background: #0b0d0e;
+      border: 1px solid #3a4f58;
+      color: #e0f0fa;
+      padding: 12px 14px;
+      border-radius: 14px;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      resize: none;
+      min-height: 70px;
+      outline: none;
+      transition: 0.2s;
+    }
+    .battle-input:focus {
+      border-color: #5a8ac0;
+      box-shadow: 0 0 0 3px rgba(90, 138, 192, 0.15);
+    }
+    .battle-input-error {
+      color: #f0a0a0;
+      font-size: 12px;
+      margin-top: 6px;
+      display: none;
+    }
+    .battle-input-error.show { display: block; }
+    .battle-submit-btn {
+      width: 100%;
+      margin-top: 12px;
+      padding: 12px 20px;
+      background: linear-gradient(135deg, #5a2a2a, #7a3a3a);
+      border: 1px solid #b03030;
+      color: #f0d0d0;
+      border-radius: 60px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      touch-action: manipulation;
+      -webkit-touch-callout: none;
+      user-select: none;
+    }
+    .battle-submit-btn:hover:not(:disabled) {
+      background: linear-gradient(135deg, #7a3a3a, #9a4a4a);
+      border-color: #d04040;
+      color: #ffe0e0;
+    }
+    .battle-submit-btn:active:not(:disabled) {
+      transform: scale(0.97);
+    }
+    .battle-submit-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .battle-history {
+      background: #101618;
+      border-radius: 20px;
+      padding: 14px 16px;
+      border: 1px solid #263034;
+      margin-bottom: 14px;
+    }
+    .battle-history h3 {
+      font-size: 13px;
+      font-weight: 500;
+      color: #8a9ba5;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .battle-history-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      background: #1b2429;
+      border-radius: 14px;
+      margin-bottom: 8px;
+      gap: 8px;
+      font-size: 12px;
+      border-left: 3px solid;
+    }
+    .battle-history-item.win { border-left-color: #5a9a5a; }
+    .battle-history-item.loss { border-left-color: #9a5a5a; }
+    .battle-history-item.draw { border-left-color: #8a8a4a; }
+    .battle-history-item:last-child { margin-bottom: 0; }
+    .battle-history-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      min-width: 0;
+    }
+    .battle-history-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .battle-history-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+    .battle-history-name {
+      font-weight: 600;
+      color: #e0f0fa;
+      font-size: 13px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .battle-history-date {
+      font-size: 10px;
+      color: #7a8b96;
+    }
+    .battle-history-score {
+      font-weight: 700;
+      font-size: 13px;
+      color: #a6bbc8;
+      flex-shrink: 0;
+    }
+    .battle-history-score.win { color: #90e0a0; }
+    .battle-history-score.loss { color: #e09090; }
+    .battle-history-score.draw { color: #e0d090; }
+
+    .battle-empty-history {
+      text-align: center;
+      padding: 20px 12px;
+      color: #7e959f;
+      font-size: 13px;
+    }
+    .battle-empty-history .emoji {
+      font-size: 32px;
+      display: block;
+      margin-bottom: 8px;
+      opacity: 0.6;
+    }
+
+    /* Профиль игрока в поединке */
+    .battle-player-card {
+      background: linear-gradient(135deg, #1e2a3a, #2a3a4a);
+      border: 1px solid #3a5a6a;
+      border-radius: 20px;
+      padding: 14px 16px;
+      margin-bottom: 12px;
+    }
+    .battle-player-card.enemy {
+      background: linear-gradient(135deg, #3a1e2a, #4a2a3a);
+      border-color: #6a3a5a;
+    }
+    .battle-player-card h4 {
+      font-size: 12px;
+      color: #8aacbc;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+    .battle-player-card.enemy h4 {
+      color: #c89aac;
+    }
+    .battle-player-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .battle-player-stat {
+      text-align: center;
+    }
+    .battle-player-stat .bps-val {
+      font-size: 18px;
+      font-weight: 700;
+      color: #e0f0fa;
+      line-height: 1;
+    }
+    .battle-player-stat .bps-lbl {
+      font-size: 10px;
+      color: #8a9ba5;
+      margin-top: 4px;
+      letter-spacing: 0.2px;
+    }
+
     @media (max-width: 420px) {
       body { padding: 8px; }
       .app { padding: 14px 12px; border-radius: 24px; }
       h1 { font-size: 19px; gap: 6px; }
       h1 span { font-size: 12px; padding: 2px 10px; }
-      .btn-header { font-size: 11px; padding: 5px 10px; }
+      .btn-header { font-size: 11px; padding: 5px 8px; }
       .wallet-bar { padding: 10px 14px; }
       .soap-icon { font-size: 26px; }
       .wallet-value { font-size: 20px; }
@@ -1081,6 +1509,12 @@
       .shop-item-icon { font-size: 26px; width: 36px; }
       .shop-item-name { font-size: 14px; }
       .shop-buy-btn { font-size: 11px; padding: 7px 12px; }
+      .battle-stat-value { font-size: 14px; }
+      .battle-stat-icon { font-size: 16px; width: 32px; }
+      .battle-stat-category { font-size: 10px; }
+      .battle-player-stats { gap: 4px; }
+      .battle-player-stat .bps-val { font-size: 15px; }
+      .battle-player-stat .bps-lbl { font-size: 9px; }
     }
     @media (max-width: 360px) {
       .stats-grid { flex-direction: column; gap: 4px; }
@@ -1100,9 +1534,14 @@
       .shop-item-icon { width: auto; }
       .shop-buy-btn { width: 100%; justify-content: center; }
       .shop-balance { flex-direction: column; }
+      .battle-stat-row { grid-template-columns: 1fr auto 1fr; padding: 10px 8px; gap: 6px; }
+      .battle-stat-value { font-size: 13px; }
+      .battle-stat-icon { width: 28px; font-size: 14px; }
+      .battle-stat-category { font-size: 9px; padding: 3px 5px; }
+      .battle-player-stats { grid-template-columns: repeat(2, 1fr); }
     }
     @media (hover: none) {
-      .btn-refresh:hover, .btn-hard:hover, .btn-done:hover, .reset-btn:hover, .mode-btn:hover, .btn-header:hover, .modal-close:hover, .shop-buy-btn:hover {
+      .btn-refresh:hover, .btn-hard:hover, .btn-done:hover, .reset-btn:hover, .mode-btn:hover, .btn-header:hover, .modal-close:hover, .shop-buy-btn:hover, .battle-action-btn:hover, .battle-submit-btn:hover {
         transform: none;
       }
     }
@@ -1116,7 +1555,8 @@
       <span>v1</span>
     </div>
     <div class="header-buttons">
-      <button class="btn-header shop-btn" id="shopBtn">🏪 Магазин</button>
+      <button class="btn-header battle-btn" id="battleBtn">⚔️</button>
+      <button class="btn-header shop-btn" id="shopBtn">🏪</button>
       <button class="btn-header" id="statsBtn">📊</button>
     </div>
   </h1>
@@ -1180,6 +1620,7 @@
   <div class="footnote">Каждый день — новые квесты для тела и ума</div>
 </div>
 
+<!-- МОДАЛЬНОЕ ОКНО СТАТИСТИКИ -->
 <div class="modal-overlay" id="statsModal">
   <div class="modal">
     <div class="modal-header">
@@ -1190,6 +1631,7 @@
   </div>
 </div>
 
+<!-- МОДАЛЬНОЕ ОКНО МАГАЗИНА -->
 <div class="modal-overlay" id="shopModal">
   <div class="modal">
     <div class="modal-header">
@@ -1197,6 +1639,17 @@
       <button class="modal-close" id="shopCloseBtn">✕</button>
     </div>
     <div id="shopContent"></div>
+  </div>
+</div>
+
+<!-- МОДАЛЬНОЕ ОКНО ПОЕДИНКОВ -->
+<div class="modal-overlay" id="battleModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>⚔️ Поединки</h2>
+      <button class="modal-close" id="battleCloseBtn">✕</button>
+    </div>
+    <div id="battleContent"></div>
   </div>
 </div>
 
@@ -1210,6 +1663,7 @@
     const SOAP_REWARD = 20;
     const HARD_QUEST_SOAP = 5;
     const NORMAL_QUEST_SOAP = 1;
+    const BATTLE_CODE_PREFIX = 'HF1-';
 
     const SHOP_ITEMS = {
       relics: [
@@ -1451,6 +1905,8 @@
       activeRelic: null,
       streakShield: 0,
       modeLocked: false,
+      battleHistory: [],
+      battleRecord: { wins: 0, losses: 0, draws: 0 },
       stats: {
         totalCompleted: 0, mindCompleted: 0, bodyCompleted: 0,
         hardCompleted: 0, totalXpEarned: 0, streak: 0, bestStreak: 0,
@@ -1483,6 +1939,10 @@
     const shopModal = document.getElementById('shopModal');
     const shopContent = document.getElementById('shopContent');
     const shopCloseBtn = document.getElementById('shopCloseBtn');
+    const battleBtn = document.getElementById('battleBtn');
+    const battleModal = document.getElementById('battleModal');
+    const battleContent = document.getElementById('battleContent');
+    const battleCloseBtn = document.getElementById('battleCloseBtn');
     const activeRelicBanner = document.getElementById('activeRelicBanner');
     const activeRelicIcon = document.getElementById('activeRelicIcon');
     const activeRelicName = document.getElementById('activeRelicName');
@@ -1531,9 +1991,7 @@
       return quest.isHard ? HARD_QUEST_SOAP : NORMAL_QUEST_SOAP;
     }
 
-    function isModeLocked() {
-      return state.modeLocked;
-    }
+    function isModeLocked() { return state.modeLocked; }
 
     function updateStreakOnNewDay(oldDate, newDate) {
       if (!oldDate) { state.stats.streak = 0; return; }
@@ -1577,12 +2035,7 @@
         const xpMultiplier = 1 + (level - 1) * 0.15;
         const baseXp = template.baseXp || 20;
         const scaledXp = Math.round(baseXp * xpMultiplier);
-        return {
-          type: template.type,
-          title: template.baseTitle,
-          desc: template.baseDesc(level),
-          xp: scaledXp,
-        };
+        return { type: template.type, title: template.baseTitle, desc: template.baseDesc(level), xp: scaledXp };
       });
     }
 
@@ -1611,9 +2064,7 @@
     }
 
     function saveState() {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-      } catch (e) {}
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
     }
 
     function loadState() {
@@ -1638,6 +2089,8 @@
         state.activeRelic = data.activeRelic ?? null;
         state.streakShield = data.streakShield ?? 0;
         state.modeLocked = data.modeLocked ?? false;
+        state.battleHistory = data.battleHistory ?? [];
+        state.battleRecord = data.battleRecord ?? { wins: 0, losses: 0, draws: 0 };
         if (data.stats) {
           state.stats = {
             totalCompleted: data.stats.totalCompleted ?? 0,
@@ -1696,12 +2149,10 @@
 
     function switchMode(newMode) {
       if (state.mode === newMode) return;
-
       if (isModeLocked()) {
-        showToast('🔒 Режим зафиксирован! Вы уже начали выполнять квесты. Смена режима доступна завтра.', 2800);
+        showToast('🔒 Режим зафиксирован! Вы уже начали выполнять квесты.', 2800);
         return;
       }
-
       state.mode = newMode;
       document.querySelectorAll('.mode-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.mode === newMode);
@@ -1719,14 +2170,8 @@
     }
 
     function refreshQuests() {
-      if (isAllQuestsCompleted()) {
-        showToast('✅ Все квесты выполнены! Обновление недоступно до завтра.', 2500);
-        return;
-      }
-      if (state.refreshCount <= 0) {
-        showToast('⚠️ Лимит обновлений исчерпан (2/2)', 2000);
-        return;
-      }
+      if (isAllQuestsCompleted()) { showToast('✅ Все квесты выполнены!', 2500); return; }
+      if (state.refreshCount <= 0) { showToast('⚠️ Лимит обновлений исчерпан', 2000); return; }
       const today = getTodayStr();
       const newQuests = generateDailyQuests(state.level, state.mode);
       const completedTitles = new Set();
@@ -1743,8 +2188,7 @@
         const hq = state.currentQuests[state.hardQuestIndex];
         if (hq && hq.isHard) {
           if (!state.completedToday.includes(state.hardQuestIndex)) {
-            hasHard = true;
-            hardData = hq;
+            hasHard = true; hardData = hq;
           } else {
             state.hardQuestCompleted = true;
             state.hardQuestUsed = true;
@@ -1766,18 +2210,9 @@
     }
 
     function handleHardQuest() {
-      if (isAllQuestsCompleted()) {
-        showToast('✅ Все квесты выполнены! Обновление недоступно до завтра.', 2500);
-        return;
-      }
-      if (state.hardRefreshCount <= 0) {
-        showToast('⚠️ Лимит сложных квестов (1/1)', 2000);
-        return;
-      }
-      if (state.hardQuestUsed && state.hardQuestCompleted) {
-        showToast('⚠️ Сложный квест уже выполнен', 2000);
-        return;
-      }
+      if (isAllQuestsCompleted()) { showToast('✅ Все квесты выполнены!', 2500); return; }
+      if (state.hardRefreshCount <= 0) { showToast('⚠️ Лимит сложных квестов', 2000); return; }
+      if (state.hardQuestUsed && state.hardQuestCompleted) { showToast('⚠️ Сложный квест уже выполнен', 2000); return; }
       if (state.hardQuestIndex >= 0 && state.hardQuestIndex < state.currentQuests.length) {
         const existing = state.currentQuests[state.hardQuestIndex];
         if (existing && existing.isHard) {
@@ -1790,7 +2225,7 @@
         }
       }
       const hardQuest = generateHardQuest(state.level, state.mode);
-      if (!hardQuest) { showToast('⚠️ Нет сложных квестов для этого режима', 1800); return; }
+      if (!hardQuest) { showToast('⚠️ Нет сложных квестов', 1800); return; }
       const questWithMarker = { ...hardQuest, isHard: true };
       state.currentQuests.push(questWithMarker);
       state.hardQuestIndex = state.currentQuests.length - 1;
@@ -1807,32 +2242,20 @@
       if (state.completedToday.includes(index)) return;
       const quest = state.currentQuests[index];
       if (!quest) return;
-
       const boostedXp = getQuestXpWithBoost(quest);
       const boost = getBoostForQuest(quest);
       const soapReward = getQuestSoapReward(quest);
-
       state.xp += boostedXp;
       state.completedToday.push(index);
-
-      if (!state.modeLocked) {
-        state.modeLocked = true;
-      }
-
+      if (!state.modeLocked) state.modeLocked = true;
       state.soap += soapReward;
       state.stats.totalSoapEarned += soapReward;
-
       state.stats.totalCompleted += 1;
       state.stats.totalXpEarned += boostedXp;
-      if (quest.isHard) {
-        state.stats.hardCompleted += 1;
-      } else if (quest.type === 'mind') {
-        state.stats.mindCompleted += 1;
-      } else if (quest.type === 'body') {
-        state.stats.bodyCompleted += 1;
-      }
+      if (quest.isHard) state.stats.hardCompleted += 1;
+      else if (quest.type === 'mind') state.stats.mindCompleted += 1;
+      else if (quest.type === 'body') state.stats.bodyCompleted += 1;
       addActiveDay(getTodayStr());
-
       const boostText = boost > 0 ? ` (🔥 +${Math.round(boost * 100)}%)` : '';
       const lockText = state.modeLocked ? ' • 🔒 Режим зафиксирован' : '';
       if (quest.isHard) {
@@ -1842,7 +2265,6 @@
       } else {
         showToast(`✅ +${boostedXp} XP${boostText} • +${soapReward} 🧼${lockText}`, 2000);
       }
-
       recalcLevel();
       saveState();
       render();
@@ -1872,18 +2294,11 @@
       const modeLocked = isModeLocked();
 
       document.querySelectorAll('.mode-btn').forEach(btn => {
-        if (btn.dataset.mode === state.mode) {
-          btn.disabled = false;
-        } else {
-          btn.disabled = modeLocked;
-        }
+        if (btn.dataset.mode === state.mode) btn.disabled = false;
+        else btn.disabled = modeLocked;
       });
-
-      if (modeLocked) {
-        modeSwitcher.classList.add('locked');
-      } else {
-        modeSwitcher.classList.remove('locked');
-      }
+      if (modeLocked) modeSwitcher.classList.add('locked');
+      else modeSwitcher.classList.remove('locked');
 
       if (modeLocked && !allCompleted) {
         modeHint.textContent = '🔒 Режим зафиксирован на сегодня (выполнен квест)';
@@ -1907,7 +2322,6 @@
 
       const isLocked = state.hardQuestCompleted;
       const isExhausted = state.hardRefreshCount <= 0;
-      
       if (allCompleted) {
         hardQuestBtn.disabled = true;
         hardQuestBadge.textContent = '✓';
@@ -1949,16 +2363,13 @@
         const hardBadge = quest.isHard ? '<span class="hard-icon">⭐</span>' : '';
         const displayIcon = quest.isHard ? '🔥' : icon;
         const typeClass = !quest.isHard ? (quest.type === 'mind' ? 'mind-quest' : 'body-quest') : '';
-
         const boost = getBoostForQuest(quest);
         const boostedXp = getQuestXpWithBoost(quest);
         const hasBoost = boost > 0;
         const xpClass = hasBoost ? 'xp-boosted' : 'xp';
         const boostIndicator = hasBoost ? `<span class="boost-indicator">🔥+${Math.round(boost * 100)}%</span>` : '';
-        
         const soapReward = getQuestSoapReward(quest);
         const soapClass = quest.isHard ? 'soap-reward-big' : 'soap-reward';
-
         html += `
           <div class="quest-item ${hardClass} ${typeClass}" data-index="${index}">
             <div class="info">
@@ -1981,14 +2392,14 @@
         const notice = document.createElement('div');
         notice.className = 'all-completed-notice';
         notice.textContent = '🎉 Все квесты выполнены! Обновление и смена режима недоступны до завтра.';
-        const existingNotice = questContainer.querySelector('.all-completed-notice');
-        if (!existingNotice) questContainer.appendChild(notice);
+        const existing = questContainer.querySelector('.all-completed-notice');
+        if (!existing) questContainer.appendChild(notice);
       } else if (modeLocked) {
         const notice = document.createElement('div');
         notice.className = 'mode-locked-notice';
         notice.textContent = `🔒 Режим "${MODES[state.mode].label}" зафиксирован на сегодня — выполнено ${state.completedToday.length} квестов.`;
-        const existingNotice = questContainer.querySelector('.mode-locked-notice');
-        if (!existingNotice) questContainer.appendChild(notice);
+        const existing = questContainer.querySelector('.mode-locked-notice');
+        if (!existing) questContainer.appendChild(notice);
       }
 
       document.querySelectorAll('.btn-done:not(.completed)').forEach(btn => {
@@ -2005,7 +2416,6 @@
     // ============ МАГАЗИН ============
     function renderShop() {
       let html = '';
-
       html += `
         <div class="shop-balance">
           <div class="shop-balance-left">
@@ -2023,20 +2433,14 @@
           </div>
         </div>
       `;
-
       html += `
         <div class="shop-section-title">🏛️ Реликвии (эффект не складывается)</div>
-        <div class="relic-category-note">
-          ⚠️ Одновременно активна только <b>одна</b> реликвия. Покупка новой не отменяет старую — 
-          вы можете переключаться между купленными реликвиями в любой момент.
-        </div>
+        <div class="relic-category-note">⚠️ Одновременно активна только <b>одна</b> реликвия.</div>
       `;
-
       SHOP_ITEMS.relics.forEach(relic => {
         const owned = state.ownedRelics.includes(relic.id);
         const isActive = state.activeRelic === relic.id;
         const canAfford = state.soap >= relic.price;
-        
         let btnHtml = '';
         let itemClass = 'shop-item relic-item';
         if (isActive) {
@@ -2048,25 +2452,15 @@
         } else {
           btnHtml = `<button class="shop-buy-btn" data-action="buy-relic" data-id="${relic.id}" ${!canAfford ? 'disabled' : ''}>Купить • ${relic.price} 🧼</button>`;
         }
-
         let effectClass = 'shop-item-effect';
         let effectText = `+${Math.round(relic.boost * 100)}% XP ко всем квестам`;
-        if (relic.type === 'mind') {
-          effectClass += ' mind-effect';
-          effectText = `+${Math.round(relic.boost * 100)}% XP только к 🧠 умственным квестам`;
-        } else if (relic.type === 'body') {
-          effectClass += ' body-effect';
-          effectText = `+${Math.round(relic.boost * 100)}% XP только к 💪 физическим квестам`;
-        }
-
+        if (relic.type === 'mind') { effectClass += ' mind-effect'; effectText = `+${Math.round(relic.boost * 100)}% XP только к 🧠 умственным`; }
+        else if (relic.type === 'body') { effectClass += ' body-effect'; effectText = `+${Math.round(relic.boost * 100)}% XP только к 💪 физическим`; }
         html += `
           <div class="${itemClass}">
             <div class="shop-item-icon">${relic.icon}</div>
             <div class="shop-item-info">
-              <div class="shop-item-name">
-                ${relic.name}
-                <span class="relic-badge">РЕЛИКВИЯ</span>
-              </div>
+              <div class="shop-item-name">${relic.name}<span class="relic-badge">РЕЛИКВИЯ</span></div>
               <div class="shop-item-desc">${relic.desc}</div>
               <div class="${effectClass}">${effectText}</div>
             </div>
@@ -2074,63 +2468,43 @@
           </div>
         `;
       });
-
       const canExchange = state.xp >= XP_TO_SOAP_RATE;
       html += `
         <div class="shop-section-title">💱 Обмен опыта на мыло</div>
-        <div class="exchange-category-note">
-          ⚠️ Обмен опыта <b>снижает ваш уровень</b>! Потратьте XP с умом — уровень упадёт, если станет меньше порога.
-        </div>
+        <div class="exchange-category-note">⚠️ Обмен опыта <b>снижает ваш уровень</b>!</div>
         <div class="shop-item exchange-item">
           <div class="shop-item-icon">💱</div>
           <div class="shop-item-info">
-            <div class="shop-item-name">
-              Обмен опыта на мыло
-              <span class="exchange-badge">ОБМЕН</span>
-            </div>
-            <div class="shop-item-desc">Обменять ${XP_TO_SOAP_RATE} XP на ${SOAP_REWARD} 🧼. Уровень пересчитается автоматически.</div>
+            <div class="shop-item-name">Обмен опыта на мыло<span class="exchange-badge">ОБМЕН</span></div>
+            <div class="shop-item-desc">${XP_TO_SOAP_RATE} XP → ${SOAP_REWARD} 🧼. Уровень пересчитается.</div>
             <div class="shop-item-effect exchange-effect">
-              ${state.xp} XP → ${Math.floor(state.xp / XP_TO_SOAP_RATE) * SOAP_REWARD} 🧼 доступно
-              (${Math.floor(state.xp / XP_TO_SOAP_RATE)} обменов)
+              ${state.xp} XP → ${Math.floor(state.xp / XP_TO_SOAP_RATE) * SOAP_REWARD} 🧼 (${Math.floor(state.xp / XP_TO_SOAP_RATE)} обменов)
             </div>
           </div>
           <button class="shop-buy-btn exchange-btn" data-action="exchange-xp" ${!canExchange ? 'disabled' : ''}>
-            Обменять • ${XP_TO_SOAP_RATE} XP → ${SOAP_REWARD} 🧼
+            Обменять
           </button>
         </div>
       `;
-
       html += `<div class="shop-section-title">🧪 Расходники</div>`;
-
       SHOP_ITEMS.consumables.forEach(item => {
         const canAfford = state.soap >= item.price;
         let btnHtml = `<button class="shop-buy-btn" data-action="buy-consumable" data-id="${item.id}" ${!canAfford ? 'disabled' : ''}>Купить • ${item.price} 🧼</button>`;
         let itemClass = 'shop-item consumable-item';
         let valueBadge = '';
-        
-        // Особый стиль для эликсира (лучшая цена)
-        if (item.bestValue) {
-          itemClass += ' best-value';
-          valueBadge = `<span class="value-badge">ЛУЧШАЯ ЦЕНА</span>`;
-        }
-
+        if (item.bestValue) { itemClass += ' best-value'; valueBadge = `<span class="value-badge">ЛУЧШАЯ ЦЕНА</span>`; }
         html += `
           <div class="${itemClass}">
             <div class="shop-item-icon">${item.icon}</div>
             <div class="shop-item-info">
-              <div class="shop-item-name">
-                ${item.name}
-                ${valueBadge}
-              </div>
+              <div class="shop-item-name">${item.name}${valueBadge}</div>
               <div class="shop-item-desc">${item.desc}</div>
             </div>
             ${btnHtml}
           </div>
         `;
       });
-
       shopContent.innerHTML = html;
-
       shopContent.querySelectorAll('[data-action]').forEach(btn => {
         btn.addEventListener('click', function() {
           const action = this.dataset.action;
@@ -2146,68 +2520,43 @@
     function buyRelic(relicId) {
       const relic = SHOP_ITEMS.relics.find(r => r.id === relicId);
       if (!relic) return;
-      if (state.ownedRelics.includes(relicId)) {
-        showToast('⚠️ Реликвия уже куплена', 1800);
-        return;
-      }
-      if (state.soap < relic.price) {
-        showToast('⚠️ Недостаточно мыла', 1800);
-        return;
-      }
+      if (state.ownedRelics.includes(relicId)) { showToast('⚠️ Уже куплена', 1800); return; }
+      if (state.soap < relic.price) { showToast('⚠️ Недостаточно мыла', 1800); return; }
       if (!confirm(`Купить "${relic.name}" за ${relic.price} 🧼?`)) return;
-
       state.soap -= relic.price;
       state.stats.totalSoapSpent += relic.price;
       state.ownedRelics.push(relicId);
-      
       if (!state.activeRelic) {
         state.activeRelic = relicId;
-        showToast(`${relic.icon} ${relic.name} куплена и активирована!`, 2500);
+        showToast(`${relic.icon} Куплена и активирована!`, 2500);
       } else {
-        showToast(`${relic.icon} ${relic.name} куплена!`, 2200);
+        showToast(`${relic.icon} Куплена!`, 2200);
       }
-      
-      saveState();
-      render();
-      renderShop();
+      saveState(); render(); renderShop();
     }
 
     function activateRelic(relicId) {
       if (!state.ownedRelics.includes(relicId)) return;
       const relic = SHOP_ITEMS.relics.find(r => r.id === relicId);
       if (!relic) return;
-      
       state.activeRelic = relicId;
-      saveState();
-      render();
-      renderShop();
+      saveState(); render(); renderShop();
       showToast(`${relic.icon} ${relic.name} активирована!`, 2000);
     }
 
     function exchangeXpForSoap() {
-      if (state.xp < XP_TO_SOAP_RATE) {
-        showToast(`⚠️ Нужно минимум ${XP_TO_SOAP_RATE} XP`, 2000);
-        return;
-      }
-
+      if (state.xp < XP_TO_SOAP_RATE) { showToast(`⚠️ Нужно ${XP_TO_SOAP_RATE} XP`, 2000); return; }
       const exchangesPossible = Math.floor(state.xp / XP_TO_SOAP_RATE);
       const totalXpToSpend = exchangesPossible * XP_TO_SOAP_RATE;
       const totalSoapToGet = exchangesPossible * SOAP_REWARD;
-
-      if (!confirm(`Обменять ${totalXpToSpend} XP на ${totalSoapToGet} 🧼?\n\nВнимание: ваш уровень может понизиться!`)) return;
-
+      if (!confirm(`Обменять ${totalXpToSpend} XP на ${totalSoapToGet} 🧼?\n\nУровень может понизиться!`)) return;
       state.xp -= totalXpToSpend;
       state.soap += totalSoapToGet;
-      
       state.stats.totalXpExchanged += totalXpToSpend;
       state.stats.totalSoapEarned += totalSoapToGet;
-      
       recalcLevelAfterExchange();
-
-      saveState();
-      render();
-      renderShop();
-      showToast(`💱 Обменяно ${totalXpToSpend} XP → ${totalSoapToGet} 🧼`, 2500);
+      saveState(); render(); renderShop();
+      showToast(`💱 ${totalXpToSpend} XP → ${totalSoapToGet} 🧼`, 2500);
     }
 
     function recalcLevelAfterExchange() {
@@ -2215,9 +2564,8 @@
       if (newLevel !== state.level) {
         const oldLevel = state.level;
         state.level = Math.max(1, newLevel);
-        if (state.level < oldLevel) {
-          showToast(`📉 Уровень понижен: ${oldLevel} → ${state.level}`, 2500);
-        } else if (state.level > oldLevel) {
+        if (state.level < oldLevel) showToast(`📉 Уровень понижен: ${oldLevel} → ${state.level}`, 2500);
+        else if (state.level > oldLevel) {
           levelUpBadge.style.display = 'inline-block';
           showToast(`⬆ Уровень ${state.level}!`, 2500);
           setTimeout(() => { levelUpBadge.style.display = 'none'; }, 2800);
@@ -2228,60 +2576,35 @@
     function buyConsumable(itemId) {
       const item = SHOP_ITEMS.consumables.find(c => c.id === itemId);
       if (!item) return;
-      if (state.soap < item.price) {
-        showToast('⚠️ Недостаточно мыла', 1800);
-        return;
-      }
+      if (state.soap < item.price) { showToast('⚠️ Недостаточно мыла', 1800); return; }
       if (!confirm(`Купить "${item.name}" за ${item.price} 🧼?`)) return;
-
       state.soap -= item.price;
       state.stats.totalSoapSpent += item.price;
-
       let effectMessage = '';
       switch(itemId) {
-        case 'extra_refresh':
-          state.refreshCount += 1;
-          effectMessage = `+1 обновление (теперь ${state.refreshCount})`;
-          break;
-        case 'extra_hard':
-          state.hardRefreshCount += 1;
-          effectMessage = `+1 сложный квест (теперь ${state.hardRefreshCount})`;
-          break;
-        case 'instant_xp':
-          // НОВОЕ: теперь даёт 100 XP за 5 мыла
+        case 'extra_refresh': state.refreshCount += 1; effectMessage = `+1 обновление (${state.refreshCount})`; break;
+        case 'extra_hard': state.hardRefreshCount += 1; effectMessage = `+1 сложный квест (${state.hardRefreshCount})`; break;
+        case 'instant_xp': {
           const xpGain = item.xpReward || 100;
           state.xp += xpGain;
           state.stats.totalXpEarned += xpGain;
           recalcLevel();
           effectMessage = `+${xpGain} XP за ${item.price} 🧼`;
           break;
+        }
         case 'full_reset_daily':
-          state.refreshCount = 2;
-          state.hardRefreshCount = 1;
-          state.hardQuestUsed = false;
-          state.hardQuestCompleted = false;
+          state.refreshCount = 2; state.hardRefreshCount = 1;
+          state.hardQuestUsed = false; state.hardQuestCompleted = false;
           effectMessage = `Сброшены дневные лимиты`;
           break;
-        case 'streak_shield':
-          state.streakShield += 1;
-          effectMessage = `Щит серии: ${state.streakShield}`;
-          break;
+        case 'streak_shield': state.streakShield += 1; effectMessage = `Щит серии: ${state.streakShield}`; break;
       }
-
-      saveState();
-      render();
-      renderShop();
+      saveState(); render(); renderShop();
       showToast(`${item.icon} ${effectMessage}`, 2400);
     }
 
-    function openShop() {
-      renderShop();
-      shopModal.classList.add('open');
-    }
-
-    function closeShop() {
-      shopModal.classList.remove('open');
-    }
+    function openShop() { renderShop(); shopModal.classList.add('open'); }
+    function closeShop() { shopModal.classList.remove('open'); }
 
     // ============ СТАТИСТИКА ============
     function renderStats() {
@@ -2290,168 +2613,485 @@
       const mindPct = total > 0 ? Math.round((s.mindCompleted / total) * 100) : 0;
       const bodyPct = total > 0 ? Math.round((s.bodyCompleted / total) * 100) : 0;
       const maxTypeCount = Math.max(s.mindCompleted, s.bodyCompleted, 1);
-
       const xpInLevel = state.xp % 100;
       const levelProgress = Math.min(100, Math.round((xpInLevel / 100) * 100));
-
       const today = new Date();
       const days = [];
       for (let i = 27; i >= 0; i--) {
         const d = new Date(today);
         d.setDate(d.getDate() - i);
         const dateStr = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
-        days.push({
-          date: dateStr,
-          day: d.getDate(),
-          isActive: s.activeDays.includes(dateStr),
-          isToday: i === 0,
-        });
+        days.push({ date: dateStr, day: d.getDate(), isActive: s.activeDays.includes(dateStr), isToday: i === 0 });
       }
-
       let html = '';
-
+      const br = state.battleRecord;
+      html += `
+        <div class="stat-block">
+          <h3>⚔️ Поединки</h3>
+          <div class="big-numbers">
+            <div class="big-number"><div class="num win-color">${br.wins}</div><div class="lbl">Побед</div></div>
+            <div class="big-number"><div class="num loss-color">${br.losses}</div><div class="lbl">Поражений</div></div>
+            <div class="big-number"><div class="num" style="color:#e0d090;">${br.draws}</div><div class="lbl">Ничьих</div></div>
+            <div class="big-number"><div class="num">${br.wins + br.losses + br.draws}</div><div class="lbl">Всего боёв</div></div>
+          </div>
+        </div>
+      `;
       html += `
         <div class="stat-block">
           <h3>🧼 Мыло</h3>
           <div class="big-numbers">
-            <div class="big-number">
-              <div class="num soap-color">${state.soap}</div>
-              <div class="lbl">Текущий баланс</div>
-            </div>
-            <div class="big-number">
-              <div class="num soap-color">${s.totalSoapEarned}</div>
-              <div class="lbl">Всего заработано</div>
-            </div>
-            <div class="big-number">
-              <div class="num" style="color:#e0a080;">${s.totalSoapSpent}</div>
-              <div class="lbl">Потрачено в магазине</div>
-            </div>
-            <div class="big-number">
-              <div class="num" style="color:#d8a0e8;">${s.totalXpExchanged || 0}</div>
-              <div class="lbl">Обменяно XP</div>
-            </div>
+            <div class="big-number"><div class="num soap-color">${state.soap}</div><div class="lbl">Текущий баланс</div></div>
+            <div class="big-number"><div class="num soap-color">${s.totalSoapEarned}</div><div class="lbl">Всего заработано</div></div>
+            <div class="big-number"><div class="num" style="color:#e0a080;">${s.totalSoapSpent}</div><div class="lbl">Потрачено</div></div>
+            <div class="big-number"><div class="num" style="color:#d8a0e8;">${s.totalXpExchanged || 0}</div><div class="lbl">Обменяно XP</div></div>
           </div>
         </div>
       `;
-
       html += `
         <div class="stat-block">
           <h3>📈 Общий прогресс</h3>
           <div class="big-numbers">
-            <div class="big-number">
-              <div class="num xp-color">${s.totalXpEarned}</div>
-              <div class="lbl">Всего заработано XP</div>
-            </div>
-            <div class="big-number">
-              <div class="num">${s.totalCompleted}</div>
-              <div class="lbl">Выполнено квестов</div>
-            </div>
-            <div class="big-number">
-              <div class="num streak-color">${s.streak}</div>
-              <div class="lbl">Текущая серия (дней)</div>
-            </div>
-            <div class="big-number">
-              <div class="num" style="color: #ffb088;">${s.bestStreak}</div>
-              <div class="lbl">Лучшая серия</div>
-            </div>
+            <div class="big-number"><div class="num xp-color">${s.totalXpEarned}</div><div class="lbl">Всего XP</div></div>
+            <div class="big-number"><div class="num">${s.totalCompleted}</div><div class="lbl">Квестов</div></div>
+            <div class="big-number"><div class="num streak-color">${s.streak}</div><div class="lbl">Серия дней</div></div>
+            <div class="big-number"><div class="num" style="color: #ffb088;">${s.bestStreak}</div><div class="lbl">Лучшая серия</div></div>
           </div>
           <div class="progress-line" style="margin-top: 12px;">
-            <div class="pl-top">
-              <span class="pl-label">До уровня ${state.level + 1}</span>
-              <span class="pl-value">${xpInLevel} / 100 XP</span>
-            </div>
-            <div class="progress-bar-bg">
-              <div class="progress-bar-fill" style="width: ${levelProgress}%;"></div>
-            </div>
+            <div class="pl-top"><span class="pl-label">До уровня ${state.level + 1}</span><span class="pl-value">${xpInLevel} / 100 XP</span></div>
+            <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: ${levelProgress}%;"></div></div>
           </div>
         </div>
       `;
-
       html += `
         <div class="stat-block">
-          <h3>🎯 По типам квестов</h3>
+          <h3>🎯 По типам</h3>
           <div class="quest-type-stats">
             <div class="type-stat">
               <div class="ts-header">🧠 Ум</div>
               <div class="ts-count mind-color">${s.mindCompleted}</div>
-              <div class="ts-bar">
-                <div class="ts-bar-fill mind-fill" style="width: ${(s.mindCompleted / maxTypeCount) * 100}%;"></div>
-              </div>
+              <div class="ts-bar"><div class="ts-bar-fill mind-fill" style="width: ${(s.mindCompleted / maxTypeCount) * 100}%;"></div></div>
               <div class="ts-pct">${mindPct}% от всех</div>
             </div>
             <div class="type-stat">
               <div class="ts-header">💪 Тело</div>
               <div class="ts-count body-color">${s.bodyCompleted}</div>
-              <div class="ts-bar">
-                <div class="ts-bar-fill body-fill" style="width: ${(s.bodyCompleted / maxTypeCount) * 100}%;"></div>
-              </div>
+              <div class="ts-bar"><div class="ts-bar-fill body-fill" style="width: ${(s.bodyCompleted / maxTypeCount) * 100}%;"></div></div>
               <div class="ts-pct">${bodyPct}% от всех</div>
             </div>
           </div>
           <div class="progress-line" style="margin-top: 10px;">
-            <div class="pl-top">
-              <span class="pl-label">🔥 Сложных выполнено</span>
-              <span class="pl-value" style="color: #ffb088;">${s.hardCompleted}</span>
-            </div>
+            <div class="pl-top"><span class="pl-label">🔥 Сложных</span><span class="pl-value" style="color: #ffb088;">${s.hardCompleted}</span></div>
           </div>
         </div>
       `;
-
-      html += `
-        <div class="stat-block">
-          <h3>📅 Активность (28 дней)</h3>
-          <div class="activity-grid">
-      `;
+      html += `<div class="stat-block"><h3>📅 Активность (28 дней)</h3><div class="activity-grid">`;
       days.forEach(d => {
         const classes = ['activity-day'];
         if (d.isActive) classes.push('active');
         if (d.isToday) classes.push('today');
         html += `<div class="${classes.join(' ')}" title="${d.date}">${d.day}</div>`;
       });
-      html += `
-          </div>
-          <div class="activity-legend">
-            <span>← 4 недели назад</span>
-            <span>Сегодня →</span>
-          </div>
-        </div>
-      `;
-
+      html += `</div><div class="activity-legend"><span>← 4 недели назад</span><span>Сегодня →</span></div></div>`;
       if (total === 0) {
-        html += `
-          <div class="empty-stats">
-            <span class="emoji">🌱</span>
-            Начните выполнять квесты, чтобы увидеть статистику!
-          </div>
-        `;
+        html += `<div class="empty-stats"><span class="emoji">🌱</span>Начните выполнять квесты!</div>`;
       } else {
         html += `
           <div class="stat-block" style="margin-bottom: 0;">
             <h3>💡 Итог</h3>
             <div style="font-size: 13px; color: #a6bbc8; line-height: 1.6;">
-              Вы выполнили <b style="color:#e0f0fa;">${total}</b> квестов, заработали 
+              Выполнено <b style="color:#e0f0fa;">${total}</b> квестов, заработано 
               <b style="color:#b8e0a0;">${s.totalXpEarned} XP</b> и 
               <b style="color:#a0d8ff;">${s.totalSoapEarned} 🧼</b>. 
-              ${s.streak > 1 ? `Держите серию — <b style="color:#ffd780;">${s.streak} дней подряд!</b>` : 'Продолжайте в том же духе!'}
+              ${s.streak > 1 ? `Серия — <b style="color:#ffd780;">${s.streak} дней!</b>` : 'Продолжайте!'}
+            </div>
+          </div>
+        `;
+      }
+      statsContent.innerHTML = html;
+    }
+
+    function openStats() { renderStats(); statsModal.classList.add('open'); }
+    function closeStats() { statsModal.classList.remove('open'); }
+
+    // ============ ПОЕДИНКИ ============
+    function getBattleData() {
+      return {
+        v: 1,
+        lvl: state.level,
+        xp: state.xp,
+        soap: state.soap,
+        totalXp: state.stats.totalXpEarned,
+        totalQ: state.stats.totalCompleted,
+        mind: state.stats.mindCompleted,
+        body: state.stats.bodyCompleted,
+        hard: state.stats.hardCompleted,
+        streak: state.stats.streak,
+        best: state.stats.bestStreak,
+        relics: state.ownedRelics.length,
+        days: state.dayCounter,
+        br: state.battleRecord.wins,
+      };
+    }
+
+    function encodeBattleCode() {
+      try {
+        const data = getBattleData();
+        const json = JSON.stringify(data);
+        // UTF-8 safe base64
+        const b64 = btoa(unescape(encodeURIComponent(json)));
+        // Делаем URL-safe (без =, +, /)
+        return BATTLE_CODE_PREFIX + b64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function decodeBattleCode(code) {
+      try {
+        code = code.trim();
+        if (!code.startsWith(BATTLE_CODE_PREFIX)) return null;
+        let b64 = code.slice(BATTLE_CODE_PREFIX.length);
+        // Восстанавливаем base64
+        b64 = b64.replace(/-/g, '+').replace(/_/g, '/');
+        // Добиваем паддинг
+        while (b64.length % 4) b64 += '=';
+        const json = decodeURIComponent(escape(atob(b64)));
+        const data = JSON.parse(json);
+        // Валидация
+        if (typeof data.lvl !== 'number' || typeof data.xp !== 'number') return null;
+        return data;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function compareBattles(me, enemy) {
+      const categories = [
+        { key: 'lvl', label: 'Уровень', icon: '🏋️', me: me.lvl, enemy: enemy.lvl },
+        { key: 'totalXp', label: 'Всего XP', icon: '🧘', me: me.totalXp, enemy: enemy.totalXp },
+        { key: 'totalQ', label: 'Квестов', icon: '📋', me: me.totalQ, enemy: enemy.totalQ },
+        { key: 'mind', label: 'Ум', icon: '🧠', me: me.mind, enemy: enemy.mind },
+        { key: 'body', label: 'Тело', icon: '💪', me: me.body, enemy: enemy.body },
+        { key: 'hard', label: 'Сложных', icon: '⭐', me: me.hard, enemy: enemy.hard },
+        { key: 'streak', label: 'Серия', icon: '🔥', me: me.streak, enemy: enemy.streak },
+        { key: 'relics', label: 'Реликвий', icon: '🏛️', me: me.relics, enemy: enemy.relics },
+        { key: 'soap', label: 'Мыло', icon: '🧼', me: me.soap, enemy: enemy.soap },
+      ];
+      let myWins = 0, enemyWins = 0, draws = 0;
+      const results = categories.map(c => {
+        let winner = 'draw';
+        if (c.me > c.enemy) { winner = 'me'; myWins++; }
+        else if (c.me < c.enemy) { winner = 'enemy'; enemyWins++; }
+        else { draws++; }
+        return { ...c, winner };
+      });
+      let overall = 'draw';
+      if (myWins > enemyWins) overall = 'win';
+      else if (myWins < enemyWins) overall = 'loss';
+      return { results, myWins, enemyWins, draws, overall };
+    }
+
+    function saveBattleToHistory(enemyData, comparison) {
+      const battle = {
+        date: getTodayStr(),
+        enemy: {
+          lvl: enemyData.lvl,
+          totalXp: enemyData.totalXp,
+          totalQ: enemyData.totalQ,
+        },
+        myWins: comparison.myWins,
+        enemyWins: comparison.enemyWins,
+        overall: comparison.overall,
+      };
+      state.battleHistory.unshift(battle);
+      if (state.battleHistory.length > 20) state.battleHistory = state.battleHistory.slice(0, 20);
+      if (comparison.overall === 'win') state.battleRecord.wins += 1;
+      else if (comparison.overall === 'loss') state.battleRecord.losses += 1;
+      else state.battleRecord.draws += 1;
+      saveState();
+    }
+
+    function renderBattle() {
+      let html = '';
+
+      // Вводная секция
+      html += `
+        <div class="battle-intro">
+          <h3>⚔️ Арена поединков</h3>
+          <p>Бросьте вызов другу! Поделитесь своим кодом,<br>или вставьте код соперника для сравнения статистик.</p>
+          <div class="battle-actions">
+            <button class="battle-action-btn share" id="shareCodeBtn">📤 Поделиться кодом</button>
+            <button class="battle-action-btn fight" id="enterCodeBtn">⚔️ Ввести код соперника</button>
+          </div>
+          <div id="shareCodeArea"></div>
+        </div>
+      `;
+
+      // Мой профиль
+      const my = getBattleData();
+      html += `
+        <div class="battle-player-card">
+          <h4>🛡️ Ваш профиль</h4>
+          <div class="battle-player-stats">
+            <div class="battle-player-stat">
+              <div class="bps-val">${my.lvl}</div>
+              <div class="bps-lbl">Уровень</div>
+            </div>
+            <div class="battle-player-stat">
+              <div class="bps-val">${my.totalXp}</div>
+              <div class="bps-lbl">Всего XP</div>
+            </div>
+            <div class="battle-player-stat">
+              <div class="bps-val">${my.totalQ}</div>
+              <div class="bps-lbl">Квестов</div>
+            </div>
+            <div class="battle-player-stat">
+              <div class="bps-val">${my.mind}</div>
+              <div class="bps-lbl">🧠 Ум</div>
+            </div>
+            <div class="battle-player-stat">
+              <div class="bps-val">${my.body}</div>
+              <div class="bps-lbl">💪 Тело</div>
+            </div>
+            <div class="battle-player-stat">
+              <div class="bps-val">${my.hard}</div>
+              <div class="bps-lbl">⭐ Сложных</div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Запись побед
+      const br = state.battleRecord;
+      const totalBattles = br.wins + br.losses + br.draws;
+      if (totalBattles > 0) {
+        html += `
+          <div class="battle-history">
+            <h3>🏆 Ваша запись</h3>
+            <div style="display: flex; gap: 12px; justify-content: space-around;">
+              <div style="text-align: center;">
+                <div style="font-size: 22px; font-weight: 700; color: #90e0a0;">${br.wins}</div>
+                <div style="font-size: 11px; color: #7a8b96;">Победы</div>
+              </div>
+              <div style="text-align: center;">
+                <div style="font-size: 22px; font-weight: 700; color: #e09090;">${br.losses}</div>
+                <div style="font-size: 11px; color: #7a8b96;">Поражения</div>
+              </div>
+              <div style="text-align: center;">
+                <div style="font-size: 22px; font-weight: 700; color: #e0d090;">${br.draws}</div>
+                <div style="font-size: 11px; color: #7a8b96;">Ничьи</div>
+              </div>
             </div>
           </div>
         `;
       }
 
-      statsContent.innerHTML = html;
+      // История
+      html += `<div class="battle-history"><h3>📜 История боёв</h3>`;
+      if (state.battleHistory.length === 0) {
+        html += `
+          <div class="battle-empty-history">
+            <span class="emoji">⚔️</span>
+            Ещё не было поединков.<br>Бросьте вызов другу!
+          </div>
+        `;
+      } else {
+        state.battleHistory.slice(0, 5).forEach(b => {
+          const icon = b.overall === 'win' ? '🏆' : b.overall === 'loss' ? '💀' : '🤝';
+          const resultText = b.overall === 'win' ? 'Победа' : b.overall === 'loss' ? 'Поражение' : 'Ничья';
+          html += `
+            <div class="battle-history-item ${b.overall}">
+              <div class="battle-history-left">
+                <div class="battle-history-icon">${icon}</div>
+                <div class="battle-history-info">
+                  <div class="battle-history-name">${resultText} vs Lv.${b.enemy.lvl}</div>
+                  <div class="battle-history-date">${formatDate(b.date)} • ${b.enemy.totalQ} квестов у врага</div>
+                </div>
+              </div>
+              <div class="battle-history-score ${b.overall}">${b.myWins}:${b.enemyWins}</div>
+            </div>
+          `;
+        });
+      }
+      html += `</div>`;
+
+      battleContent.innerHTML = html;
+
+      // Обработчики
+      document.getElementById('shareCodeBtn').addEventListener('click', showShareCode);
+      document.getElementById('enterCodeBtn').addEventListener('click', showEnterCode);
     }
 
-    function openStats() {
-      renderStats();
-      statsModal.classList.add('open');
+    function showShareCode() {
+      const code = encodeBattleCode();
+      const area = document.getElementById('shareCodeArea');
+      if (!code) {
+        area.innerHTML = `<div class="battle-input-error show">Ошибка генерации кода</div>`;
+        return;
+      }
+      area.innerHTML = `
+        <div class="battle-code" id="myBattleCode">${code}</div>
+        <div class="battle-code-hint">👆 Нажмите на код, чтобы скопировать</div>
+      `;
+      const codeEl = document.getElementById('myBattleCode');
+      codeEl.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(code);
+          showToast('📋 Код скопирован!', 1800);
+        } catch (e) {
+          // Fallback
+          const range = document.createRange();
+          range.selectNode(codeEl);
+          window.getSelection().removeAllRanges();
+          window.getSelection().addRange(range);
+          try {
+            document.execCommand('copy');
+            showToast('📋 Код скопирован!', 1800);
+          } catch (err) {
+            showToast('⚠️ Скопируйте вручную', 2000);
+          }
+        }
+      });
     }
 
-    function closeStats() {
-      statsModal.classList.remove('open');
+    function showEnterCode() {
+      const area = document.getElementById('shareCodeArea');
+      area.innerHTML = `
+        <div class="battle-input-container">
+          <label class="battle-input-label">📥 Вставьте код соперника (HF1-...):</label>
+          <textarea class="battle-input" id="battleCodeInput" placeholder="HF1-..."></textarea>
+          <div class="battle-input-error" id="battleInputError"></div>
+          <button class="battle-submit-btn" id="battleFightBtn">
+            ⚔️ Начать поединок
+          </button>
+        </div>
+      `;
+      document.getElementById('battleFightBtn').addEventListener('click', () => {
+        const input = document.getElementById('battleCodeInput').value.trim();
+        const errEl = document.getElementById('battleInputError');
+        if (!input) {
+          errEl.textContent = 'Введите код';
+          errEl.classList.add('show');
+          return;
+        }
+        const enemyData = decodeBattleCode(input);
+        if (!enemyData) {
+          errEl.textContent = '❌ Неверный код. Проверьте и попробуйте снова.';
+          errEl.classList.add('show');
+          return;
+        }
+        errEl.classList.remove('show');
+        startBattle(enemyData);
+      });
     }
 
+    function startBattle(enemyData) {
+      const my = getBattleData();
+      const comparison = compareBattles(my, enemyData);
+      saveBattleToHistory(enemyData, comparison);
+      renderBattleResult(enemyData, comparison);
+    }
+
+    function renderBattleResult(enemyData, comparison) {
+      const overall = comparison.overall;
+      let headerClass, emoji, title;
+      if (overall === 'win') { headerClass = 'win'; emoji = '🏆'; title = 'ПОБЕДА!'; }
+      else if (overall === 'loss') { headerClass = 'loss'; emoji = '💀'; title = 'ПОРАЖЕНИЕ'; }
+      else { headerClass = 'draw'; emoji = '🤝'; title = 'НИЧЬЯ'; }
+
+      let html = `
+        <div class="battle-result-header ${headerClass}">
+          <div class="battle-result-emoji">${emoji}</div>
+          <div class="battle-result-title">${title}</div>
+          <div class="battle-result-score">Счёт: ${comparison.myWins} : ${comparison.enemyWins}${comparison.draws > 0 ? ` (${comparison.draws} ничьих)` : ''}</div>
+        </div>
+      `;
+
+      // Профиль соперника
+      html += `
+        <div class="battle-player-card enemy">
+          <h4>⚔️ Соперник</h4>
+          <div class="battle-player-stats">
+            <div class="battle-player-stat">
+              <div class="bps-val">${enemyData.lvl}</div>
+              <div class="bps-lbl">Уровень</div>
+            </div>
+            <div class="battle-player-stat">
+              <div class="bps-val">${enemyData.totalXp}</div>
+              <div class="bps-lbl">Всего XP</div>
+            </div>
+            <div class="battle-player-stat">
+              <div class="bps-val">${enemyData.totalQ}</div>
+              <div class="bps-lbl">Квестов</div>
+            </div>
+            <div class="battle-player-stat">
+              <div class="bps-val">${enemyData.mind}</div>
+              <div class="bps-lbl">🧠 Ум</div>
+            </div>
+            <div class="battle-player-stat">
+              <div class="bps-val">${enemyData.body}</div>
+              <div class="bps-lbl">💪 Тело</div>
+            </div>
+            <div class="battle-player-stat">
+              <div class="bps-val">${enemyData.hard}</div>
+              <div class="bps-lbl">⭐ Сложных</div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Сравнение
+      html += `<div class="battle-stats-list">`;
+      const my = getBattleData();
+      comparison.results.forEach(r => {
+        const meVal = r.me;
+        const enemyVal = r.enemy;
+        const meWin = r.winner === 'me';
+        const enemyWin = r.winner === 'enemy';
+        html += `
+          <div class="battle-stat-row ${meWin ? 'win-me' : ''} ${enemyWin ? 'win-enemy' : ''}">
+            <div class="battle-stat-side left">
+              <div class="battle-stat-value ${meWin ? 'win' : 'lose'}">${meVal}</div>
+              <div class="battle-stat-label">Вы</div>
+            </div>
+            <div class="battle-stat-middle">
+              <div class="battle-stat-icon">${r.icon}</div>
+              <div class="battle-stat-category">${r.label}</div>
+            </div>
+            <div class="battle-stat-side right">
+              <div class="battle-stat-value ${enemyWin ? 'win' : 'lose'}">${enemyVal}</div>
+              <div class="battle-stat-label">Соперник</div>
+            </div>
+          </div>
+        `;
+      });
+      html += `</div>`;
+
+      // Кнопка "Ещё бой"
+      html += `
+        <button class="battle-submit-btn" id="battleAgainBtn" style="background: linear-gradient(135deg, #2a3a4a, #3a4a5a); border-color: #5a7a9a; color: #d0e8f8;">
+          🔄 Новый поединок
+        </button>
+      `;
+
+      battleContent.innerHTML = html;
+
+      document.getElementById('battleAgainBtn').addEventListener('click', renderBattle);
+
+      showToast(overall === 'win' ? '🏆 Победа! +1 в копилку' : overall === 'loss' ? '💀 Поражение' : '🤝 Ничья', 2500);
+    }
+
+    function openBattle() {
+      renderBattle();
+      battleModal.classList.add('open');
+    }
+    function closeBattle() {
+      battleModal.classList.remove('open');
+    }
+
+    // ============ СБРОС ============
     function resetProgress() {
-      if (confirm('Сбросить весь прогресс? (уровень, очки, квесты, мыло, реликвии и статистика)')) {
+      if (confirm('Сбросить весь прогресс? (уровень, очки, квесты, мыло, реликвии, поединки)')) {
         localStorage.removeItem(STORAGE_KEY);
         state = {
           level: 1, xp: 0, dayCounter: 0, lastDate: null,
@@ -2460,6 +3100,7 @@
           refreshCount: 2, hardRefreshCount: 1, mode: 'balance',
           soap: 0, ownedRelics: [], activeRelic: null, streakShield: 0,
           modeLocked: false,
+          battleHistory: [], battleRecord: { wins: 0, losses: 0, draws: 0 },
           stats: {
             totalCompleted: 0, mindCompleted: 0, bodyCompleted: 0,
             hardCompleted: 0, totalXpEarned: 0, streak: 0, bestStreak: 0,
@@ -2474,12 +3115,12 @@
         modeHint.classList.remove('locked-hint');
         modeSwitcher.classList.remove('locked');
         initDay(); render();
-        closeStats();
-        closeShop();
+        closeStats(); closeShop(); closeBattle();
         showToast('🔄 Прогресс сброшен', 1800);
       }
     }
 
+    // ============ ИНИЦИАЛИЗАЦИЯ ============
     function init() {
       loadState();
       document.querySelectorAll('.mode-btn').forEach(btn => {
@@ -2489,14 +3130,13 @@
       initDay();
       recalcLevel();
       render();
-      
+
       modeSwitcher.addEventListener('click', function(e) {
         const btn = e.target.closest('.mode-btn');
-        if (!btn) return;
-        if (btn.disabled) return;
+        if (!btn || btn.disabled) return;
         switchMode(btn.dataset.mode);
       });
-      
+
       refreshBtn.addEventListener('click', refreshQuests);
       hardQuestBtn.addEventListener('click', handleHardQuest);
       resetBtn.addEventListener('click', resetProgress);
@@ -2504,21 +3144,23 @@
       statsCloseBtn.addEventListener('click', closeStats);
       shopBtn.addEventListener('click', openShop);
       shopCloseBtn.addEventListener('click', closeShop);
-      
+      battleBtn.addEventListener('click', openBattle);
+      battleCloseBtn.addEventListener('click', closeBattle);
+
       statsModal.addEventListener('click', function(e) {
         if (e.target === statsModal) closeStats();
       });
       shopModal.addEventListener('click', function(e) {
         if (e.target === shopModal) closeShop();
       });
-      
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-          closeStats();
-          closeShop();
-        }
+      battleModal.addEventListener('click', function(e) {
+        if (e.target === battleModal) closeBattle();
       });
-      
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') { closeStats(); closeShop(); closeBattle(); }
+      });
+
       setInterval(() => {
         const today = getTodayStr();
         if (state.lastDate !== today) {
