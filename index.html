@@ -25,7 +25,7 @@
       overflow-x: hidden;
     }
 
-    /* ===== УСИЛЕННЫЙ ПЕРЕЛИВАЮЩИЙСЯ ОРАНЖЕВЫЙ ФОН ===== */
+    /* ===== ПЕРЕЛИВАЮЩИЙСЯ ОРАНЖЕВЫЙ ФОН ===== */
     .bg-animated {
       position: fixed;
       top: 0;
@@ -36,69 +36,56 @@
       background: #0d0805;
       overflow: hidden;
       pointer-events: none;
+      transition: background 0.6s ease;
     }
 
-    /* Слой 1: Яркие большие плавающие пятна */
     .bg-blob {
       position: absolute;
       border-radius: 50%;
       filter: blur(70px);
       opacity: 0.95;
-      will-change: transform;
+      will-change: transform, opacity;
+      transition: opacity 0.4s ease, filter 0.4s ease;
     }
     .bg-blob-1 {
-      width: 600px;
-      height: 600px;
+      width: 600px; height: 600px;
       background: radial-gradient(circle, #ff6b1a 0%, #ff8c42 35%, #ff5a00 60%, transparent 75%);
-      top: -15%;
-      left: -15%;
+      top: -15%; left: -15%;
       animation: blobFloat1 14s ease-in-out infinite;
     }
     .bg-blob-2 {
-      width: 550px;
-      height: 550px;
+      width: 550px; height: 550px;
       background: radial-gradient(circle, #ff9d3a 0%, #ff7a1a 35%, #ffaa44 60%, transparent 75%);
-      bottom: -20%;
-      right: -15%;
+      bottom: -20%; right: -15%;
       animation: blobFloat2 17s ease-in-out infinite;
     }
     .bg-blob-3 {
-      width: 500px;
-      height: 500px;
+      width: 500px; height: 500px;
       background: radial-gradient(circle, #ff5a00 0%, #ffaa44 40%, #ff6b1a 65%, transparent 80%);
-      top: 35%;
-      left: 20%;
+      top: 35%; left: 20%;
       animation: blobFloat3 20s ease-in-out infinite;
       opacity: 0.85;
     }
     .bg-blob-4 {
-      width: 450px;
-      height: 450px;
+      width: 450px; height: 450px;
       background: radial-gradient(circle, #ffb866 0%, #ff6b1a 40%, #ff9d3a 65%, transparent 80%);
-      top: 15%;
-      right: 5%;
+      top: 15%; right: 5%;
       animation: blobFloat4 16s ease-in-out infinite;
       opacity: 0.8;
     }
-    /* Дополнительное центральное пятно для мобильных */
     .bg-blob-5 {
-      width: 400px;
-      height: 400px;
+      width: 400px; height: 400px;
       background: radial-gradient(circle, #ff8c42 0%, #ff5a00 40%, transparent 75%);
-      top: 40%;
-      left: 50%;
+      top: 40%; left: 50%;
       transform: translateX(-50%);
       animation: blobFloat5 22s ease-in-out infinite;
       opacity: 0.6;
     }
 
-    /* Слой 2: Градиентная дымка — усиленная */
     .bg-gradient {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       background: linear-gradient(
         135deg,
         rgba(255, 107, 26, 0.35) 0%,
@@ -110,26 +97,25 @@
       background-size: 400% 400%;
       animation: gradientShift 12s ease infinite;
       mix-blend-mode: screen;
+      transition: opacity 0.4s ease;
     }
 
-    /* Слой 3: Мерцающие частицы */
     .bg-particles {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
     }
     .particle {
       position: absolute;
-      width: 3px;
-      height: 3px;
+      width: 3px; height: 3px;
       background: #ffaa55;
       border-radius: 50%;
       box-shadow: 0 0 10px 3px rgba(255, 140, 66, 0.9);
       animation: particleFloat linear infinite;
       opacity: 0;
+      transition: box-shadow 0.4s ease;
     }
+
     @keyframes particleFloat {
       0% { transform: translateY(100vh) translateX(0) scale(0.5); opacity: 0; }
       10% { opacity: 1; }
@@ -137,70 +123,73 @@
       100% { transform: translateY(-20vh) translateX(50px) scale(1.3); opacity: 0; }
     }
 
-    /* Слой 4: НЕ затемняем — наоборот, лёгкое просветление */
     .bg-overlay {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       background: radial-gradient(
         ellipse at center,
-        rgba(11, 13, 14, 0.15) 0%,
-        rgba(11, 13, 14, 0.55) 100%
+        rgba(11, 13, 14, 0.05) 0%,
+        rgba(11, 13, 14, 0.35) 100%
       );
       pointer-events: none;
+      transition: opacity 0.4s ease;
     }
 
-    @keyframes blobFloat1 {
-      0% { transform: translate(0, 0) scale(1); }
-      20% { transform: translate(20vw, 15vh) scale(1.2); }
-      40% { transform: translate(-8vw, 30vh) scale(0.9); }
-      60% { transform: translate(25vw, 8vh) scale(1.15); }
-      80% { transform: translate(8vw, 35vh) scale(1.05); }
-      100% { transform: translate(0, 0) scale(1); }
+    /* ===== ВСПЫШКА ПРИ ВЫПОЛНЕНИИ КВЕСТА ===== */
+    .fire-flash {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0;
+      background: radial-gradient(
+        circle at 50% 60%,
+        rgba(255, 140, 40, 0.85) 0%,
+        rgba(255, 100, 20, 0.5) 25%,
+        rgba(255, 60, 0, 0.2) 50%,
+        transparent 75%
+      );
+      mix-blend-mode: screen;
     }
-    @keyframes blobFloat2 {
-      0% { transform: translate(0, 0) scale(1); }
-      25% { transform: translate(-25vw, -20vh) scale(1.25); }
-      50% { transform: translate(-8vw, -35vh) scale(0.85); }
-      75% { transform: translate(-30vw, -8vh) scale(1.15); }
-      100% { transform: translate(0, 0) scale(1); }
+    .fire-flash.burst {
+      animation: fireBurst 1.8s cubic-bezier(0.25, 0.8, 0.4, 1) forwards;
     }
-    @keyframes blobFloat3 {
-      0% { transform: translate(0, 0) scale(1); }
-      30% { transform: translate(-20vw, 25vh) scale(1.3); }
-      60% { transform: translate(15vw, -15vh) scale(0.85); }
-      100% { transform: translate(0, 0) scale(1); }
-    }
-    @keyframes blobFloat4 {
-      0% { transform: translate(0, 0) scale(1); }
-      33% { transform: translate(-22vw, 28vh) scale(1.2); }
-      66% { transform: translate(-12vw, -20vh) scale(1.35); }
-      100% { transform: translate(0, 0) scale(1); }
-    }
-    @keyframes blobFloat5 {
-      0% { transform: translate(-50%, 0) scale(1); }
-      25% { transform: translate(-30%, 15vh) scale(1.15); }
-      50% { transform: translate(-70%, -10vh) scale(0.9); }
-      75% { transform: translate(-40%, 20vh) scale(1.1); }
-      100% { transform: translate(-50%, 0) scale(1); }
-    }
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      25% { background-position: 100% 0%; }
-      50% { background-position: 100% 100%; }
-      75% { background-position: 0% 100%; }
-      100% { background-position: 0% 50%; }
+    @keyframes fireBurst {
+      0% { opacity: 0; transform: scale(0.4); }
+      15% { opacity: 1; transform: scale(1.1); }
+      35% { opacity: 0.85; transform: scale(1); }
+      70% { opacity: 0.4; transform: scale(1.15); }
+      100% { opacity: 0; transform: scale(1.3); }
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      .bg-blob, .bg-gradient, .particle {
-        animation: none !important;
-      }
+    /* Дополнительная вспышка ярких искр */
+    .spark-flash {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0;
+      background: 
+        radial-gradient(circle at 30% 40%, rgba(255, 200, 100, 0.7), transparent 40%),
+        radial-gradient(circle at 70% 50%, rgba(255, 160, 60, 0.6), transparent 45%),
+        radial-gradient(circle at 50% 70%, rgba(255, 120, 30, 0.5), transparent 40%);
+      mix-blend-mode: screen;
+      filter: blur(20px);
+    }
+    .spark-flash.burst {
+      animation: sparkBurst 1.6s ease-out forwards;
+    }
+    @keyframes sparkBurst {
+      0% { opacity: 0; }
+      20% { opacity: 0.9; }
+      60% { opacity: 0.5; }
+      100% { opacity: 0; }
     }
 
-    /* ===== ОСНОВНОЙ КОНТЕНТ — теперь полупрозрачный, чтобы фон просвечивал ===== */
+    /* ===== ОСНОВНОЙ КОНТЕНТ ===== */
     .app {
       max-width: 500px;
       width: 100%;
@@ -219,16 +208,22 @@
       margin: 0 auto;
       position: relative;
       z-index: 1;
+      transition: box-shadow 0.5s ease;
+    }
+    /* При вспышке карточка тоже светится ярче */
+    .app.fire-burst {
+      box-shadow: 
+        0 20px 50px rgba(0,0,0,0.85),
+        0 0 0 2px rgba(255, 160, 80, 0.7),
+        0 0 60px rgba(255, 130, 40, 0.75),
+        0 0 120px rgba(255, 100, 20, 0.4),
+        inset 0 1px 0 rgba(255, 200, 120, 0.4);
     }
 
-    /* Дополнительное свечение вокруг карточки */
     .app::before {
       content: '';
       position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
+      top: -2px; left: -2px; right: -2px; bottom: -2px;
       border-radius: 34px;
       background: linear-gradient(
         135deg,
@@ -243,6 +238,11 @@
       z-index: -1;
       filter: blur(8px);
       opacity: 0.7;
+      transition: opacity 0.5s ease, filter 0.5s ease;
+    }
+    .app.fire-burst::before {
+      opacity: 1;
+      filter: blur(14px);
     }
     @keyframes borderGlow {
       0% { background-position: 0% 50%; }
@@ -329,7 +329,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: linear-gradient(135deg, rgba(30, 42, 58, 0.85), rgba(42, 58, 74, 0.85));
+      background: linear-gradient(135deg, #1e2a3a, #2a3a4a);
       padding: 12px 18px;
       border-radius: 24px;
       border: 1px solid #3a5a6a;
@@ -389,7 +389,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      background: linear-gradient(135deg, rgba(42, 42, 26, 0.9), rgba(58, 58, 42, 0.9));
+      background: linear-gradient(135deg, #2a2a1a, #3a3a2a);
       border: 1px solid #6a6a3a;
       padding: 10px 16px;
       border-radius: 20px;
@@ -550,7 +550,7 @@
       border-radius: 20px;
       margin-bottom: 10px;
       border-left: 4px solid #4f7a8c;
-      transition: 0.15s;
+      transition: 0.3s;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -560,6 +560,31 @@
     .quest-item:last-child { margin-bottom: 0; }
     .quest-item.mind-quest { border-left-color: #5a8ac0; }
     .quest-item.body-quest { border-left-color: #c08a5a; }
+    /* Анимация при завершении квеста */
+    .quest-item.completing {
+      animation: questComplete 0.9s ease-out;
+    }
+    @keyframes questComplete {
+      0% { 
+        transform: scale(1); 
+        box-shadow: 0 0 0 rgba(255, 140, 66, 0);
+        background: #1b2429;
+      }
+      20% { 
+        transform: scale(1.03); 
+        box-shadow: 0 0 30px rgba(255, 140, 66, 0.8), 0 0 60px rgba(255, 107, 26, 0.4);
+        background: #2a3a3a;
+      }
+      50% {
+        transform: scale(1.01);
+        box-shadow: 0 0 20px rgba(255, 160, 80, 0.6), 0 0 40px rgba(255, 107, 26, 0.3);
+      }
+      100% { 
+        transform: scale(1); 
+        box-shadow: 0 0 0 rgba(255, 140, 66, 0);
+        background: #1f3a35;
+      }
+    }
     .quest-item .info {
       display: flex;
       flex-direction: column;
@@ -1657,11 +1682,8 @@
       letter-spacing: 0.2px;
     }
 
-    /* ===== МОБИЛЬНАЯ ОПТИМИЗАЦИЯ — УСИЛЕНИЕ ФОНА ===== */
     @media (max-width: 520px) {
-      /* Отступы по краям больше — фон виден вокруг карточки */
       body { padding: 16px 12px; }
-      /* Карточка стала прозрачнее — фон просвечивает сквозь неё */
       .app {
         background: rgba(15, 18, 20, 0.68);
         padding: 18px 14px;
@@ -1673,19 +1695,22 @@
           0 0 100px rgba(255, 107, 26, 0.2),
           inset 0 1px 0 rgba(255, 180, 100, 0.15);
       }
-      /* Усиленное свечение вокруг на мобильных */
-      .app::before {
-        filter: blur(12px);
-        opacity: 0.85;
+      .app::before { filter: blur(12px); opacity: 0.85; }
+      .app.fire-burst {
+        box-shadow: 
+          0 20px 50px rgba(0,0,0,0.85),
+          0 0 0 2px rgba(255, 180, 100, 0.85),
+          0 0 80px rgba(255, 130, 40, 0.9),
+          0 0 150px rgba(255, 100, 20, 0.5),
+          inset 0 1px 0 rgba(255, 200, 120, 0.5);
       }
-      /* Пятна ярче и меньше размытие */
+      .app.fire-burst::before { filter: blur(18px); opacity: 1; }
       .bg-blob { filter: blur(55px); }
       .bg-blob-1 { width: 450px; height: 450px; }
       .bg-blob-2 { width: 420px; height: 420px; }
       .bg-blob-3 { width: 380px; height: 380px; }
       .bg-blob-4 { width: 340px; height: 340px; }
       .bg-blob-5 { width: 320px; height: 320px; }
-      /* Градиент ярче */
       .bg-gradient {
         background: linear-gradient(
           135deg,
@@ -1696,7 +1721,6 @@
           rgba(255, 107, 26, 0.45) 100%
         );
       }
-      /* Лёгкое затемнение снизу для читаемости текста */
       .bg-overlay {
         background: radial-gradient(
           ellipse at center,
@@ -1704,43 +1728,19 @@
           rgba(11, 13, 14, 0.35) 100%
         );
       }
-      /* Внутренние элементы тоже чуть прозрачнее */
-      .quest-section {
-        background: rgba(16, 22, 24, 0.85);
-      }
+      .quest-section { background: rgba(16, 22, 24, 0.85); }
       .wallet-bar {
         background: linear-gradient(135deg, rgba(30, 42, 58, 0.8), rgba(42, 58, 74, 0.8));
       }
-      .modal {
-        background: rgba(15, 18, 20, 0.9);
-      }
-      .stat-block,
-      .battle-history,
-      .battle-stats-list {
-        background: rgba(16, 22, 24, 0.85);
-      }
-      /* Кнопки ярче — чтобы читались на просвечивающем фоне */
-      .btn-header {
-        background: rgba(30, 42, 48, 0.9);
-      }
-      .btn-refresh {
-        background: rgba(30, 42, 48, 0.9);
-      }
-      .btn-hard {
-        background: rgba(47, 36, 30, 0.9);
-      }
-      .quest-item {
-        background: rgba(27, 36, 41, 0.9);
-      }
-      .quest-item.hard-quest {
-        background: rgba(31, 42, 46, 0.9);
-      }
-      .mode-switcher {
-        background: rgba(30, 37, 41, 0.9);
-      }
-      .stats-grid {
-        background: rgba(30, 37, 41, 0.9);
-      }
+      .modal { background: rgba(15, 18, 20, 0.9); }
+      .stat-block, .battle-history, .battle-stats-list { background: rgba(16, 22, 24, 0.85); }
+      .btn-header { background: rgba(30, 42, 48, 0.9); }
+      .btn-refresh { background: rgba(30, 42, 48, 0.9); }
+      .btn-hard { background: rgba(47, 36, 30, 0.9); }
+      .quest-item { background: rgba(27, 36, 41, 0.9); }
+      .quest-item.hard-quest { background: rgba(31, 42, 46, 0.9); }
+      .mode-switcher { background: rgba(30, 37, 41, 0.9); }
+      .stats-grid { background: rgba(30, 37, 41, 0.9); }
     }
     @media (max-width: 420px) {
       body { padding: 14px 10px; }
@@ -1819,17 +1819,21 @@
 </head>
 <body>
 
-<!-- ===== УСИЛЕННЫЙ ПЕРЕЛИВАЮЩИЙСЯ ОРАНЖЕВЫЙ ФОН ===== -->
-<div class="bg-animated" aria-hidden="true">
-  <div class="bg-gradient"></div>
-  <div class="bg-blob bg-blob-1"></div>
-  <div class="bg-blob bg-blob-2"></div>
-  <div class="bg-blob bg-blob-3"></div>
-  <div class="bg-blob bg-blob-4"></div>
-  <div class="bg-blob bg-blob-5"></div>
+<!-- ===== ФОН ===== -->
+<div class="bg-animated" id="bgAnimated" aria-hidden="true">
+  <div class="bg-gradient" id="bgGradient"></div>
+  <div class="bg-blob bg-blob-1" id="blob1"></div>
+  <div class="bg-blob bg-blob-2" id="blob2"></div>
+  <div class="bg-blob bg-blob-3" id="blob3"></div>
+  <div class="bg-blob bg-blob-4" id="blob4"></div>
+  <div class="bg-blob bg-blob-5" id="blob5"></div>
   <div class="bg-particles" id="bgParticles"></div>
-  <div class="bg-overlay"></div>
+  <div class="bg-overlay" id="bgOverlay"></div>
 </div>
+
+<!-- Вспышки при выполнении квеста -->
+<div class="fire-flash" id="fireFlash"></div>
+<div class="spark-flash" id="sparkFlash"></div>
 
 <div class="app" id="app">
   <h1>
@@ -1939,7 +1943,7 @@
   (function(){
     "use strict";
 
-    // ===== ГЕНЕРАЦИЯ ЧАСТИЦ НА ФОНЕ =====
+    // ===== ЧАСТИЦЫ =====
     function generateParticles() {
       const container = document.getElementById('bgParticles');
       if (!container) return;
@@ -1957,6 +1961,81 @@
       }
     }
     generateParticles();
+
+    // ===== ЭФФЕКТ ВСПЫШКИ ОГНЯ ПРИ ВЫПОЛНЕНИИ КВЕСТА =====
+    let fireBurstTimeout = null;
+    function triggerFireBurst() {
+      const bgAnimated = document.getElementById('bgAnimated');
+      const bgGradient = document.getElementById('bgGradient');
+      const bgOverlay = document.getElementById('bgOverlay');
+      const app = document.getElementById('app');
+      const fireFlash = document.getElementById('fireFlash');
+      const sparkFlash = document.getElementById('sparkFlash');
+      const blobs = [
+        document.getElementById('blob1'),
+        document.getElementById('blob2'),
+        document.getElementById('blob3'),
+        document.getElementById('blob4'),
+        document.getElementById('blob5'),
+      ];
+      const particles = document.querySelectorAll('.particle');
+
+      // 1) Вспышка
+      fireFlash.classList.remove('burst');
+      sparkFlash.classList.remove('burst');
+      app.classList.remove('fire-burst');
+      // Форсируем reflow чтобы анимации перезапустились
+      void fireFlash.offsetWidth;
+      void sparkFlash.offsetWidth;
+      void app.offsetWidth;
+
+      fireFlash.classList.add('burst');
+      sparkFlash.classList.add('burst');
+      app.classList.add('fire-burst');
+
+      // 2) Фон стал ярче
+      bgAnimated.style.background = '#1a0c05';
+      bgGradient.style.opacity = '1.6';
+      bgGradient.style.filter = 'brightness(1.6) saturate(1.3)';
+      bgOverlay.style.opacity = '0.15';
+
+      // 3) Пятна стали ярче и больше размытие
+      blobs.forEach((blob, i) => {
+        if (!blob) return;
+        blob.style.opacity = '1';
+        blob.style.filter = 'blur(90px) brightness(1.5) saturate(1.3)';
+        blob.style.transition = 'opacity 0.3s ease, filter 0.3s ease';
+      });
+
+      // 4) Частицы ярче
+      particles.forEach(p => {
+        p.style.boxShadow = '0 0 20px 6px rgba(255, 180, 80, 1)';
+        p.style.background = '#ffcc66';
+      });
+
+      // Сбрасываем через 1.8 секунды
+      clearTimeout(fireBurstTimeout);
+      fireBurstTimeout = setTimeout(() => {
+        // Восстанавливаем фон
+        bgAnimated.style.background = '#0d0805';
+        bgGradient.style.opacity = '';
+        bgGradient.style.filter = '';
+        bgOverlay.style.opacity = '';
+
+        blobs.forEach(blob => {
+          if (!blob) return;
+          blob.style.opacity = '';
+          blob.style.filter = '';
+        });
+
+        particles.forEach(p => {
+          p.style.boxShadow = '';
+          p.style.background = '';
+        });
+
+        app.classList.remove('fire-burst');
+      }, 1800);
+    }
 
     const XP_TO_SOAP_RATE = 500;
     const SOAP_REWARD = 20;
@@ -2501,6 +2580,16 @@
       if (state.completedToday.includes(index)) return;
       const quest = state.currentQuests[index];
       if (!quest) return;
+
+      // 🎬 ВСПЫШКА ОГНЯ!
+      triggerFireBurst();
+
+      // Анимация карточки квеста
+      const questCard = document.querySelector(`.quest-item[data-index="${index}"]`);
+      if (questCard) {
+        questCard.classList.add('completing');
+      }
+
       const boostedXp = getQuestXpWithBoost(quest);
       const boost = getBoostForQuest(quest);
       const soapReward = getQuestSoapReward(quest);
@@ -2524,7 +2613,10 @@
       } else {
         showToast(`✅ +${boostedXp} XP${boostText} • +${soapReward} 🧼${lockText}`, 2000);
       }
-      recalcLevel(); saveState(); render();
+      recalcLevel(); saveState();
+
+      // Небольшая задержка — даём анимации проиграться, потом ререндер
+      setTimeout(() => { render(); }, 500);
     }
     function render() {
       levelDisplay.textContent = state.level;
