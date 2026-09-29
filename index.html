@@ -22,185 +22,46 @@
       align-items: flex-start;
       padding: 12px;
       position: relative;
-      overflow-x: hidden;
     }
-
-    /* ===== ПЕРЕЛИВАЮЩИЙСЯ ОРАНЖЕВЫЙ ФОН ===== */
-    .bg-animated {
+    /* 🌅 Тёплое оранжевое свечение по краям экрана */
+    body::before {
+      content: '';
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -2;
-      background: #0b0d0e;
-      overflow: hidden;
+      inset: 0;
       pointer-events: none;
+      z-index: 0;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(255, 140, 60, 0.10) 0%, transparent 35%),
+        radial-gradient(circle at 100% 0%, rgba(255, 140, 60, 0.08) 0%, transparent 35%),
+        radial-gradient(circle at 0% 100%, rgba(255, 140, 60, 0.09) 0%, transparent 35%),
+        radial-gradient(circle at 100% 100%, rgba(255, 140, 60, 0.10) 0%, transparent 35%);
+    }
+    /* Мягкое внутреннее свечение внутри приложения */
+    .app {
+      position: relative;
+      z-index: 1;
+      box-shadow:
+        0 20px 40px rgba(0,0,0,0.8),
+        0 0 40px rgba(255, 140, 60, 0.06),
+        inset 0 0 60px rgba(255, 140, 60, 0.03);
+      border: 1px solid #2a3135;
+      transition: box-shadow 0.4s ease;
+    }
+    .app:hover {
+      box-shadow:
+        0 20px 40px rgba(0,0,0,0.8),
+        0 0 50px rgba(255, 140, 60, 0.09),
+        inset 0 0 60px rgba(255, 140, 60, 0.05);
     }
 
-    /* Слой 1: Большие плавающие пятна */
-    .bg-blob {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.55;
-      will-change: transform;
-    }
-    .bg-blob-1 {
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, #ff6b1a 0%, #ff8c42 40%, transparent 70%);
-      top: -10%;
-      left: -10%;
-      animation: blobFloat1 18s ease-in-out infinite;
-    }
-    .bg-blob-2 {
-      width: 450px;
-      height: 450px;
-      background: radial-gradient(circle, #ff9d3a 0%, #ff7a1a 40%, transparent 70%);
-      bottom: -15%;
-      right: -10%;
-      animation: blobFloat2 22s ease-in-out infinite;
-    }
-    .bg-blob-3 {
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, #ff5a00 0%, #ffaa44 40%, transparent 70%);
-      top: 40%;
-      left: 30%;
-      animation: blobFloat3 25s ease-in-out infinite;
-      opacity: 0.4;
-    }
-    .bg-blob-4 {
-      width: 350px;
-      height: 350px;
-      background: radial-gradient(circle, #ffb866 0%, #ff6b1a 40%, transparent 70%);
-      top: 20%;
-      right: 10%;
-      animation: blobFloat4 20s ease-in-out infinite;
-      opacity: 0.35;
-    }
-
-    /* Слой 2: Градиентная дымка */
-    .bg-gradient {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(
-        135deg,
-        rgba(255, 107, 26, 0.15) 0%,
-        rgba(255, 140, 66, 0.08) 25%,
-        rgba(255, 90, 0, 0.18) 50%,
-        rgba(255, 157, 58, 0.1) 75%,
-        rgba(255, 107, 26, 0.15) 100%
-      );
-      background-size: 400% 400%;
-      animation: gradientShift 15s ease infinite;
-      mix-blend-mode: screen;
-    }
-
-    /* Слой 3: Мерцающие частицы */
-    .bg-particles {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
-    .particle {
-      position: absolute;
-      width: 3px;
-      height: 3px;
-      background: #ffaa55;
-      border-radius: 50%;
-      box-shadow: 0 0 8px 2px rgba(255, 140, 66, 0.6);
-      animation: particleFloat linear infinite;
-      opacity: 0;
-    }
-    @keyframes particleFloat {
-      0% { transform: translateY(100vh) translateX(0) scale(0.5); opacity: 0; }
-      10% { opacity: 0.8; }
-      90% { opacity: 0.8; }
-      100% { transform: translateY(-20vh) translateX(50px) scale(1.2); opacity: 0; }
-    }
-
-    /* Слой 4: Лёгкое затемнение поверх, чтобы контент читался */
-    .bg-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(
-        ellipse at center,
-        rgba(11, 13, 14, 0.4) 0%,
-        rgba(11, 13, 14, 0.75) 100%
-      );
-      pointer-events: none;
-    }
-
-    /* Анимации для пятен — хаотичные движения */
-    @keyframes blobFloat1 {
-      0% { transform: translate(0, 0) scale(1); }
-      20% { transform: translate(15vw, 10vh) scale(1.15); }
-      40% { transform: translate(-5vw, 25vh) scale(0.9); }
-      60% { transform: translate(20vw, 5vh) scale(1.1); }
-      80% { transform: translate(5vw, 30vh) scale(1.05); }
-      100% { transform: translate(0, 0) scale(1); }
-    }
-    @keyframes blobFloat2 {
-      0% { transform: translate(0, 0) scale(1); }
-      25% { transform: translate(-20vw, -15vh) scale(1.2); }
-      50% { transform: translate(-5vw, -30vh) scale(0.85); }
-      75% { transform: translate(-25vw, -5vh) scale(1.1); }
-      100% { transform: translate(0, 0) scale(1); }
-    }
-    @keyframes blobFloat3 {
-      0% { transform: translate(0, 0) scale(1); }
-      30% { transform: translate(-15vw, 20vh) scale(1.25); }
-      60% { transform: translate(10vw, -10vh) scale(0.8); }
-      100% { transform: translate(0, 0) scale(1); }
-    }
-    @keyframes blobFloat4 {
-      0% { transform: translate(0, 0) scale(1); }
-      33% { transform: translate(-18vw, 22vh) scale(1.15); }
-      66% { transform: translate(-8vw, -15vh) scale(1.3); }
-      100% { transform: translate(0, 0) scale(1); }
-    }
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      25% { background-position: 100% 0%; }
-      50% { background-position: 100% 100%; }
-      75% { background-position: 0% 100%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    /* Отключение анимаций для пользователей с prefers-reduced-motion */
-    @media (prefers-reduced-motion: reduce) {
-      .bg-blob, .bg-gradient, .particle {
-        animation: none !important;
-      }
-    }
-
-    /* ===== ОСНОВНОЙ КОНТЕНТ ===== */
+    /* ============ ОСНОВНЫЕ СТИЛИ ============ */
     .app {
       max-width: 500px;
       width: 100%;
-      background: rgba(20, 24, 26, 0.92);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      background: #14181a;
       border-radius: 32px;
       padding: 20px 16px;
-      box-shadow: 
-        0 20px 40px rgba(0,0,0,0.8),
-        0 0 60px rgba(255, 107, 26, 0.08),
-        inset 0 1px 0 rgba(255, 140, 66, 0.1);
-      border: 1px solid rgba(255, 140, 66, 0.15);
       margin: 0 auto;
-      position: relative;
-      z-index: 1;
     }
     h1 {
       font-size: 22px;
@@ -724,6 +585,7 @@
       max-width: 90%;
       text-align: center;
       white-space: nowrap;
+      box-shadow: 0 0 20px rgba(255, 140, 60, 0.1);
     }
     .toast.show { opacity: 1; }
     .empty-quests {
@@ -771,19 +633,17 @@
     }
     .modal-overlay.open { opacity: 1; pointer-events: auto; }
     .modal {
-      background: rgba(20, 24, 26, 0.96);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      background: #14181a;
       border-radius: 32px;
       padding: 24px 20px;
       width: 100%;
       max-width: 500px;
       max-height: 90vh;
       overflow-y: auto;
-      border: 1px solid rgba(255, 140, 66, 0.2);
-      box-shadow: 
+      border: 1px solid #2a3135;
+      box-shadow:
         0 25px 50px rgba(0,0,0,0.9),
-        0 0 80px rgba(255, 107, 26, 0.08);
+        0 0 60px rgba(255, 140, 60, 0.08);
       transform: scale(0.95);
       transition: transform 0.25s ease;
       scrollbar-width: thin;
@@ -1301,7 +1161,9 @@
       border-color: #d04040;
       color: #ffc0c0;
     }
-    .battle-action-btn:active { transform: scale(0.95); }
+    .battle-action-btn:active {
+      transform: scale(0.95);
+    }
     .battle-code {
       background: #0b0d0e;
       border: 1px solid #3a5a6a;
@@ -1318,14 +1180,20 @@
       cursor: pointer;
       transition: 0.2s;
     }
-    .battle-code:hover { background: #101618; border-color: #5a8aa0; }
-    .battle-code:active { transform: scale(0.98); }
+    .battle-code:hover {
+      background: #101618;
+      border-color: #5a8aa0;
+    }
+    .battle-code:active {
+      transform: scale(0.98);
+    }
     .battle-code-hint {
       font-size: 10px;
       color: #6a8a9a;
       margin-top: 6px;
       text-align: center;
     }
+
     .battle-result-header {
       text-align: center;
       padding: 20px 16px;
@@ -1363,6 +1231,7 @@
       color: #a6bbc8;
       margin-top: 6px;
     }
+
     .battle-stats-list {
       background: #101618;
       border-radius: 20px;
@@ -1378,7 +1247,9 @@
       border-bottom: 1px solid #1e2529;
       gap: 10px;
     }
-    .battle-stat-row:last-child { border-bottom: none; }
+    .battle-stat-row:last-child {
+      border-bottom: none;
+    }
     .battle-stat-row.win-me {
       background: linear-gradient(90deg, rgba(90, 138, 90, 0.15), transparent 50%, transparent 50%);
     }
@@ -1390,16 +1261,27 @@
       flex-direction: column;
       gap: 2px;
     }
-    .battle-stat-side.left { align-items: flex-start; text-align: left; }
-    .battle-stat-side.right { align-items: flex-end; text-align: right; }
+    .battle-stat-side.left {
+      align-items: flex-start;
+      text-align: left;
+    }
+    .battle-stat-side.right {
+      align-items: flex-end;
+      text-align: right;
+    }
     .battle-stat-value {
       font-size: 16px;
       font-weight: 700;
       color: #e0f0fa;
       line-height: 1.1;
     }
-    .battle-stat-value.win { color: #90e0a0; }
-    .battle-stat-value.lose { color: #a6bbc8; opacity: 0.7; }
+    .battle-stat-value.win {
+      color: #90e0a0;
+    }
+    .battle-stat-value.lose {
+      color: #a6bbc8;
+      opacity: 0.7;
+    }
     .battle-stat-label {
       font-size: 10px;
       color: #7a8b96;
@@ -1428,7 +1310,10 @@
       gap: 2px;
       min-width: 70px;
     }
-    .battle-input-container { margin-top: 12px; }
+
+    .battle-input-container {
+      margin-top: 12px;
+    }
     .battle-input-label {
       font-size: 12px;
       color: #a6bbc8;
@@ -1486,8 +1371,14 @@
       border-color: #d04040;
       color: #ffe0e0;
     }
-    .battle-submit-btn:active:not(:disabled) { transform: scale(0.97); }
-    .battle-submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .battle-submit-btn:active:not(:disabled) {
+      transform: scale(0.97);
+    }
+    .battle-submit-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
     .battle-history {
       background: #101618;
       border-radius: 20px;
@@ -1529,7 +1420,10 @@
       flex: 1;
       min-width: 0;
     }
-    .battle-history-icon { font-size: 18px; flex-shrink: 0; }
+    .battle-history-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+    }
     .battle-history-info {
       display: flex;
       flex-direction: column;
@@ -1544,7 +1438,10 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-    .battle-history-date { font-size: 10px; color: #7a8b96; }
+    .battle-history-date {
+      font-size: 10px;
+      color: #7a8b96;
+    }
     .battle-history-score {
       font-weight: 700;
       font-size: 13px;
@@ -1554,6 +1451,7 @@
     .battle-history-score.win { color: #90e0a0; }
     .battle-history-score.loss { color: #e09090; }
     .battle-history-score.draw { color: #e0d090; }
+
     .battle-empty-history {
       text-align: center;
       padding: 20px 12px;
@@ -1566,6 +1464,7 @@
       margin-bottom: 8px;
       opacity: 0.6;
     }
+
     .battle-player-card {
       background: linear-gradient(135deg, #1e2a3a, #2a3a4a);
       border: 1px solid #3a5a6a;
@@ -1585,13 +1484,17 @@
       margin-bottom: 10px;
       font-weight: 600;
     }
-    .battle-player-card.enemy h4 { color: #c89aac; }
+    .battle-player-card.enemy h4 {
+      color: #c89aac;
+    }
     .battle-player-stats {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 8px;
     }
-    .battle-player-stat { text-align: center; }
+    .battle-player-stat {
+      text-align: center;
+    }
     .battle-player-stat .bps-val {
       font-size: 18px;
       font-weight: 700;
@@ -1642,10 +1545,6 @@
       .battle-player-stats { gap: 4px; }
       .battle-player-stat .bps-val { font-size: 15px; }
       .battle-player-stat .bps-lbl { font-size: 9px; }
-      .bg-blob-1 { width: 300px; height: 300px; filter: blur(60px); }
-      .bg-blob-2 { width: 280px; height: 280px; filter: blur(60px); }
-      .bg-blob-3 { width: 250px; height: 250px; filter: blur(50px); }
-      .bg-blob-4 { width: 220px; height: 220px; filter: blur(50px); }
     }
     @media (max-width: 360px) {
       .stats-grid { flex-direction: column; gap: 4px; }
@@ -1672,25 +1571,13 @@
       .battle-player-stats { grid-template-columns: repeat(2, 1fr); }
     }
     @media (hover: none) {
-      .btn-refresh:hover, .btn-hard:hover, .btn-done:hover, .reset-btn:hover, .mode-btn:hover, .btn-header:hover, .modal-close:hover, .shop-buy-btn:hover, .battle-action-btn:hover, .battle-submit-btn:hover {
+      .btn-refresh:hover, .btn-hard:hover, .btn-done:hover, .reset-btn:hover, .mode-btn:hover, .btn-header:hover, .modal-close:hover, .shop-buy-btn:hover, .battle-action-btn:hover, .battle-submit-btn:hover, .app:hover {
         transform: none;
       }
     }
   </style>
 </head>
 <body>
-
-<!-- ===== ПЕРЕЛИВАЮЩИЙСЯ ОРАНЖЕВЫЙ ФОН ===== -->
-<div class="bg-animated" aria-hidden="true">
-  <div class="bg-gradient"></div>
-  <div class="bg-blob bg-blob-1"></div>
-  <div class="bg-blob bg-blob-2"></div>
-  <div class="bg-blob bg-blob-3"></div>
-  <div class="bg-blob bg-blob-4"></div>
-  <div class="bg-particles" id="bgParticles"></div>
-  <div class="bg-overlay"></div>
-</div>
-
 <div class="app" id="app">
   <h1>
     <div class="title-left">
@@ -1799,25 +1686,6 @@
   (function(){
     "use strict";
 
-    // ===== ГЕНЕРАЦИЯ ЧАСТИЦ НА ФОНЕ =====
-    function generateParticles() {
-      const container = document.getElementById('bgParticles');
-      if (!container) return;
-      const count = 25;
-      for (let i = 0; i < count; i++) {
-        const p = document.createElement('div');
-        p.className = 'particle';
-        p.style.left = Math.random() * 100 + '%';
-        p.style.animationDuration = (10 + Math.random() * 15) + 's';
-        p.style.animationDelay = (Math.random() * 10) + 's';
-        const size = 1 + Math.random() * 3;
-        p.style.width = size + 'px';
-        p.style.height = size + 'px';
-        container.appendChild(p);
-      }
-    }
-    generateParticles();
-
     const XP_TO_SOAP_RATE = 500;
     const SOAP_REWARD = 20;
     const HARD_QUEST_SOAP = 5;
@@ -1856,167 +1724,40 @@
     };
 
     const QUEST_TEMPLATES = [
-      { type: 'body', baseTitle: 'Отжимания', baseDesc: (lvl) => {
-          const count = 10 + lvl * 2;
-          const sets = 3 + Math.floor(lvl / 3);
-          return `${sets} подхода по ${count} раз`;
-        }, baseXp: 20 },
-      { type: 'body', baseTitle: 'Приседания', baseDesc: (lvl) => {
-          const count = 15 + lvl * 3;
-          const sets = 3 + Math.floor(lvl / 2);
-          return `${sets} подхода по ${count} раз`;
-        }, baseXp: 25 },
-      { type: 'body', baseTitle: 'Планка', baseDesc: (lvl) => {
-          const seconds = 30 + lvl * 5;
-          const sets = 3 + Math.floor(lvl / 3);
-          return `${sets} подхода по ${seconds} секунд`;
-        }, baseXp: 20 },
-      { type: 'body', baseTitle: 'Бёрпи', baseDesc: (lvl) => {
-          const count = 8 + lvl * 2;
-          const sets = 3 + Math.floor(lvl / 3);
-          return `${sets} подхода по ${count} раз`;
-        }, baseXp: 30 },
-      { type: 'body', baseTitle: 'Выпады', baseDesc: (lvl) => {
-          const count = 10 + lvl * 2;
-          const sets = 3 + Math.floor(lvl / 2);
-          return `${sets} подхода по ${count} на ногу`;
-        }, baseXp: 22 },
-      { type: 'body', baseTitle: 'Мостик', baseDesc: (lvl) => {
-          const count = 12 + lvl * 2;
-          const sets = 3 + Math.floor(lvl / 3);
-          return `${sets} подхода по ${count} раз`;
-        }, baseXp: 18 },
-      { type: 'body', baseTitle: 'Подтягивания', baseDesc: (lvl) => {
-          const max = 5 + Math.floor(lvl / 2);
-          const sets = 3 + Math.floor(lvl / 3);
-          return `${sets} подхода по макс. (${max}+)`;
-        }, baseXp: 35 },
-      { type: 'body', baseTitle: 'Скручивания на пресс', baseDesc: (lvl) => {
-          const count = 20 + lvl * 3;
-          const sets = 3 + Math.floor(lvl / 3);
-          return `${sets} подхода по ${count} раз`;
-        }, baseXp: 22 },
-      { type: 'body', baseTitle: 'Отжимания на трицепс', baseDesc: (lvl) => {
-          const count = 8 + lvl * 2;
-          const sets = 3 + Math.floor(lvl / 3);
-          return `${sets} подхода по ${count} раз`;
-        }, baseXp: 25 },
-      { type: 'body', baseTitle: 'Приседания с выпрыгиванием', baseDesc: (lvl) => {
-          const count = 10 + lvl * 2;
-          const sets = 3 + Math.floor(lvl / 3);
-          return `${sets} подхода по ${count} раз`;
-        }, baseXp: 28 },
-      { type: 'body', baseTitle: 'Боковая планка', baseDesc: (lvl) => {
-          const seconds = 20 + lvl * 4;
-          const sets = 3 + Math.floor(lvl / 3);
-          return `${sets} подхода по ${seconds} секунд на каждую сторону`;
-        }, baseXp: 22 },
-      { type: 'body', baseTitle: 'Ягодичный мостик', baseDesc: (lvl) => {
-          const count = 15 + lvl * 3;
-          const sets = 3 + Math.floor(lvl / 3);
-          return `${sets} подхода по ${count} раз`;
-        }, baseXp: 20 },
-      { type: 'body', baseTitle: 'Альпинист', baseDesc: (lvl) => {
-          const count = 20 + lvl * 4;
-          const sets = 3 + Math.floor(lvl / 3);
-          return `${sets} подхода по ${count} раз`;
-        }, baseXp: 25 },
-      { type: 'body', baseTitle: 'Супермен', baseDesc: (lvl) => {
-          const seconds = 15 + lvl * 3;
-          const sets = 3 + Math.floor(lvl / 3);
-          return `${sets} подхода по ${seconds} секунд`;
-        }, baseXp: 18 },
-      { type: 'body', baseTitle: 'Выпады назад', baseDesc: (lvl) => {
-          const count = 10 + lvl * 2;
-          const sets = 3 + Math.floor(lvl / 2);
-          return `${sets} подхода по ${count} на ногу`;
-        }, baseXp: 24 },
-      { type: 'body', baseTitle: 'Скалолаз', baseDesc: (lvl) => {
-          const count = 15 + lvl * 3;
-          const sets = 3 + Math.floor(lvl / 3);
-          return `${sets} подхода по ${count} раз`;
-        }, baseXp: 26 },
-      { type: 'body', baseTitle: 'Боковые скручивания', baseDesc: (lvl) => {
-          const count = 15 + lvl * 2;
-          const sets = 3 + Math.floor(lvl / 3);
-          return `${sets} подхода по ${count} раз на сторону`;
-        }, baseXp: 22 },
-      { type: 'mind', baseTitle: 'Чтение книги', baseDesc: (lvl) => {
-          const minutes = 30 + lvl * 5;
-          return `${minutes} минут чтения (≈${Math.round(minutes/60)} ч)`;
-        }, baseXp: 25 },
-      { type: 'mind', baseTitle: 'Глубокая медитация', baseDesc: (lvl) => {
-          const minutes = 15 + lvl * 3;
-          return `${minutes} минут осознанности`;
-        }, baseXp: 22 },
-      { type: 'mind', baseTitle: 'Изучение языка', baseDesc: (lvl) => {
-          const minutes = 30 + lvl * 5;
-          const words = 15 + lvl * 3;
-          return `${minutes} мин (${Math.round(minutes/60)} ч) + ${words} новых слов`;
-        }, baseXp: 30 },
-      { type: 'mind', baseTitle: 'Тренировка памяти', baseDesc: (lvl) => {
-          const count = 12 + lvl * 3;
-          return `Запомнить ${count} чисел за 60 секунд`;
-        }, baseXp: 22 },
-      { type: 'mind', baseTitle: 'Логические задачи', baseDesc: (lvl) => {
-          const count = 4 + Math.floor(lvl / 2);
-          const minutes = 20 + lvl * 3;
-          return `${count} задач за ${minutes} минут`;
-        }, baseXp: 28 },
-      { type: 'mind', baseTitle: 'Дневник рефлексии', baseDesc: (lvl) => {
-          const minutes = 10 + Math.floor(lvl / 2) * 2;
-          return `${minutes} минут рефлексии и планирования`;
-        }, baseXp: 18 },
-      { type: 'mind', baseTitle: 'Ментальная арифметика', baseDesc: (lvl) => {
-          const minutes = 10 + lvl * 2;
-          return `${minutes} минут счёта в уме и примеров`;
-        }, baseXp: 20 },
-      { type: 'mind', baseTitle: 'Судоку', baseDesc: (lvl) => {
-          const count = 2 + Math.floor(lvl / 3);
-          const minutes = 20 + lvl * 3;
-          return `${count} головоломок за ${minutes} минут`;
-        }, baseXp: 24 },
-      { type: 'mind', baseTitle: 'Кроссворд', baseDesc: (lvl) => {
-          const complexity = ['лёгкий', 'средний', 'сложный'][Math.min(2, Math.floor(lvl / 3))];
-          const minutes = 25 + lvl * 4;
-          return `${complexity} кроссворд за ${minutes} минут`;
-        }, baseXp: 22 },
-      { type: 'mind', baseTitle: 'Шахматы', baseDesc: (lvl) => {
-          const minutes = 30 + lvl * 5;
-          return `${minutes} минут (≈${Math.round(minutes/60)} ч) игры в шахматы`;
-        }, baseXp: 30 },
-      { type: 'mind', baseTitle: 'Изучение новых слов', baseDesc: (lvl) => {
-          const count = 8 + lvl * 2;
-          const minutes = 20 + lvl * 3;
-          return `${count} новых слов за ${minutes} минут`;
-        }, baseXp: 22 },
-      { type: 'mind', baseTitle: 'Творческое письмо', baseDesc: (lvl) => {
-          const minutes = 25 + lvl * 4;
-          return `${minutes} минут свободного письма или блога`;
-        }, baseXp: 25 },
-      { type: 'mind', baseTitle: 'Аудиокнига / Подкаст', baseDesc: (lvl) => {
-          const minutes = 45 + lvl * 5;
-          return `${minutes} минут (≈${Math.round(minutes/60)} ч) прослушивания`;
-        }, baseXp: 24 },
-      { type: 'mind', baseTitle: 'Изучение новой темы', baseDesc: (lvl) => {
-          const minutes = 40 + lvl * 5;
-          return `${minutes} минут (≈${Math.round(minutes/60)} ч) изучения с конспектом`;
-        }, baseXp: 28 },
-      { type: 'mind', baseTitle: 'Анаграммы', baseDesc: (lvl) => {
-          const count = 8 + lvl * 2;
-          const minutes = 15 + lvl * 2;
-          return `${count} анаграмм за ${minutes} минут`;
-        }, baseXp: 22 },
-      { type: 'mind', baseTitle: 'Планирование целей', baseDesc: (lvl) => {
-          const count = 4 + Math.floor(lvl / 2);
-          const minutes = 15 + lvl * 3;
-          return `${count} целей на неделю за ${minutes} минут`;
-        }, baseXp: 20 },
-      { type: 'mind', baseTitle: 'Ментальная карта', baseDesc: (lvl) => {
-          const items = 10 + lvl * 2;
-          const minutes = 20 + lvl * 3;
-          return `Карта с ${items} элементами за ${minutes} минут`;
-        }, baseXp: 24 },
+      { type: 'body', baseTitle: 'Отжимания', baseDesc: (lvl) => { const count = 10 + lvl * 2; const sets = 3 + Math.floor(lvl / 3); return `${sets} подхода по ${count} раз`; }, baseXp: 20 },
+      { type: 'body', baseTitle: 'Приседания', baseDesc: (lvl) => { const count = 15 + lvl * 3; const sets = 3 + Math.floor(lvl / 2); return `${sets} подхода по ${count} раз`; }, baseXp: 25 },
+      { type: 'body', baseTitle: 'Планка', baseDesc: (lvl) => { const seconds = 30 + lvl * 5; const sets = 3 + Math.floor(lvl / 3); return `${sets} подхода по ${seconds} секунд`; }, baseXp: 20 },
+      { type: 'body', baseTitle: 'Бёрпи', baseDesc: (lvl) => { const count = 8 + lvl * 2; const sets = 3 + Math.floor(lvl / 3); return `${sets} подхода по ${count} раз`; }, baseXp: 30 },
+      { type: 'body', baseTitle: 'Выпады', baseDesc: (lvl) => { const count = 10 + lvl * 2; const sets = 3 + Math.floor(lvl / 2); return `${sets} подхода по ${count} на ногу`; }, baseXp: 22 },
+      { type: 'body', baseTitle: 'Мостик', baseDesc: (lvl) => { const count = 12 + lvl * 2; const sets = 3 + Math.floor(lvl / 3); return `${sets} подхода по ${count} раз`; }, baseXp: 18 },
+      { type: 'body', baseTitle: 'Подтягивания', baseDesc: (lvl) => { const max = 5 + Math.floor(lvl / 2); const sets = 3 + Math.floor(lvl / 3); return `${sets} подхода по макс. (${max}+)`; }, baseXp: 35 },
+      { type: 'body', baseTitle: 'Скручивания на пресс', baseDesc: (lvl) => { const count = 20 + lvl * 3; const sets = 3 + Math.floor(lvl / 3); return `${sets} подхода по ${count} раз`; }, baseXp: 22 },
+      { type: 'body', baseTitle: 'Отжимания на трицепс', baseDesc: (lvl) => { const count = 8 + lvl * 2; const sets = 3 + Math.floor(lvl / 3); return `${sets} подхода по ${count} раз`; }, baseXp: 25 },
+      { type: 'body', baseTitle: 'Приседания с выпрыгиванием', baseDesc: (lvl) => { const count = 10 + lvl * 2; const sets = 3 + Math.floor(lvl / 3); return `${sets} подхода по ${count} раз`; }, baseXp: 28 },
+      { type: 'body', baseTitle: 'Боковая планка', baseDesc: (lvl) => { const seconds = 20 + lvl * 4; const sets = 3 + Math.floor(lvl / 3); return `${sets} подхода по ${seconds} секунд на каждую сторону`; }, baseXp: 22 },
+      { type: 'body', baseTitle: 'Ягодичный мостик', baseDesc: (lvl) => { const count = 15 + lvl * 3; const sets = 3 + Math.floor(lvl / 3); return `${sets} подхода по ${count} раз`; }, baseXp: 20 },
+      { type: 'body', baseTitle: 'Альпинист', baseDesc: (lvl) => { const count = 20 + lvl * 4; const sets = 3 + Math.floor(lvl / 3); return `${sets} подхода по ${count} раз`; }, baseXp: 25 },
+      { type: 'body', baseTitle: 'Супермен', baseDesc: (lvl) => { const seconds = 15 + lvl * 3; const sets = 3 + Math.floor(lvl / 3); return `${sets} подхода по ${seconds} секунд`; }, baseXp: 18 },
+      { type: 'body', baseTitle: 'Выпады назад', baseDesc: (lvl) => { const count = 10 + lvl * 2; const sets = 3 + Math.floor(lvl / 2); return `${sets} подхода по ${count} на ногу`; }, baseXp: 24 },
+      { type: 'body', baseTitle: 'Скалолаз', baseDesc: (lvl) => { const count = 15 + lvl * 3; const sets = 3 + Math.floor(lvl / 3); return `${sets} подхода по ${count} раз`; }, baseXp: 26 },
+      { type: 'body', baseTitle: 'Боковые скручивания', baseDesc: (lvl) => { const count = 15 + lvl * 2; const sets = 3 + Math.floor(lvl / 3); return `${sets} подхода по ${count} раз на сторону`; }, baseXp: 22 },
+      { type: 'mind', baseTitle: 'Чтение книги', baseDesc: (lvl) => { const minutes = 30 + lvl * 5; return `${minutes} минут чтения (≈${Math.round(minutes/60)} ч)`; }, baseXp: 25 },
+      { type: 'mind', baseTitle: 'Глубокая медитация', baseDesc: (lvl) => { const minutes = 15 + lvl * 3; return `${minutes} минут осознанности`; }, baseXp: 22 },
+      { type: 'mind', baseTitle: 'Изучение языка', baseDesc: (lvl) => { const minutes = 30 + lvl * 5; const words = 15 + lvl * 3; return `${minutes} мин (${Math.round(minutes/60)} ч) + ${words} новых слов`; }, baseXp: 30 },
+      { type: 'mind', baseTitle: 'Тренировка памяти', baseDesc: (lvl) => { const count = 12 + lvl * 3; return `Запомнить ${count} чисел за 60 секунд`; }, baseXp: 22 },
+      { type: 'mind', baseTitle: 'Логические задачи', baseDesc: (lvl) => { const count = 4 + Math.floor(lvl / 2); const minutes = 20 + lvl * 3; return `${count} задач за ${minutes} минут`; }, baseXp: 28 },
+      { type: 'mind', baseTitle: 'Дневник рефлексии', baseDesc: (lvl) => { const minutes = 10 + Math.floor(lvl / 2) * 2; return `${minutes} минут рефлексии и планирования`; }, baseXp: 18 },
+      { type: 'mind', baseTitle: 'Ментальная арифметика', baseDesc: (lvl) => { const minutes = 10 + lvl * 2; return `${minutes} минут счёта в уме и примеров`; }, baseXp: 20 },
+      { type: 'mind', baseTitle: 'Судоку', baseDesc: (lvl) => { const count = 2 + Math.floor(lvl / 3); const minutes = 20 + lvl * 3; return `${count} головоломок за ${minutes} минут`; }, baseXp: 24 },
+      { type: 'mind', baseTitle: 'Кроссворд', baseDesc: (lvl) => { const complexity = ['лёгкий', 'средний', 'сложный'][Math.min(2, Math.floor(lvl / 3))]; const minutes = 25 + lvl * 4; return `${complexity} кроссворд за ${minutes} минут`; }, baseXp: 22 },
+      { type: 'mind', baseTitle: 'Шахматы', baseDesc: (lvl) => { const minutes = 30 + lvl * 5; return `${minutes} минут (≈${Math.round(minutes/60)} ч) игры в шахматы`; }, baseXp: 30 },
+      { type: 'mind', baseTitle: 'Изучение новых слов', baseDesc: (lvl) => { const count = 8 + lvl * 2; const minutes = 20 + lvl * 3; return `${count} новых слов за ${minutes} минут`; }, baseXp: 22 },
+      { type: 'mind', baseTitle: 'Творческое письмо', baseDesc: (lvl) => { const minutes = 25 + lvl * 4; return `${minutes} минут свободного письма или блога`; }, baseXp: 25 },
+      { type: 'mind', baseTitle: 'Аудиокнига / Подкаст', baseDesc: (lvl) => { const minutes = 45 + lvl * 5; return `${minutes} минут (≈${Math.round(minutes/60)} ч) прослушивания`; }, baseXp: 24 },
+      { type: 'mind', baseTitle: 'Изучение новой темы', baseDesc: (lvl) => { const minutes = 40 + lvl * 5; return `${minutes} минут (≈${Math.round(minutes/60)} ч) изучения с конспектом`; }, baseXp: 28 },
+      { type: 'mind', baseTitle: 'Анаграммы', baseDesc: (lvl) => { const count = 8 + lvl * 2; const minutes = 15 + lvl * 2; return `${count} анаграмм за ${minutes} минут`; }, baseXp: 22 },
+      { type: 'mind', baseTitle: 'Планирование целей', baseDesc: (lvl) => { const count = 4 + Math.floor(lvl / 2); const minutes = 15 + lvl * 3; return `${count} целей на неделю за ${minutes} минут`; }, baseXp: 20 },
+      { type: 'mind', baseTitle: 'Ментальная карта', baseDesc: (lvl) => { const items = 10 + lvl * 2; const minutes = 20 + lvl * 3; return `Карта с ${items} элементами за ${minutes} минут`; }, baseXp: 24 },
     ];
 
     const HARD_QUEST_POOL = [
@@ -2047,25 +1788,13 @@
     };
 
     let state = {
-      level: 1,
-      xp: 0,
-      dayCounter: 0,
-      lastDate: null,
-      completedToday: [],
-      currentQuests: [],
-      hardQuestUsed: false,
-      hardQuestCompleted: false,
-      hardQuestIndex: -1,
-      refreshCount: 2,
-      hardRefreshCount: 1,
-      mode: 'balance',
-      soap: 0,
-      ownedRelics: [],
-      activeRelic: null,
-      streakShield: 0,
+      level: 1, xp: 0, dayCounter: 0, lastDate: null,
+      completedToday: [], currentQuests: [],
+      hardQuestUsed: false, hardQuestCompleted: false, hardQuestIndex: -1,
+      refreshCount: 2, hardRefreshCount: 1, mode: 'balance',
+      soap: 0, ownedRelics: [], activeRelic: null, streakShield: 0,
       modeLocked: false,
-      battleHistory: [],
-      battleRecord: { wins: 0, losses: 0, draws: 0 },
+      battleHistory: [], battleRecord: { wins: 0, losses: 0, draws: 0 },
       stats: {
         totalCompleted: 0, mindCompleted: 0, bodyCompleted: 0,
         hardCompleted: 0, totalXpEarned: 0, streak: 0, bestStreak: 0,
@@ -2146,8 +1875,9 @@
       const oldD = new Date(oldDate + 'T00:00:00');
       const newD = new Date(newDate + 'T00:00:00');
       const diffDays = Math.round((newD - oldD) / (1000 * 60 * 60 * 24));
-      if (diffDays === 1) { state.stats.streak = (state.stats.streak || 0) + 1; }
-      else if (diffDays > 1) {
+      if (diffDays === 1) {
+        state.stats.streak = (state.stats.streak || 0) + 1;
+      } else if (diffDays > 1) {
         if (state.streakShield > 0 && diffDays === 2) {
           state.streakShield -= 1;
           state.stats.streak = (state.stats.streak || 0) + 1;
@@ -2164,29 +1894,23 @@
       }
     }
     function generateDailyQuests(level, mode) {
-      const modeConfig = MODES[mode] || MODES.balance;
-      const allowedTypes = modeConfig.questTypes;
+      const allowedTypes = (MODES[mode] || MODES.balance).questTypes;
       const filtered = QUEST_TEMPLATES.filter(t => allowedTypes.includes(t.type));
       const shuffled = [...filtered].sort(() => Math.random() - 0.5);
       const count = Math.random() < 0.5 ? 4 : 5;
       const selected = shuffled.slice(0, Math.min(count, shuffled.length));
-      return selected.map(template => {
-        const xpMultiplier = 1 + (level - 1) * 0.15;
-        const baseXp = template.baseXp || 20;
-        const scaledXp = Math.round(baseXp * xpMultiplier);
-        return { type: template.type, title: template.baseTitle, desc: template.baseDesc(level), xp: scaledXp };
+      return selected.map(t => {
+        const xpM = 1 + (level - 1) * 0.15;
+        return { type: t.type, title: t.baseTitle, desc: t.baseDesc(level), xp: Math.round((t.baseXp || 20) * xpM) };
       });
     }
     function generateHardQuest(level, mode) {
-      const modeConfig = MODES[mode] || MODES.balance;
-      const allowedTypes = modeConfig.questTypes;
+      const allowedTypes = (MODES[mode] || MODES.balance).questTypes;
       const filtered = HARD_QUEST_POOL.filter(q => allowedTypes.includes(q.type));
       if (filtered.length === 0) return null;
-      const shuffled = [...filtered].sort(() => Math.random() - 0.5);
-      const baseQuest = shuffled[0];
-      const xpMultiplier = 1 + (level - 1) * 0.1;
-      const scaledXp = Math.round(baseQuest.xp * xpMultiplier);
-      return { ...baseQuest, xp: scaledXp };
+      const base = [...filtered].sort(() => Math.random() - 0.5)[0];
+      const xpM = 1 + (level - 1) * 0.1;
+      return { ...base, xp: Math.round(base.xp * xpM) };
     }
     function recalcLevel() {
       const newLevel = Math.floor(state.xp / 100) + 1;
@@ -2195,11 +1919,9 @@
         levelUpBadge.style.display = 'inline-block';
         showToast(`⬆ Уровень ${state.level}!`, 2500);
         setTimeout(() => { levelUpBadge.style.display = 'none'; }, 2800);
-      } else { state.level = Math.max(1, newLevel); }
+      } else state.level = Math.max(1, newLevel);
     }
-    function saveState() {
-      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
-    }
+    function saveState() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e){} }
     function loadState() {
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
@@ -2273,17 +1995,15 @@
       }
     }
     function isAllQuestsCompleted() {
-      const totalQuests = state.currentQuests.length;
-      if (totalQuests === 0) return false;
-      return state.completedToday.length === totalQuests;
+      const total = state.currentQuests.length;
+      if (total === 0) return false;
+      return state.completedToday.length === total;
     }
     function switchMode(newMode) {
       if (state.mode === newMode) return;
-      if (isModeLocked()) { showToast('🔒 Режим зафиксирован! Вы уже начали выполнять квесты.', 2800); return; }
+      if (isModeLocked()) { showToast('🔒 Режим зафиксирован!', 2800); return; }
       state.mode = newMode;
-      document.querySelectorAll('.mode-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.mode === newMode);
-      });
+      document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.mode === newMode));
       modeHint.textContent = MODES[newMode].hint;
       state.currentQuests = generateDailyQuests(state.level, newMode);
       state.completedToday = [];
@@ -2291,34 +2011,24 @@
       state.hardQuestCompleted = false;
       state.hardQuestIndex = -1;
       state.hardRefreshCount = 1;
-      saveState();
-      render();
-      showToast(`${MODES[newMode].label} — квесты обновлены`, 2000);
+      saveState(); render();
+      showToast(`${MODES[newMode].label} — обновлено`, 2000);
     }
     function refreshQuests() {
-      if (isAllQuestsCompleted()) { showToast('✅ Все квесты выполнены!', 2500); return; }
-      if (state.refreshCount <= 0) { showToast('⚠️ Лимит обновлений исчерпан', 2000); return; }
+      if (isAllQuestsCompleted()) { showToast('✅ Все выполнены!', 2500); return; }
+      if (state.refreshCount <= 0) { showToast('⚠️ Лимит исчерпан', 2000); return; }
       const today = getTodayStr();
       const newQuests = generateDailyQuests(state.level, state.mode);
       const completedTitles = new Set();
-      state.completedToday.forEach(index => {
-        const q = state.currentQuests[index];
-        if (q && !q.isHard) completedTitles.add(q.title);
-      });
+      state.completedToday.forEach(i => { const q = state.currentQuests[i]; if (q && !q.isHard) completedTitles.add(q.title); });
       const newCompleted = [];
-      newQuests.forEach((q, idx) => {
-        if (completedTitles.has(q.title)) newCompleted.push(idx);
-      });
+      newQuests.forEach((q, i) => { if (completedTitles.has(q.title)) newCompleted.push(i); });
       let hasHard = false, hardData = null;
       if (state.hardQuestIndex >= 0 && state.hardQuestIndex < state.currentQuests.length) {
         const hq = state.currentQuests[state.hardQuestIndex];
         if (hq && hq.isHard) {
-          if (!state.completedToday.includes(state.hardQuestIndex)) {
-            hasHard = true; hardData = hq;
-          } else {
-            state.hardQuestCompleted = true;
-            state.hardQuestUsed = true;
-          }
+          if (!state.completedToday.includes(state.hardQuestIndex)) { hasHard = true; hardData = hq; }
+          else { state.hardQuestCompleted = true; state.hardQuestUsed = true; }
         }
       }
       let final = [...newQuests], hIdx = -1;
@@ -2329,32 +2039,30 @@
       state.lastDate = today;
       state.refreshCount -= 1;
       if (state.hardQuestCompleted) state.hardQuestUsed = true;
-      showToast(`🔄 Обновлено (осталось ${state.refreshCount}/2)`, 1800);
+      showToast(`🔄 Осталось ${state.refreshCount}/2`, 1800);
       recalcLevel(); saveState(); render();
     }
     function handleHardQuest() {
-      if (isAllQuestsCompleted()) { showToast('✅ Все квесты выполнены!', 2500); return; }
-      if (state.hardRefreshCount <= 0) { showToast('⚠️ Лимит сложных квестов', 2000); return; }
-      if (state.hardQuestUsed && state.hardQuestCompleted) { showToast('⚠️ Сложный квест уже выполнен', 2000); return; }
+      if (isAllQuestsCompleted()) { showToast('✅ Все выполнены!', 2500); return; }
+      if (state.hardRefreshCount <= 0) { showToast('⚠️ Лимит', 2000); return; }
+      if (state.hardQuestUsed && state.hardQuestCompleted) { showToast('⚠️ Уже выполнен', 2000); return; }
       if (state.hardQuestIndex >= 0 && state.hardQuestIndex < state.currentQuests.length) {
-        const existing = state.currentQuests[state.hardQuestIndex];
-        if (existing && existing.isHard) {
-          if (state.completedToday.includes(state.hardQuestIndex)) {
-            showToast('⚠️ Сложный квест уже выполнен', 2000); return;
-          }
+        const ex = state.currentQuests[state.hardQuestIndex];
+        if (ex && ex.isHard) {
+          if (state.completedToday.includes(state.hardQuestIndex)) { showToast('⚠️ Уже выполнен', 2000); return; }
           state.currentQuests.splice(state.hardQuestIndex, 1);
           state.hardQuestIndex = -1;
         }
       }
       const hardQuest = generateHardQuest(state.level, state.mode);
-      if (!hardQuest) { showToast('⚠️ Нет сложных квестов', 1800); return; }
-      const questWithMarker = { ...hardQuest, isHard: true };
-      state.currentQuests.push(questWithMarker);
+      if (!hardQuest) { showToast('⚠️ Нет сложных', 1800); return; }
+      const qwm = { ...hardQuest, isHard: true };
+      state.currentQuests.push(qwm);
       state.hardQuestIndex = state.currentQuests.length - 1;
       state.hardQuestUsed = true;
       state.hardQuestCompleted = false;
       state.hardRefreshCount -= 1;
-      showToast(`⭐ Сложный квест (осталось ${state.hardRefreshCount}/1)`, 2000);
+      showToast(`⭐ Сложный (осталось ${state.hardRefreshCount}/1)`, 2000);
       recalcLevel(); saveState(); render();
     }
     function completeQuest(index) {
@@ -2375,15 +2083,13 @@
       else if (quest.type === 'mind') state.stats.mindCompleted += 1;
       else if (quest.type === 'body') state.stats.bodyCompleted += 1;
       addActiveDay(getTodayStr());
-      const boostText = boost > 0 ? ` (🔥 +${Math.round(boost * 100)}%)` : '';
-      const lockText = state.modeLocked ? ' • 🔒 Режим зафиксирован' : '';
+      const bT = boost > 0 ? ` (🔥+${Math.round(boost * 100)}%)` : '';
+      const lT = state.modeLocked ? ' • 🔒' : '';
       if (quest.isHard) {
         state.hardQuestCompleted = true;
         state.hardQuestUsed = true;
-        showToast(`⭐ +${boostedXp} XP${boostText} • +${soapReward} 🧼`, 2200);
-      } else {
-        showToast(`✅ +${boostedXp} XP${boostText} • +${soapReward} 🧼${lockText}`, 2000);
-      }
+        showToast(`⭐ +${boostedXp} XP${bT} • +${soapReward} 🧼`, 2200);
+      } else showToast(`✅ +${boostedXp} XP${bT} • +${soapReward} 🧼${lT}`, 2000);
       recalcLevel(); saveState(); render();
     }
     function render() {
@@ -2397,31 +2103,27 @@
         activeRelicBanner.style.display = 'flex';
         activeRelicIcon.textContent = relic.icon;
         activeRelicName.textContent = relic.name;
-        let boostText = `+${Math.round(relic.boost * 100)}% XP`;
-        if (relic.type === 'mind') boostText += ' (только ум)';
-        else if (relic.type === 'body') boostText += ' (только тело)';
-        activeRelicDesc.textContent = boostText;
-      } else { activeRelicBanner.style.display = 'none'; }
+        let bt = `+${Math.round(relic.boost * 100)}% XP`;
+        if (relic.type === 'mind') bt += ' (только ум)';
+        else if (relic.type === 'body') bt += ' (только тело)';
+        activeRelicDesc.textContent = bt;
+      } else activeRelicBanner.style.display = 'none';
       const allCompleted = isAllQuestsCompleted();
       const modeLocked = isModeLocked();
       document.querySelectorAll('.mode-btn').forEach(btn => {
         if (btn.dataset.mode === state.mode) btn.disabled = false;
         else btn.disabled = modeLocked;
       });
-      if (modeLocked) modeSwitcher.classList.add('locked');
-      else modeSwitcher.classList.remove('locked');
+      modeSwitcher.classList.toggle('locked', modeLocked);
       if (modeLocked && !allCompleted) {
-        modeHint.textContent = '🔒 Режим зафиксирован на сегодня (выполнен квест)';
+        modeHint.textContent = '🔒 Режим зафиксирован (выполнен квест)';
         modeHint.classList.add('locked-hint');
       } else {
         modeHint.textContent = MODES[state.mode].hint;
         modeHint.classList.remove('locked-hint');
       }
       if (allCompleted) {
-        refreshBtn.disabled = true;
-        refreshBadge.textContent = '✓';
-        refreshBadge.style.background = '#4a7a7a';
-        refreshBtn.style.opacity = '0.6';
+        refreshBtn.disabled = true; refreshBadge.textContent = '✓'; refreshBadge.style.background = '#4a7a7a'; refreshBtn.style.opacity = '0.6';
       } else {
         refreshBtn.disabled = state.refreshCount <= 0;
         refreshBadge.textContent = state.refreshCount;
@@ -2430,32 +2132,11 @@
       }
       const isLocked = state.hardQuestCompleted;
       const isExhausted = state.hardRefreshCount <= 0;
-      if (allCompleted) {
-        hardQuestBtn.disabled = true;
-        hardQuestBadge.textContent = '✓';
-        hardQuestBadge.style.background = '#4a7a7a';
-        hardQuestBtn.style.opacity = '0.6';
-      } else if (isLocked) {
-        hardQuestBtn.disabled = true;
-        hardQuestBadge.textContent = '✓';
-        hardQuestBadge.style.background = '#4a7a7a';
-        hardQuestBtn.style.opacity = '0.5';
-      } else if (isExhausted && state.hardQuestIndex >= 0) {
-        hardQuestBtn.disabled = true;
-        hardQuestBadge.textContent = '0';
-        hardQuestBadge.style.background = '#4a4a4a';
-        hardQuestBtn.style.opacity = '0.5';
-      } else if (state.hardQuestIndex >= 0) {
-        hardQuestBtn.disabled = false;
-        hardQuestBadge.textContent = state.hardRefreshCount;
-        hardQuestBadge.style.background = '#ff8a5c';
-        hardQuestBtn.style.opacity = '1';
-      } else {
-        hardQuestBtn.disabled = false;
-        hardQuestBadge.textContent = state.hardRefreshCount;
-        hardQuestBadge.style.background = '#ff6b35';
-        hardQuestBtn.style.opacity = '1';
-      }
+      if (allCompleted) { hardQuestBtn.disabled = true; hardQuestBadge.textContent = '✓'; hardQuestBadge.style.background = '#4a7a7a'; hardQuestBtn.style.opacity = '0.6'; }
+      else if (isLocked) { hardQuestBtn.disabled = true; hardQuestBadge.textContent = '✓'; hardQuestBadge.style.background = '#4a7a7a'; hardQuestBtn.style.opacity = '0.5'; }
+      else if (isExhausted && state.hardQuestIndex >= 0) { hardQuestBtn.disabled = true; hardQuestBadge.textContent = '0'; hardQuestBadge.style.background = '#4a4a4a'; hardQuestBtn.style.opacity = '0.5'; }
+      else if (state.hardQuestIndex >= 0) { hardQuestBtn.disabled = false; hardQuestBadge.textContent = state.hardRefreshCount; hardQuestBadge.style.background = '#ff8a5c'; hardQuestBtn.style.opacity = '1'; }
+      else { hardQuestBtn.disabled = false; hardQuestBadge.textContent = state.hardRefreshCount; hardQuestBadge.style.background = '#ff6b35'; hardQuestBtn.style.opacity = '1'; }
       if (!state.currentQuests || state.currentQuests.length === 0) {
         questContainer.innerHTML = `<div class="empty-quests"><span class="emoji">📭</span>Нет активных квестов</div>`;
         return;
@@ -2494,30 +2175,28 @@
       });
       questContainer.innerHTML = html;
       if (allCompleted) {
-        const notice = document.createElement('div');
-        notice.className = 'all-completed-notice';
-        notice.textContent = '🎉 Все квесты выполнены! Обновление и смена режима недоступны до завтра.';
-        const existing = questContainer.querySelector('.all-completed-notice');
-        if (!existing) questContainer.appendChild(notice);
+        const n = document.createElement('div');
+        n.className = 'all-completed-notice';
+        n.textContent = '🎉 Все квесты выполнены!';
+        if (!questContainer.querySelector('.all-completed-notice')) questContainer.appendChild(n);
       } else if (modeLocked) {
-        const notice = document.createElement('div');
-        notice.className = 'mode-locked-notice';
-        notice.textContent = `🔒 Режим "${MODES[state.mode].label}" зафиксирован на сегодня — выполнено ${state.completedToday.length} квестов.`;
-        const existing = questContainer.querySelector('.mode-locked-notice');
-        if (!existing) questContainer.appendChild(notice);
+        const n = document.createElement('div');
+        n.className = 'mode-locked-notice';
+        n.textContent = `🔒 Режим "${MODES[state.mode].label}" зафиксирован — выполнено ${state.completedToday.length} квестов.`;
+        if (!questContainer.querySelector('.mode-locked-notice')) questContainer.appendChild(n);
       }
       document.querySelectorAll('.btn-done:not(.completed)').forEach(btn => {
         btn.addEventListener('click', function(e) {
           e.stopPropagation();
-          const index = parseInt(this.dataset.index, 10);
-          if (isNaN(index)) return;
-          completeQuest(index);
+          const i = parseInt(this.dataset.index, 10);
+          if (isNaN(i)) return;
+          completeQuest(i);
         });
       });
       levelUpBadge.style.display = 'none';
     }
 
-    // ============ МАГАЗИН ============
+    // МАГАЗИН
     function renderShop() {
       let html = '';
       html += `
@@ -2525,71 +2204,36 @@
           <div class="shop-balance-left">
             <div class="shop-balance-icon">🧼</div>
             <div>
-              <div class="shop-balance-label">Ваш баланс</div>
+              <div class="shop-balance-label">Баланс</div>
               <div class="shop-balance-text">${state.soap} 🧼</div>
             </div>
           </div>
           <div class="shop-balance-right">
-            <div class="shop-xp-badge">
-              <div class="xp-val">${state.xp}</div>
-              <div class="xp-lbl">Всего XP</div>
-            </div>
+            <div class="shop-xp-badge"><div class="xp-val">${state.xp}</div><div class="xp-lbl">Всего XP</div></div>
           </div>
         </div>
       `;
-      html += `
-        <div class="shop-section-title">🏛️ Реликвии (эффект не складывается)</div>
-        <div class="relic-category-note">⚠️ Одновременно активна только <b>одна</b> реликвия.</div>
-      `;
+      html += `<div class="shop-section-title">🏛️ Реликвии (эффект не складывается)</div>
+        <div class="relic-category-note">⚠️ Одновременно активна только <b>одна</b> реликвия.</div>`;
       SHOP_ITEMS.relics.forEach(relic => {
         const owned = state.ownedRelics.includes(relic.id);
         const isActive = state.activeRelic === relic.id;
         const canAfford = state.soap >= relic.price;
         let btnHtml = '';
         let itemClass = 'shop-item relic-item';
-        if (isActive) {
-          itemClass += ' active-relic';
-          btnHtml = `<button class="shop-buy-btn active-btn" disabled>✓ Активна</button>`;
-        } else if (owned) {
-          itemClass += ' owned';
-          btnHtml = `<button class="shop-buy-btn activate-btn" data-action="activate-relic" data-id="${relic.id}">⚡ Активировать</button>`;
-        } else {
-          btnHtml = `<button class="shop-buy-btn" data-action="buy-relic" data-id="${relic.id}" ${!canAfford ? 'disabled' : ''}>Купить • ${relic.price} 🧼</button>`;
-        }
-        let effectClass = 'shop-item-effect';
-        let effectText = `+${Math.round(relic.boost * 100)}% XP ко всем квестам`;
-        if (relic.type === 'mind') { effectClass += ' mind-effect'; effectText = `+${Math.round(relic.boost * 100)}% XP только к 🧠 умственным`; }
-        else if (relic.type === 'body') { effectClass += ' body-effect'; effectText = `+${Math.round(relic.boost * 100)}% XP только к 💪 физическим`; }
-        html += `
-          <div class="${itemClass}">
-            <div class="shop-item-icon">${relic.icon}</div>
-            <div class="shop-item-info">
-              <div class="shop-item-name">${relic.name}<span class="relic-badge">РЕЛИКВИЯ</span></div>
-              <div class="shop-item-desc">${relic.desc}</div>
-              <div class="${effectClass}">${effectText}</div>
-            </div>
-            ${btnHtml}
-          </div>
-        `;
+        if (isActive) { itemClass += ' active-relic'; btnHtml = `<button class="shop-buy-btn active-btn" disabled>✓ Активна</button>`; }
+        else if (owned) { itemClass += ' owned'; btnHtml = `<button class="shop-buy-btn activate-btn" data-action="activate-relic" data-id="${relic.id}">⚡ Активировать</button>`; }
+        else btnHtml = `<button class="shop-buy-btn" data-action="buy-relic" data-id="${relic.id}" ${!canAfford ? 'disabled' : ''}>Купить • ${relic.price} 🧼</button>`;
+        let eC = 'shop-item-effect';
+        let eT = `+${Math.round(relic.boost * 100)}% XP ко всем квестам`;
+        if (relic.type === 'mind') { eC += ' mind-effect'; eT = `+${Math.round(relic.boost * 100)}% XP только 🧠 ум`; }
+        else if (relic.type === 'body') { eC += ' body-effect'; eT = `+${Math.round(relic.boost * 100)}% XP только 💪 тело`; }
+        html += `<div class="${itemClass}"><div class="shop-item-icon">${relic.icon}</div><div class="shop-item-info"><div class="shop-item-name">${relic.name}<span class="relic-badge">РЕЛИКВИЯ</span></div><div class="shop-item-desc">${relic.desc}</div><div class="${eC}">${eT}</div></div>${btnHtml}</div>`;
       });
       const canExchange = state.xp >= XP_TO_SOAP_RATE;
-      html += `
-        <div class="shop-section-title">💱 Обмен опыта на мыло</div>
+      html += `<div class="shop-section-title">💱 Обмен опыта на мыло</div>
         <div class="exchange-category-note">⚠️ Обмен опыта <b>снижает ваш уровень</b>!</div>
-        <div class="shop-item exchange-item">
-          <div class="shop-item-icon">💱</div>
-          <div class="shop-item-info">
-            <div class="shop-item-name">Обмен опыта на мыло<span class="exchange-badge">ОБМЕН</span></div>
-            <div class="shop-item-desc">${XP_TO_SOAP_RATE} XP → ${SOAP_REWARD} 🧼. Уровень пересчитается.</div>
-            <div class="shop-item-effect exchange-effect">
-              ${state.xp} XP → ${Math.floor(state.xp / XP_TO_SOAP_RATE) * SOAP_REWARD} 🧼 (${Math.floor(state.xp / XP_TO_SOAP_RATE)} обменов)
-            </div>
-          </div>
-          <button class="shop-buy-btn exchange-btn" data-action="exchange-xp" ${!canExchange ? 'disabled' : ''}>
-            Обменять
-          </button>
-        </div>
-      `;
+        <div class="shop-item exchange-item"><div class="shop-item-icon">💱</div><div class="shop-item-info"><div class="shop-item-name">Обмен<span class="exchange-badge">ОБМЕН</span></div><div class="shop-item-desc">${XP_TO_SOAP_RATE} XP → ${SOAP_REWARD} 🧼</div><div class="shop-item-effect exchange-effect">${state.xp} XP → ${Math.floor(state.xp / XP_TO_SOAP_RATE) * SOAP_REWARD} 🧼 (${Math.floor(state.xp / XP_TO_SOAP_RATE)} обменов)</div></div><button class="shop-buy-btn exchange-btn" data-action="exchange-xp" ${!canExchange ? 'disabled' : ''}>Обменять</button></div>`;
       html += `<div class="shop-section-title">🧪 Расходники</div>`;
       SHOP_ITEMS.consumables.forEach(item => {
         const canAfford = state.soap >= item.price;
@@ -2597,218 +2241,111 @@
         let itemClass = 'shop-item consumable-item';
         let valueBadge = '';
         if (item.bestValue) { itemClass += ' best-value'; valueBadge = `<span class="value-badge">ЛУЧШАЯ ЦЕНА</span>`; }
-        html += `
-          <div class="${itemClass}">
-            <div class="shop-item-icon">${item.icon}</div>
-            <div class="shop-item-info">
-              <div class="shop-item-name">${item.name}${valueBadge}</div>
-              <div class="shop-item-desc">${item.desc}</div>
-            </div>
-            ${btnHtml}
-          </div>
-        `;
+        html += `<div class="${itemClass}"><div class="shop-item-icon">${item.icon}</div><div class="shop-item-info"><div class="shop-item-name">${item.name}${valueBadge}</div><div class="shop-item-desc">${item.desc}</div></div>${btnHtml}</div>`;
       });
       shopContent.innerHTML = html;
       shopContent.querySelectorAll('[data-action]').forEach(btn => {
         btn.addEventListener('click', function() {
-          const action = this.dataset.action;
-          const id = this.dataset.id;
-          if (action === 'buy-relic') buyRelic(id);
-          else if (action === 'activate-relic') activateRelic(id);
-          else if (action === 'buy-consumable') buyConsumable(id);
-          else if (action === 'exchange-xp') exchangeXpForSoap();
+          const a = this.dataset.action, id = this.dataset.id;
+          if (a === 'buy-relic') buyRelic(id);
+          else if (a === 'activate-relic') activateRelic(id);
+          else if (a === 'buy-consumable') buyConsumable(id);
+          else if (a === 'exchange-xp') exchangeXpForSoap();
         });
       });
     }
-    function buyRelic(relicId) {
-      const relic = SHOP_ITEMS.relics.find(r => r.id === relicId);
-      if (!relic) return;
-      if (state.ownedRelics.includes(relicId)) { showToast('⚠️ Уже куплена', 1800); return; }
-      if (state.soap < relic.price) { showToast('⚠️ Недостаточно мыла', 1800); return; }
-      if (!confirm(`Купить "${relic.name}" за ${relic.price} 🧼?`)) return;
-      state.soap -= relic.price;
-      state.stats.totalSoapSpent += relic.price;
-      state.ownedRelics.push(relicId);
-      if (!state.activeRelic) {
-        state.activeRelic = relicId;
-        showToast(`${relic.icon} Куплена и активирована!`, 2500);
-      } else { showToast(`${relic.icon} Куплена!`, 2200); }
+    function buyRelic(id) {
+      const r = SHOP_ITEMS.relics.find(x => x.id === id);
+      if (!r) return;
+      if (state.ownedRelics.includes(id)) { showToast('⚠️ Уже куплена', 1800); return; }
+      if (state.soap < r.price) { showToast('⚠️ Недостаточно мыла', 1800); return; }
+      if (!confirm(`Купить "${r.name}" за ${r.price} 🧼?`)) return;
+      state.soap -= r.price; state.stats.totalSoapSpent += r.price;
+      state.ownedRelics.push(id);
+      if (!state.activeRelic) { state.activeRelic = id; showToast(`${r.icon} Куплена и активирована!`, 2500); }
+      else showToast(`${r.icon} Куплена!`, 2200);
       saveState(); render(); renderShop();
     }
-    function activateRelic(relicId) {
-      if (!state.ownedRelics.includes(relicId)) return;
-      const relic = SHOP_ITEMS.relics.find(r => r.id === relicId);
-      if (!relic) return;
-      state.activeRelic = relicId;
-      saveState(); render(); renderShop();
-      showToast(`${relic.icon} ${relic.name} активирована!`, 2000);
+    function activateRelic(id) {
+      if (!state.ownedRelics.includes(id)) return;
+      const r = SHOP_ITEMS.relics.find(x => x.id === id);
+      if (!r) return;
+      state.activeRelic = id; saveState(); render(); renderShop();
+      showToast(`${r.icon} ${r.name} активирована!`, 2000);
     }
     function exchangeXpForSoap() {
       if (state.xp < XP_TO_SOAP_RATE) { showToast(`⚠️ Нужно ${XP_TO_SOAP_RATE} XP`, 2000); return; }
-      const exchangesPossible = Math.floor(state.xp / XP_TO_SOAP_RATE);
-      const totalXpToSpend = exchangesPossible * XP_TO_SOAP_RATE;
-      const totalSoapToGet = exchangesPossible * SOAP_REWARD;
-      if (!confirm(`Обменять ${totalXpToSpend} XP на ${totalSoapToGet} 🧼?\n\nУровень может понизиться!`)) return;
-      state.xp -= totalXpToSpend;
-      state.soap += totalSoapToGet;
-      state.stats.totalXpExchanged += totalXpToSpend;
-      state.stats.totalSoapEarned += totalSoapToGet;
-      recalcLevelAfterExchange();
+      const ex = Math.floor(state.xp / XP_TO_SOAP_RATE);
+      const totalXp = ex * XP_TO_SOAP_RATE;
+      const totalSoap = ex * SOAP_REWARD;
+      if (!confirm(`Обменять ${totalXp} XP на ${totalSoap} 🧼?\n\nУровень может понизиться!`)) return;
+      state.xp -= totalXp; state.soap += totalSoap;
+      state.stats.totalXpExchanged += totalXp;
+      state.stats.totalSoapEarned += totalSoap;
+      const nl = Math.floor(state.xp / 100) + 1;
+      const oldL = state.level;
+      state.level = Math.max(1, nl);
+      if (state.level < oldL) showToast(`📉 Уровень понижен: ${oldL} → ${state.level}`, 2500);
+      else if (state.level > oldL) { levelUpBadge.style.display = 'inline-block'; showToast(`⬆ Уровень ${state.level}!`, 2500); setTimeout(() => { levelUpBadge.style.display = 'none'; }, 2800); }
       saveState(); render(); renderShop();
-      showToast(`💱 ${totalXpToSpend} XP → ${totalSoapToGet} 🧼`, 2500);
+      showToast(`💱 ${totalXp} XP → ${totalSoap} 🧼`, 2500);
     }
-    function recalcLevelAfterExchange() {
-      const newLevel = Math.floor(state.xp / 100) + 1;
-      if (newLevel !== state.level) {
-        const oldLevel = state.level;
-        state.level = Math.max(1, newLevel);
-        if (state.level < oldLevel) showToast(`📉 Уровень понижен: ${oldLevel} → ${state.level}`, 2500);
-        else if (state.level > oldLevel) {
-          levelUpBadge.style.display = 'inline-block';
-          showToast(`⬆ Уровень ${state.level}!`, 2500);
-          setTimeout(() => { levelUpBadge.style.display = 'none'; }, 2800);
-        }
-      }
-    }
-    function buyConsumable(itemId) {
-      const item = SHOP_ITEMS.consumables.find(c => c.id === itemId);
+    function buyConsumable(id) {
+      const item = SHOP_ITEMS.consumables.find(x => x.id === id);
       if (!item) return;
       if (state.soap < item.price) { showToast('⚠️ Недостаточно мыла', 1800); return; }
       if (!confirm(`Купить "${item.name}" за ${item.price} 🧼?`)) return;
       state.soap -= item.price;
       state.stats.totalSoapSpent += item.price;
-      let effectMessage = '';
-      switch(itemId) {
-        case 'extra_refresh': state.refreshCount += 1; effectMessage = `+1 обновление (${state.refreshCount})`; break;
-        case 'extra_hard': state.hardRefreshCount += 1; effectMessage = `+1 сложный квест (${state.hardRefreshCount})`; break;
-        case 'instant_xp': {
-          const xpGain = item.xpReward || 100;
-          state.xp += xpGain;
-          state.stats.totalXpEarned += xpGain;
-          recalcLevel();
-          effectMessage = `+${xpGain} XP за ${item.price} 🧼`;
-          break;
-        }
-        case 'full_reset_daily':
-          state.refreshCount = 2; state.hardRefreshCount = 1;
-          state.hardQuestUsed = false; state.hardQuestCompleted = false;
-          effectMessage = `Сброшены дневные лимиты`;
-          break;
-        case 'streak_shield': state.streakShield += 1; effectMessage = `Щит серии: ${state.streakShield}`; break;
+      let msg = '';
+      switch(id) {
+        case 'extra_refresh': state.refreshCount += 1; msg = `+1 обновление (${state.refreshCount})`; break;
+        case 'extra_hard': state.hardRefreshCount += 1; msg = `+1 сложный (${state.hardRefreshCount})`; break;
+        case 'instant_xp': { const xp = item.xpReward || 100; state.xp += xp; state.stats.totalXpEarned += xp; recalcLevel(); msg = `+${xp} XP`; break; }
+        case 'full_reset_daily': state.refreshCount = 2; state.hardRefreshCount = 1; state.hardQuestUsed = false; state.hardQuestCompleted = false; msg = `Сброшены лимиты`; break;
+        case 'streak_shield': state.streakShield += 1; msg = `Щит: ${state.streakShield}`; break;
       }
       saveState(); render(); renderShop();
-      showToast(`${item.icon} ${effectMessage}`, 2400);
+      showToast(`${item.icon} ${msg}`, 2400);
     }
     function openShop() { renderShop(); shopModal.classList.add('open'); }
     function closeShop() { shopModal.classList.remove('open'); }
 
-    // ============ СТАТИСТИКА ============
+    // СТАТИСТИКА
     function renderStats() {
       const s = state.stats;
       const total = s.totalCompleted || 0;
       const mindPct = total > 0 ? Math.round((s.mindCompleted / total) * 100) : 0;
       const bodyPct = total > 0 ? Math.round((s.bodyCompleted / total) * 100) : 0;
-      const maxTypeCount = Math.max(s.mindCompleted, s.bodyCompleted, 1);
-      const xpInLevel = state.xp % 100;
-      const levelProgress = Math.min(100, Math.round((xpInLevel / 100) * 100));
+      const maxTC = Math.max(s.mindCompleted, s.bodyCompleted, 1);
+      const xpIL = state.xp % 100;
+      const lvlP = Math.min(100, Math.round((xpIL / 100) * 100));
       const today = new Date();
       const days = [];
       for (let i = 27; i >= 0; i--) {
-        const d = new Date(today);
-        d.setDate(d.getDate() - i);
-        const dateStr = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
-        days.push({ date: dateStr, day: d.getDate(), isActive: s.activeDays.includes(dateStr), isToday: i === 0 });
+        const d = new Date(today); d.setDate(d.getDate() - i);
+        const ds = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+        days.push({ date: ds, day: d.getDate(), isActive: s.activeDays.includes(ds), isToday: i === 0 });
       }
       let html = '';
       const br = state.battleRecord;
-      html += `
-        <div class="stat-block">
-          <h3>⚔️ Поединки</h3>
-          <div class="big-numbers">
-            <div class="big-number"><div class="num win-color">${br.wins}</div><div class="lbl">Побед</div></div>
-            <div class="big-number"><div class="num loss-color">${br.losses}</div><div class="lbl">Поражений</div></div>
-            <div class="big-number"><div class="num" style="color:#e0d090;">${br.draws}</div><div class="lbl">Ничьих</div></div>
-            <div class="big-number"><div class="num">${br.wins + br.losses + br.draws}</div><div class="lbl">Всего боёв</div></div>
-          </div>
-        </div>
-      `;
-      html += `
-        <div class="stat-block">
-          <h3>🧼 Мыло</h3>
-          <div class="big-numbers">
-            <div class="big-number"><div class="num soap-color">${state.soap}</div><div class="lbl">Текущий баланс</div></div>
-            <div class="big-number"><div class="num soap-color">${s.totalSoapEarned}</div><div class="lbl">Всего заработано</div></div>
-            <div class="big-number"><div class="num" style="color:#e0a080;">${s.totalSoapSpent}</div><div class="lbl">Потрачено</div></div>
-            <div class="big-number"><div class="num" style="color:#d8a0e8;">${s.totalXpExchanged || 0}</div><div class="lbl">Обменяно XP</div></div>
-          </div>
-        </div>
-      `;
-      html += `
-        <div class="stat-block">
-          <h3>📈 Общий прогресс</h3>
-          <div class="big-numbers">
-            <div class="big-number"><div class="num xp-color">${s.totalXpEarned}</div><div class="lbl">Всего XP</div></div>
-            <div class="big-number"><div class="num">${s.totalCompleted}</div><div class="lbl">Квестов</div></div>
-            <div class="big-number"><div class="num streak-color">${s.streak}</div><div class="lbl">Серия дней</div></div>
-            <div class="big-number"><div class="num" style="color: #ffb088;">${s.bestStreak}</div><div class="lbl">Лучшая серия</div></div>
-          </div>
-          <div class="progress-line" style="margin-top: 12px;">
-            <div class="pl-top"><span class="pl-label">До уровня ${state.level + 1}</span><span class="pl-value">${xpInLevel} / 100 XP</span></div>
-            <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: ${levelProgress}%;"></div></div>
-          </div>
-        </div>
-      `;
-      html += `
-        <div class="stat-block">
-          <h3>🎯 По типам</h3>
-          <div class="quest-type-stats">
-            <div class="type-stat">
-              <div class="ts-header">🧠 Ум</div>
-              <div class="ts-count mind-color">${s.mindCompleted}</div>
-              <div class="ts-bar"><div class="ts-bar-fill mind-fill" style="width: ${(s.mindCompleted / maxTypeCount) * 100}%;"></div></div>
-              <div class="ts-pct">${mindPct}% от всех</div>
-            </div>
-            <div class="type-stat">
-              <div class="ts-header">💪 Тело</div>
-              <div class="ts-count body-color">${s.bodyCompleted}</div>
-              <div class="ts-bar"><div class="ts-bar-fill body-fill" style="width: ${(s.bodyCompleted / maxTypeCount) * 100}%;"></div></div>
-              <div class="ts-pct">${bodyPct}% от всех</div>
-            </div>
-          </div>
-          <div class="progress-line" style="margin-top: 10px;">
-            <div class="pl-top"><span class="pl-label">🔥 Сложных</span><span class="pl-value" style="color: #ffb088;">${s.hardCompleted}</span></div>
-          </div>
-        </div>
-      `;
-      html += `<div class="stat-block"><h3>📅 Активность (28 дней)</h3><div class="activity-grid">`;
+      html += `<div class="stat-block"><h3>⚔️ Поединки</h3><div class="big-numbers"><div class="big-number"><div class="num win-color">${br.wins}</div><div class="lbl">Побед</div></div><div class="big-number"><div class="num loss-color">${br.losses}</div><div class="lbl">Поражений</div></div><div class="big-number"><div class="num" style="color:#e0d090;">${br.draws}</div><div class="lbl">Ничьих</div></div><div class="big-number"><div class="num">${br.wins + br.losses + br.draws}</div><div class="lbl">Всего</div></div></div></div>`;
+      html += `<div class="stat-block"><h3>🧼 Мыло</h3><div class="big-numbers"><div class="big-number"><div class="num soap-color">${state.soap}</div><div class="lbl">Текущий</div></div><div class="big-number"><div class="num soap-color">${s.totalSoapEarned}</div><div class="lbl">Заработано</div></div><div class="big-number"><div class="num" style="color:#e0a080;">${s.totalSoapSpent}</div><div class="lbl">Потрачено</div></div><div class="big-number"><div class="num" style="color:#d8a0e8;">${s.totalXpExchanged || 0}</div><div class="lbl">Обменяно XP</div></div></div></div>`;
+      html += `<div class="stat-block"><h3>📈 Прогресс</h3><div class="big-numbers"><div class="big-number"><div class="num xp-color">${s.totalXpEarned}</div><div class="lbl">Всего XP</div></div><div class="big-number"><div class="num">${s.totalCompleted}</div><div class="lbl">Квестов</div></div><div class="big-number"><div class="num streak-color">${s.streak}</div><div class="lbl">Серия</div></div><div class="big-number"><div class="num" style="color: #ffb088;">${s.bestStreak}</div><div class="lbl">Лучшая</div></div></div><div class="progress-line" style="margin-top: 12px;"><div class="pl-top"><span class="pl-label">До ур. ${state.level + 1}</span><span class="pl-value">${xpIL} / 100 XP</span></div><div class="progress-bar-bg"><div class="progress-bar-fill" style="width: ${lvlP}%;"></div></div></div></div>`;
+      html += `<div class="stat-block"><h3>🎯 По типам</h3><div class="quest-type-stats"><div class="type-stat"><div class="ts-header">🧠 Ум</div><div class="ts-count mind-color">${s.mindCompleted}</div><div class="ts-bar"><div class="ts-bar-fill mind-fill" style="width: ${(s.mindCompleted / maxTC) * 100}%;"></div></div><div class="ts-pct">${mindPct}%</div></div><div class="type-stat"><div class="ts-header">💪 Тело</div><div class="ts-count body-color">${s.bodyCompleted}</div><div class="ts-bar"><div class="ts-bar-fill body-fill" style="width: ${(s.bodyCompleted / maxTC) * 100}%;"></div></div><div class="ts-pct">${bodyPct}%</div></div></div><div class="progress-line" style="margin-top: 10px;"><div class="pl-top"><span class="pl-label">🔥 Сложных</span><span class="pl-value" style="color: #ffb088;">${s.hardCompleted}</span></div></div></div>`;
+      html += `<div class="stat-block"><h3>📅 Активность</h3><div class="activity-grid">`;
       days.forEach(d => {
-        const classes = ['activity-day'];
-        if (d.isActive) classes.push('active');
-        if (d.isToday) classes.push('today');
-        html += `<div class="${classes.join(' ')}" title="${d.date}">${d.day}</div>`;
+        const c = ['activity-day']; if (d.isActive) c.push('active'); if (d.isToday) c.push('today');
+        html += `<div class="${c.join(' ')}" title="${d.date}">${d.day}</div>`;
       });
-      html += `</div><div class="activity-legend"><span>← 4 недели назад</span><span>Сегодня →</span></div></div>`;
-      if (total === 0) {
-        html += `<div class="empty-stats"><span class="emoji">🌱</span>Начните выполнять квесты!</div>`;
-      } else {
-        html += `
-          <div class="stat-block" style="margin-bottom: 0;">
-            <h3>💡 Итог</h3>
-            <div style="font-size: 13px; color: #a6bbc8; line-height: 1.6;">
-              Выполнено <b style="color:#e0f0fa;">${total}</b> квестов, заработано 
-              <b style="color:#b8e0a0;">${s.totalXpEarned} XP</b> и 
-              <b style="color:#a0d8ff;">${s.totalSoapEarned} 🧼</b>. 
-              ${s.streak > 1 ? `Серия — <b style="color:#ffd780;">${s.streak} дней!</b>` : 'Продолжайте!'}
-            </div>
-          </div>
-        `;
-      }
+      html += `</div><div class="activity-legend"><span>← 4 нед.</span><span>Сегодня →</span></div></div>`;
+      if (total === 0) html += `<div class="empty-stats"><span class="emoji">🌱</span>Начните выполнять!</div>`;
       statsContent.innerHTML = html;
     }
     function openStats() { renderStats(); statsModal.classList.add('open'); }
     function closeStats() { statsModal.classList.remove('open'); }
 
-    // ============ ПОЕДИНКИ ============
+    // ПОЕДИНКИ
     function getBattleData() {
       return {
         v: 1, lvl: state.level, xp: state.xp, soap: state.soap,
@@ -2841,7 +2378,7 @@
       } catch (e) { return null; }
     }
     function compareBattles(me, enemy) {
-      const categories = [
+      const cats = [
         { key: 'lvl', label: 'Уровень', icon: '🏋️', me: me.lvl, enemy: enemy.lvl },
         { key: 'totalXp', label: 'Всего XP', icon: '🧘', me: me.totalXp, enemy: enemy.totalXp },
         { key: 'totalQ', label: 'Квестов', icon: '📋', me: me.totalQ, enemy: enemy.totalQ },
@@ -2852,18 +2389,17 @@
         { key: 'relics', label: 'Реликвий', icon: '🏛️', me: me.relics, enemy: enemy.relics },
         { key: 'soap', label: 'Мыло', icon: '🧼', me: me.soap, enemy: enemy.soap },
       ];
-      let myWins = 0, enemyWins = 0, draws = 0;
-      const results = categories.map(c => {
-        let winner = 'draw';
-        if (c.me > c.enemy) { winner = 'me'; myWins++; }
-        else if (c.me < c.enemy) { winner = 'enemy'; enemyWins++; }
-        else { draws++; }
-        return { ...c, winner };
+      let mW = 0, eW = 0, dr = 0;
+      const results = cats.map(c => {
+        let w = 'draw';
+        if (c.me > c.enemy) { w = 'me'; mW++; }
+        else if (c.me < c.enemy) { w = 'enemy'; eW++; }
+        else dr++;
+        return { ...c, winner: w };
       });
       let overall = 'draw';
-      if (myWins > enemyWins) overall = 'win';
-      else if (myWins < enemyWins) overall = 'loss';
-      return { results, myWins, enemyWins, draws, overall };
+      if (mW > eW) overall = 'win'; else if (mW < eW) overall = 'loss';
+      return { results, myWins: mW, enemyWins: eW, draws: dr, overall };
     }
     function saveBattleToHistory(enemyData, comparison) {
       const battle = {
@@ -2880,75 +2416,19 @@
     }
     function renderBattle() {
       let html = '';
-      html += `
-        <div class="battle-intro">
-          <h3>⚔️ Арена поединков</h3>
-          <p>Бросьте вызов другу! Поделитесь своим кодом,<br>или вставьте код соперника для сравнения статистик.</p>
-          <div class="battle-actions">
-            <button class="battle-action-btn share" id="shareCodeBtn">📤 Поделиться кодом</button>
-            <button class="battle-action-btn fight" id="enterCodeBtn">⚔️ Ввести код соперника</button>
-          </div>
-          <div id="shareCodeArea"></div>
-        </div>
-      `;
+      html += `<div class="battle-intro"><h3>⚔️ Арена поединков</h3><p>Бросьте вызов другу! Поделитесь своим кодом,<br>или вставьте код соперника.</p><div class="battle-actions"><button class="battle-action-btn share" id="shareCodeBtn">📤 Поделиться кодом</button><button class="battle-action-btn fight" id="enterCodeBtn">⚔️ Ввести код</button></div><div id="shareCodeArea"></div></div>`;
       const my = getBattleData();
-      html += `
-        <div class="battle-player-card">
-          <h4>🛡️ Ваш профиль</h4>
-          <div class="battle-player-stats">
-            <div class="battle-player-stat"><div class="bps-val">${my.lvl}</div><div class="bps-lbl">Уровень</div></div>
-            <div class="battle-player-stat"><div class="bps-val">${my.totalXp}</div><div class="bps-lbl">Всего XP</div></div>
-            <div class="battle-player-stat"><div class="bps-val">${my.totalQ}</div><div class="bps-lbl">Квестов</div></div>
-            <div class="battle-player-stat"><div class="bps-val">${my.mind}</div><div class="bps-lbl">🧠 Ум</div></div>
-            <div class="battle-player-stat"><div class="bps-val">${my.body}</div><div class="bps-lbl">💪 Тело</div></div>
-            <div class="battle-player-stat"><div class="bps-val">${my.hard}</div><div class="bps-lbl">⭐ Сложных</div></div>
-          </div>
-        </div>
-      `;
+      html += `<div class="battle-player-card"><h4>🛡️ Ваш профиль</h4><div class="battle-player-stats"><div class="battle-player-stat"><div class="bps-val">${my.lvl}</div><div class="bps-lbl">Уровень</div></div><div class="battle-player-stat"><div class="bps-val">${my.totalXp}</div><div class="bps-lbl">Всего XP</div></div><div class="battle-player-stat"><div class="bps-val">${my.totalQ}</div><div class="bps-lbl">Квестов</div></div><div class="battle-player-stat"><div class="bps-val">${my.mind}</div><div class="bps-lbl">🧠 Ум</div></div><div class="battle-player-stat"><div class="bps-val">${my.body}</div><div class="bps-lbl">💪 Тело</div></div><div class="battle-player-stat"><div class="bps-val">${my.hard}</div><div class="bps-lbl">⭐ Сложных</div></div></div></div>`;
       const br = state.battleRecord;
-      const totalBattles = br.wins + br.losses + br.draws;
-      if (totalBattles > 0) {
-        html += `
-          <div class="battle-history">
-            <h3>🏆 Ваша запись</h3>
-            <div style="display: flex; gap: 12px; justify-content: space-around;">
-              <div style="text-align: center;">
-                <div style="font-size: 22px; font-weight: 700; color: #90e0a0;">${br.wins}</div>
-                <div style="font-size: 11px; color: #7a8b96;">Победы</div>
-              </div>
-              <div style="text-align: center;">
-                <div style="font-size: 22px; font-weight: 700; color: #e09090;">${br.losses}</div>
-                <div style="font-size: 11px; color: #7a8b96;">Поражения</div>
-              </div>
-              <div style="text-align: center;">
-                <div style="font-size: 22px; font-weight: 700; color: #e0d090;">${br.draws}</div>
-                <div style="font-size: 11px; color: #7a8b96;">Ничьи</div>
-              </div>
-            </div>
-          </div>
-        `;
-      }
-      html += `<div class="battle-history"><h3>📜 История боёв</h3>`;
-      if (state.battleHistory.length === 0) {
-        html += `<div class="battle-empty-history"><span class="emoji">⚔️</span>Ещё не было поединков.<br>Бросьте вызов другу!</div>`;
-      } else {
-        state.battleHistory.slice(0, 5).forEach(b => {
-          const icon = b.overall === 'win' ? '🏆' : b.overall === 'loss' ? '💀' : '🤝';
-          const resultText = b.overall === 'win' ? 'Победа' : b.overall === 'loss' ? 'Поражение' : 'Ничья';
-          html += `
-            <div class="battle-history-item ${b.overall}">
-              <div class="battle-history-left">
-                <div class="battle-history-icon">${icon}</div>
-                <div class="battle-history-info">
-                  <div class="battle-history-name">${resultText} vs Lv.${b.enemy.lvl}</div>
-                  <div class="battle-history-date">${formatDate(b.date)} • ${b.enemy.totalQ} квестов у врага</div>
-                </div>
-              </div>
-              <div class="battle-history-score ${b.overall}">${b.myWins}:${b.enemyWins}</div>
-            </div>
-          `;
-        });
-      }
+      const tB = br.wins + br.losses + br.draws;
+      if (tB > 0) html += `<div class="battle-history"><h3>🏆 Запись</h3><div style="display:flex;gap:12px;justify-content:space-around;"><div style="text-align:center;"><div style="font-size:22px;font-weight:700;color:#90e0a0;">${br.wins}</div><div style="font-size:11px;color:#7a8b96;">Победы</div></div><div style="text-align:center;"><div style="font-size:22px;font-weight:700;color:#e09090;">${br.losses}</div><div style="font-size:11px;color:#7a8b96;">Поражения</div></div><div style="text-align:center;"><div style="font-size:22px;font-weight:700;color:#e0d090;">${br.draws}</div><div style="font-size:11px;color:#7a8b96;">Ничьи</div></div></div></div>`;
+      html += `<div class="battle-history"><h3>📜 История</h3>`;
+      if (state.battleHistory.length === 0) html += `<div class="battle-empty-history"><span class="emoji">⚔️</span>Ещё не было боёв.</div>`;
+      else state.battleHistory.slice(0, 5).forEach(b => {
+        const ic = b.overall === 'win' ? '🏆' : b.overall === 'loss' ? '💀' : '🤝';
+        const rt = b.overall === 'win' ? 'Победа' : b.overall === 'loss' ? 'Поражение' : 'Ничья';
+        html += `<div class="battle-history-item ${b.overall}"><div class="battle-history-left"><div class="battle-history-icon">${ic}</div><div class="battle-history-info"><div class="battle-history-name">${rt} vs Lv.${b.enemy.lvl}</div><div class="battle-history-date">${formatDate(b.date)} • ${b.enemy.totalQ} кв.</div></div></div><div class="battle-history-score ${b.overall}">${b.myWins}:${b.enemyWins}</div></div>`;
+      });
       html += `</div>`;
       battleContent.innerHTML = html;
       document.getElementById('shareCodeBtn').addEventListener('click', showShareCode);
@@ -2957,154 +2437,80 @@
     function showShareCode() {
       const code = encodeBattleCode();
       const area = document.getElementById('shareCodeArea');
-      if (!code) { area.innerHTML = `<div class="battle-input-error show">Ошибка генерации кода</div>`; return; }
-      area.innerHTML = `
-        <div class="battle-code" id="myBattleCode">${code}</div>
-        <div class="battle-code-hint">👆 Нажмите на код, чтобы скопировать</div>
-      `;
+      if (!code) { area.innerHTML = `<div class="battle-input-error show">Ошибка</div>`; return; }
+      area.innerHTML = `<div class="battle-code" id="myBattleCode">${code}</div><div class="battle-code-hint">👆 Нажмите, чтобы скопировать</div>`;
       const codeEl = document.getElementById('myBattleCode');
       codeEl.addEventListener('click', async () => {
-        try {
-          await navigator.clipboard.writeText(code);
-          showToast('📋 Код скопирован!', 1800);
-        } catch (e) {
-          const range = document.createRange();
-          range.selectNode(codeEl);
-          window.getSelection().removeAllRanges();
-          window.getSelection().addRange(range);
-          try { document.execCommand('copy'); showToast('📋 Код скопирован!', 1800); }
+        try { await navigator.clipboard.writeText(code); showToast('📋 Скопирован!', 1800); }
+        catch (e) {
+          const r = document.createRange(); r.selectNode(codeEl);
+          window.getSelection().removeAllRanges(); window.getSelection().addRange(r);
+          try { document.execCommand('copy'); showToast('📋 Скопирован!', 1800); }
           catch (err) { showToast('⚠️ Скопируйте вручную', 2000); }
         }
       });
     }
     function showEnterCode() {
       const area = document.getElementById('shareCodeArea');
-      area.innerHTML = `
-        <div class="battle-input-container">
-          <label class="battle-input-label">📥 Вставьте код соперника (HF1-...):</label>
-          <textarea class="battle-input" id="battleCodeInput" placeholder="HF1-..."></textarea>
-          <div class="battle-input-error" id="battleInputError"></div>
-          <button class="battle-submit-btn" id="battleFightBtn">⚔️ Начать поединок</button>
-        </div>
-      `;
+      area.innerHTML = `<div class="battle-input-container"><label class="battle-input-label">📥 Код соперника (HF1-...):</label><textarea class="battle-input" id="battleCodeInput" placeholder="HF1-..."></textarea><div class="battle-input-error" id="battleInputError"></div><button class="battle-submit-btn" id="battleFightBtn">⚔️ Начать поединок</button></div>`;
       document.getElementById('battleFightBtn').addEventListener('click', () => {
         const input = document.getElementById('battleCodeInput').value.trim();
         const errEl = document.getElementById('battleInputError');
         if (!input) { errEl.textContent = 'Введите код'; errEl.classList.add('show'); return; }
         const enemyData = decodeBattleCode(input);
-        if (!enemyData) {
-          errEl.textContent = '❌ Неверный код. Проверьте и попробуйте снова.';
-          errEl.classList.add('show'); return;
-        }
+        if (!enemyData) { errEl.textContent = '❌ Неверный код'; errEl.classList.add('show'); return; }
         errEl.classList.remove('show');
         startBattle(enemyData);
       });
     }
     function startBattle(enemyData) {
       const my = getBattleData();
-      const comparison = compareBattles(my, enemyData);
-      saveBattleToHistory(enemyData, comparison);
-      renderBattleResult(enemyData, comparison);
+      const comp = compareBattles(my, enemyData);
+      saveBattleToHistory(enemyData, comp);
+      renderBattleResult(enemyData, comp);
     }
-    function renderBattleResult(enemyData, comparison) {
-      const overall = comparison.overall;
-      let headerClass, emoji, title;
-      if (overall === 'win') { headerClass = 'win'; emoji = '🏆'; title = 'ПОБЕДА!'; }
-      else if (overall === 'loss') { headerClass = 'loss'; emoji = '💀'; title = 'ПОРАЖЕНИЕ'; }
-      else { headerClass = 'draw'; emoji = '🤝'; title = 'НИЧЬЯ'; }
-      let html = `
-        <div class="battle-result-header ${headerClass}">
-          <div class="battle-result-emoji">${emoji}</div>
-          <div class="battle-result-title">${title}</div>
-          <div class="battle-result-score">Счёт: ${comparison.myWins} : ${comparison.enemyWins}${comparison.draws > 0 ? ` (${comparison.draws} ничьих)` : ''}</div>
-        </div>
-      `;
-      html += `
-        <div class="battle-player-card enemy">
-          <h4>⚔️ Соперник</h4>
-          <div class="battle-player-stats">
-            <div class="battle-player-stat"><div class="bps-val">${enemyData.lvl}</div><div class="bps-lbl">Уровень</div></div>
-            <div class="battle-player-stat"><div class="bps-val">${enemyData.totalXp}</div><div class="bps-lbl">Всего XP</div></div>
-            <div class="battle-player-stat"><div class="bps-val">${enemyData.totalQ}</div><div class="bps-lbl">Квестов</div></div>
-            <div class="battle-player-stat"><div class="bps-val">${enemyData.mind}</div><div class="bps-lbl">🧠 Ум</div></div>
-            <div class="battle-player-stat"><div class="bps-val">${enemyData.body}</div><div class="bps-lbl">💪 Тело</div></div>
-            <div class="battle-player-stat"><div class="bps-val">${enemyData.hard}</div><div class="bps-lbl">⭐ Сложных</div></div>
-          </div>
-        </div>
-      `;
+    function renderBattleResult(enemyData, comp) {
+      const o = comp.overall;
+      let hC, em, ti;
+      if (o === 'win') { hC = 'win'; em = '🏆'; ti = 'ПОБЕДА!'; }
+      else if (o === 'loss') { hC = 'loss'; em = '💀'; ti = 'ПОРАЖЕНИЕ'; }
+      else { hC = 'draw'; em = '🤝'; ti = 'НИЧЬЯ'; }
+      let html = `<div class="battle-result-header ${hC}"><div class="battle-result-emoji">${em}</div><div class="battle-result-title">${ti}</div><div class="battle-result-score">Счёт: ${comp.myWins} : ${comp.enemyWins}${comp.draws > 0 ? ` (${comp.draws} ничьих)` : ''}</div></div>`;
+      html += `<div class="battle-player-card enemy"><h4>⚔️ Соперник</h4><div class="battle-player-stats"><div class="battle-player-stat"><div class="bps-val">${enemyData.lvl}</div><div class="bps-lbl">Уровень</div></div><div class="battle-player-stat"><div class="bps-val">${enemyData.totalXp}</div><div class="bps-lbl">XP</div></div><div class="battle-player-stat"><div class="bps-val">${enemyData.totalQ}</div><div class="bps-lbl">Квестов</div></div><div class="battle-player-stat"><div class="bps-val">${enemyData.mind}</div><div class="bps-lbl">🧠</div></div><div class="battle-player-stat"><div class="bps-val">${enemyData.body}</div><div class="bps-lbl">💪</div></div><div class="battle-player-stat"><div class="bps-val">${enemyData.hard}</div><div class="bps-lbl">⭐</div></div></div></div>`;
       html += `<div class="battle-stats-list">`;
-      comparison.results.forEach(r => {
-        const meVal = r.me;
-        const enemyVal = r.enemy;
-        const meWin = r.winner === 'me';
-        const enemyWin = r.winner === 'enemy';
-        html += `
-          <div class="battle-stat-row ${meWin ? 'win-me' : ''} ${enemyWin ? 'win-enemy' : ''}">
-            <div class="battle-stat-side left">
-              <div class="battle-stat-value ${meWin ? 'win' : 'lose'}">${meVal}</div>
-              <div class="battle-stat-label">Вы</div>
-            </div>
-            <div class="battle-stat-middle">
-              <div class="battle-stat-icon">${r.icon}</div>
-              <div class="battle-stat-category">${r.label}</div>
-            </div>
-            <div class="battle-stat-side right">
-              <div class="battle-stat-value ${enemyWin ? 'win' : 'lose'}">${enemyVal}</div>
-              <div class="battle-stat-label">Соперник</div>
-            </div>
-          </div>
-        `;
+      comp.results.forEach(r => {
+        const meWin = r.winner === 'me', enWin = r.winner === 'enemy';
+        html += `<div class="battle-stat-row ${meWin ? 'win-me' : ''} ${enWin ? 'win-enemy' : ''}"><div class="battle-stat-side left"><div class="battle-stat-value ${meWin ? 'win' : 'lose'}">${r.me}</div><div class="battle-stat-label">Вы</div></div><div class="battle-stat-middle"><div class="battle-stat-icon">${r.icon}</div><div class="battle-stat-category">${r.label}</div></div><div class="battle-stat-side right"><div class="battle-stat-value ${enWin ? 'win' : 'lose'}">${r.enemy}</div><div class="battle-stat-label">Соперник</div></div></div>`;
       });
-      html += `</div>`;
-      html += `
-        <button class="battle-submit-btn" id="battleAgainBtn" style="background: linear-gradient(135deg, #2a3a4a, #3a4a5a); border-color: #5a7a9a; color: #d0e8f8;">
-          🔄 Новый поединок
-        </button>
-      `;
+      html += `</div><button class="battle-submit-btn" id="battleAgainBtn" style="background: linear-gradient(135deg, #2a3a4a, #3a4a5a); border-color: #5a7a9a; color: #d0e8f8;">🔄 Новый поединок</button>`;
       battleContent.innerHTML = html;
       document.getElementById('battleAgainBtn').addEventListener('click', renderBattle);
-      showToast(overall === 'win' ? '🏆 Победа! +1 в копилку' : overall === 'loss' ? '💀 Поражение' : '🤝 Ничья', 2500);
+      showToast(o === 'win' ? '🏆 Победа!' : o === 'loss' ? '💀 Поражение' : '🤝 Ничья', 2500);
     }
     function openBattle() { renderBattle(); battleModal.classList.add('open'); }
     function closeBattle() { battleModal.classList.remove('open'); }
 
     function resetProgress() {
-      if (confirm('Сбросить весь прогресс? (уровень, очки, квесты, мыло, реликвии, поединки)')) {
+      if (confirm('Сбросить весь прогресс?')) {
         localStorage.removeItem(STORAGE_KEY);
-        state = {
-          level: 1, xp: 0, dayCounter: 0, lastDate: null,
-          completedToday: [], currentQuests: [],
-          hardQuestUsed: false, hardQuestCompleted: false, hardQuestIndex: -1,
-          refreshCount: 2, hardRefreshCount: 1, mode: 'balance',
-          soap: 0, ownedRelics: [], activeRelic: null, streakShield: 0,
-          modeLocked: false,
-          battleHistory: [], battleRecord: { wins: 0, losses: 0, draws: 0 },
-          stats: {
-            totalCompleted: 0, mindCompleted: 0, bodyCompleted: 0,
-            hardCompleted: 0, totalXpEarned: 0, streak: 0, bestStreak: 0,
-            activeDays: [], totalSoapEarned: 0, totalSoapSpent: 0,
-            totalXpExchanged: 0,
-          },
-        };
-        document.querySelectorAll('.mode-btn').forEach(btn => {
-          btn.classList.toggle('active', btn.dataset.mode === 'balance');
-        });
+        state = { level: 1, xp: 0, dayCounter: 0, lastDate: null, completedToday: [], currentQuests: [], hardQuestUsed: false, hardQuestCompleted: false, hardQuestIndex: -1, refreshCount: 2, hardRefreshCount: 1, mode: 'balance', soap: 0, ownedRelics: [], activeRelic: null, streakShield: 0, modeLocked: false, battleHistory: [], battleRecord: { wins: 0, losses: 0, draws: 0 }, stats: { totalCompleted: 0, mindCompleted: 0, bodyCompleted: 0, hardCompleted: 0, totalXpEarned: 0, streak: 0, bestStreak: 0, activeDays: [], totalSoapEarned: 0, totalSoapSpent: 0, totalXpExchanged: 0 } };
+        document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.mode === 'balance'));
         modeHint.textContent = MODES.balance.hint;
         modeHint.classList.remove('locked-hint');
         modeSwitcher.classList.remove('locked');
         initDay(); render();
         closeStats(); closeShop(); closeBattle();
-        showToast('🔄 Прогресс сброшен', 1800);
+        showToast('🔄 Сброшено', 1800);
       }
     }
 
     function init() {
       loadState();
-      document.querySelectorAll('.mode-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.mode === state.mode);
-      });
+      document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.mode === state.mode));
       modeHint.textContent = MODES[state.mode].hint;
-      initDay(); recalcLevel(); render();
+      initDay();
+      recalcLevel();
+      render();
       modeSwitcher.addEventListener('click', function(e) {
         const btn = e.target.closest('.mode-btn');
         if (!btn || btn.disabled) return;
@@ -3119,17 +2525,17 @@
       shopCloseBtn.addEventListener('click', closeShop);
       battleBtn.addEventListener('click', openBattle);
       battleCloseBtn.addEventListener('click', closeBattle);
-      statsModal.addEventListener('click', function(e) { if (e.target === statsModal) closeStats(); });
-      shopModal.addEventListener('click', function(e) { if (e.target === shopModal) closeShop(); });
-      battleModal.addEventListener('click', function(e) { if (e.target === battleModal) closeBattle(); });
-      document.addEventListener('keydown', function(e) {
+      statsModal.addEventListener('click', e => { if (e.target === statsModal) closeStats(); });
+      shopModal.addEventListener('click', e => { if (e.target === shopModal) closeShop(); });
+      battleModal.addEventListener('click', e => { if (e.target === battleModal) closeBattle(); });
+      document.addEventListener('keydown', e => {
         if (e.key === 'Escape') { closeStats(); closeShop(); closeBattle(); }
       });
       setInterval(() => {
         const today = getTodayStr();
         if (state.lastDate !== today) {
           initDay(); recalcLevel(); render();
-          showToast('🌅 Новый день! Режим разблокирован.', 2400);
+          showToast('🌅 Новый день!', 2400);
         }
       }, 3600000);
     }
