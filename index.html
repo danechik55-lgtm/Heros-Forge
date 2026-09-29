@@ -12,92 +12,6 @@
       font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
       -webkit-tap-highlight-color: transparent;
     }
-
-    /* ============ АНИМИРОВАННЫЙ ОРАНЖЕВЫЙ ФОН ============ */
-    /* 
-      Приём: 3 радиальных градиента, каждый со своей длительностью
-      и задержкой → хаотичное движение.
-      Анимируются только background-position и opacity → GPU-friendly.
-      Никаких filter: blur(), никаких layout-триггеров.
-      will-change помогает браузеру вынести слои на GPU.
-    */
-    .bg-animated {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      overflow: hidden;
-      pointer-events: none;
-      background: #0b0d0e;
-    }
-    .bg-animated::before,
-    .bg-animated::after,
-    .bg-animated .bg-layer {
-      content: '';
-      position: absolute;
-      inset: -50%;
-      background-repeat: no-repeat;
-      will-change: background-position, opacity;
-      pointer-events: none;
-    }
-    /* Слой 1 — тёплые оранжевые всполохи */
-    .bg-animated::before {
-      background-image:
-        radial-gradient(circle at 20% 30%, rgba(255, 140, 40, 0.22) 0%, transparent 45%),
-        radial-gradient(circle at 80% 70%, rgba(255, 100, 20, 0.18) 0%, transparent 50%),
-        radial-gradient(circle at 50% 50%, rgba(255, 170, 60, 0.12) 0%, transparent 55%);
-      background-size: 70% 70%, 65% 65%, 80% 80%;
-      background-position: 0% 0%, 100% 100%, 50% 50%;
-      animation: bgMove1 24s ease-in-out infinite alternate;
-    }
-    /* Слой 2 — глубокие тёмно-оранжевые тени */
-    .bg-animated::after {
-      background-image:
-        radial-gradient(circle at 70% 20%, rgba(200, 60, 10, 0.20) 0%, transparent 50%),
-        radial-gradient(circle at 30% 80%, rgba(255, 130, 30, 0.16) 0%, transparent 45%);
-      background-size: 80% 80%, 75% 75%;
-      background-position: 100% 0%, 0% 100%;
-      animation: bgMove2 31s ease-in-out infinite alternate;
-      opacity: 0.9;
-    }
-    /* Слой 3 — плавающие искры (очень лёгкие) */
-    .bg-animated .bg-layer {
-      background-image:
-        radial-gradient(circle at 15% 85%, rgba(255, 200, 100, 0.14) 0%, transparent 40%),
-        radial-gradient(circle at 85% 15%, rgba(255, 90, 10, 0.14) 0%, transparent 45%),
-        radial-gradient(circle at 45% 55%, rgba(255, 160, 50, 0.10) 0%, transparent 50%);
-      background-size: 55% 55%, 60% 60%, 50% 50%;
-      background-position: 50% 100%, 0% 0%, 100% 50%;
-      animation: bgMove3 19s ease-in-out infinite alternate;
-    }
-
-    @keyframes bgMove1 {
-      0%   { background-position: 0% 0%, 100% 100%, 50% 50%; }
-      25%  { background-position: 40% 15%, 60% 80%, 20% 70%; }
-      50%  { background-position: 100% 50%, 0% 30%, 80% 20%; }
-      75%  { background-position: 30% 90%, 70% 10%, 40% 60%; }
-      100% { background-position: 80% 30%, 20% 70%, 60% 40%; }
-    }
-    @keyframes bgMove2 {
-      0%   { background-position: 100% 0%, 0% 100%; opacity: 0.85; }
-      33%  { background-position: 20% 60%, 80% 20%; opacity: 1; }
-      66%  { background-position: 70% 100%, 30% 0%; opacity: 0.75; }
-      100% { background-position: 0% 30%, 100% 80%; opacity: 0.95; }
-    }
-    @keyframes bgMove3 {
-      0%   { background-position: 50% 100%, 0% 0%, 100% 50%; opacity: 0.7; }
-      50%  { background-position: 10% 20%, 90% 70%, 30% 10%; opacity: 1; }
-      100% { background-position: 80% 40%, 20% 90%, 70% 80%; opacity: 0.8; }
-    }
-
-    /* Уважаем настройки пользователя по уменьшению анимаций */
-    @media (prefers-reduced-motion: reduce) {
-      .bg-animated::before,
-      .bg-animated::after,
-      .bg-animated .bg-layer {
-        animation: none;
-      }
-    }
-
     html, body {
       min-height: 100vh;
       min-height: -webkit-fill-available;
@@ -107,17 +21,186 @@
       justify-content: center;
       align-items: flex-start;
       padding: 12px;
+      position: relative;
+      overflow-x: hidden;
     }
+
+    /* ===== ПЕРЕЛИВАЮЩИЙСЯ ОРАНЖЕВЫЙ ФОН ===== */
+    .bg-animated {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: #0b0d0e;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    /* Слой 1: Большие плавающие пятна */
+    .bg-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.55;
+      will-change: transform;
+    }
+    .bg-blob-1 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, #ff6b1a 0%, #ff8c42 40%, transparent 70%);
+      top: -10%;
+      left: -10%;
+      animation: blobFloat1 18s ease-in-out infinite;
+    }
+    .bg-blob-2 {
+      width: 450px;
+      height: 450px;
+      background: radial-gradient(circle, #ff9d3a 0%, #ff7a1a 40%, transparent 70%);
+      bottom: -15%;
+      right: -10%;
+      animation: blobFloat2 22s ease-in-out infinite;
+    }
+    .bg-blob-3 {
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, #ff5a00 0%, #ffaa44 40%, transparent 70%);
+      top: 40%;
+      left: 30%;
+      animation: blobFloat3 25s ease-in-out infinite;
+      opacity: 0.4;
+    }
+    .bg-blob-4 {
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(circle, #ffb866 0%, #ff6b1a 40%, transparent 70%);
+      top: 20%;
+      right: 10%;
+      animation: blobFloat4 20s ease-in-out infinite;
+      opacity: 0.35;
+    }
+
+    /* Слой 2: Градиентная дымка */
+    .bg-gradient {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        135deg,
+        rgba(255, 107, 26, 0.15) 0%,
+        rgba(255, 140, 66, 0.08) 25%,
+        rgba(255, 90, 0, 0.18) 50%,
+        rgba(255, 157, 58, 0.1) 75%,
+        rgba(255, 107, 26, 0.15) 100%
+      );
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      mix-blend-mode: screen;
+    }
+
+    /* Слой 3: Мерцающие частицы */
+    .bg-particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: #ffaa55;
+      border-radius: 50%;
+      box-shadow: 0 0 8px 2px rgba(255, 140, 66, 0.6);
+      animation: particleFloat linear infinite;
+      opacity: 0;
+    }
+    @keyframes particleFloat {
+      0% { transform: translateY(100vh) translateX(0) scale(0.5); opacity: 0; }
+      10% { opacity: 0.8; }
+      90% { opacity: 0.8; }
+      100% { transform: translateY(-20vh) translateX(50px) scale(1.2); opacity: 0; }
+    }
+
+    /* Слой 4: Лёгкое затемнение поверх, чтобы контент читался */
+    .bg-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(
+        ellipse at center,
+        rgba(11, 13, 14, 0.4) 0%,
+        rgba(11, 13, 14, 0.75) 100%
+      );
+      pointer-events: none;
+    }
+
+    /* Анимации для пятен — хаотичные движения */
+    @keyframes blobFloat1 {
+      0% { transform: translate(0, 0) scale(1); }
+      20% { transform: translate(15vw, 10vh) scale(1.15); }
+      40% { transform: translate(-5vw, 25vh) scale(0.9); }
+      60% { transform: translate(20vw, 5vh) scale(1.1); }
+      80% { transform: translate(5vw, 30vh) scale(1.05); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+    @keyframes blobFloat2 {
+      0% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(-20vw, -15vh) scale(1.2); }
+      50% { transform: translate(-5vw, -30vh) scale(0.85); }
+      75% { transform: translate(-25vw, -5vh) scale(1.1); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+    @keyframes blobFloat3 {
+      0% { transform: translate(0, 0) scale(1); }
+      30% { transform: translate(-15vw, 20vh) scale(1.25); }
+      60% { transform: translate(10vw, -10vh) scale(0.8); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+    @keyframes blobFloat4 {
+      0% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(-18vw, 22vh) scale(1.15); }
+      66% { transform: translate(-8vw, -15vh) scale(1.3); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      25% { background-position: 100% 0%; }
+      50% { background-position: 100% 100%; }
+      75% { background-position: 0% 100%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Отключение анимаций для пользователей с prefers-reduced-motion */
+    @media (prefers-reduced-motion: reduce) {
+      .bg-blob, .bg-gradient, .particle {
+        animation: none !important;
+      }
+    }
+
+    /* ===== ОСНОВНОЙ КОНТЕНТ ===== */
     .app {
       max-width: 500px;
       width: 100%;
-      background: #14181a;
+      background: rgba(20, 24, 26, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border-radius: 32px;
       padding: 20px 16px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 0 1px rgba(255, 140, 40, 0.05);
-      border: 1px solid #2a3135;
+      box-shadow: 
+        0 20px 40px rgba(0,0,0,0.8),
+        0 0 60px rgba(255, 107, 26, 0.08),
+        inset 0 1px 0 rgba(255, 140, 66, 0.1);
+      border: 1px solid rgba(255, 140, 66, 0.15);
       margin: 0 auto;
       position: relative;
+      z-index: 1;
     }
     h1 {
       font-size: 22px;
@@ -688,15 +771,19 @@
     }
     .modal-overlay.open { opacity: 1; pointer-events: auto; }
     .modal {
-      background: #14181a;
+      background: rgba(20, 24, 26, 0.96);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border-radius: 32px;
       padding: 24px 20px;
       width: 100%;
       max-width: 500px;
       max-height: 90vh;
       overflow-y: auto;
-      border: 1px solid #2a3135;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.9), 0 0 0 1px rgba(255, 140, 40, 0.08);
+      border: 1px solid rgba(255, 140, 66, 0.2);
+      box-shadow: 
+        0 25px 50px rgba(0,0,0,0.9),
+        0 0 80px rgba(255, 107, 26, 0.08);
       transform: scale(0.95);
       transition: transform 0.25s ease;
       scrollbar-width: thin;
@@ -1214,9 +1301,7 @@
       border-color: #d04040;
       color: #ffc0c0;
     }
-    .battle-action-btn:active {
-      transform: scale(0.95);
-    }
+    .battle-action-btn:active { transform: scale(0.95); }
     .battle-code {
       background: #0b0d0e;
       border: 1px solid #3a5a6a;
@@ -1233,13 +1318,8 @@
       cursor: pointer;
       transition: 0.2s;
     }
-    .battle-code:hover {
-      background: #101618;
-      border-color: #5a8aa0;
-    }
-    .battle-code:active {
-      transform: scale(0.98);
-    }
+    .battle-code:hover { background: #101618; border-color: #5a8aa0; }
+    .battle-code:active { transform: scale(0.98); }
     .battle-code-hint {
       font-size: 10px;
       color: #6a8a9a;
@@ -1298,9 +1378,7 @@
       border-bottom: 1px solid #1e2529;
       gap: 10px;
     }
-    .battle-stat-row:last-child {
-      border-bottom: none;
-    }
+    .battle-stat-row:last-child { border-bottom: none; }
     .battle-stat-row.win-me {
       background: linear-gradient(90deg, rgba(90, 138, 90, 0.15), transparent 50%, transparent 50%);
     }
@@ -1312,27 +1390,16 @@
       flex-direction: column;
       gap: 2px;
     }
-    .battle-stat-side.left {
-      align-items: flex-start;
-      text-align: left;
-    }
-    .battle-stat-side.right {
-      align-items: flex-end;
-      text-align: right;
-    }
+    .battle-stat-side.left { align-items: flex-start; text-align: left; }
+    .battle-stat-side.right { align-items: flex-end; text-align: right; }
     .battle-stat-value {
       font-size: 16px;
       font-weight: 700;
       color: #e0f0fa;
       line-height: 1.1;
     }
-    .battle-stat-value.win {
-      color: #90e0a0;
-    }
-    .battle-stat-value.lose {
-      color: #a6bbc8;
-      opacity: 0.7;
-    }
+    .battle-stat-value.win { color: #90e0a0; }
+    .battle-stat-value.lose { color: #a6bbc8; opacity: 0.7; }
     .battle-stat-label {
       font-size: 10px;
       color: #7a8b96;
@@ -1361,9 +1428,7 @@
       gap: 2px;
       min-width: 70px;
     }
-    .battle-input-container {
-      margin-top: 12px;
-    }
+    .battle-input-container { margin-top: 12px; }
     .battle-input-label {
       font-size: 12px;
       color: #a6bbc8;
@@ -1421,13 +1486,8 @@
       border-color: #d04040;
       color: #ffe0e0;
     }
-    .battle-submit-btn:active:not(:disabled) {
-      transform: scale(0.97);
-    }
-    .battle-submit-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
+    .battle-submit-btn:active:not(:disabled) { transform: scale(0.97); }
+    .battle-submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
     .battle-history {
       background: #101618;
       border-radius: 20px;
@@ -1469,10 +1529,7 @@
       flex: 1;
       min-width: 0;
     }
-    .battle-history-icon {
-      font-size: 18px;
-      flex-shrink: 0;
-    }
+    .battle-history-icon { font-size: 18px; flex-shrink: 0; }
     .battle-history-info {
       display: flex;
       flex-direction: column;
@@ -1487,10 +1544,7 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-    .battle-history-date {
-      font-size: 10px;
-      color: #7a8b96;
-    }
+    .battle-history-date { font-size: 10px; color: #7a8b96; }
     .battle-history-score {
       font-weight: 700;
       font-size: 13px;
@@ -1531,17 +1585,13 @@
       margin-bottom: 10px;
       font-weight: 600;
     }
-    .battle-player-card.enemy h4 {
-      color: #c89aac;
-    }
+    .battle-player-card.enemy h4 { color: #c89aac; }
     .battle-player-stats {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 8px;
     }
-    .battle-player-stat {
-      text-align: center;
-    }
+    .battle-player-stat { text-align: center; }
     .battle-player-stat .bps-val {
       font-size: 18px;
       font-weight: 700;
@@ -1592,6 +1642,10 @@
       .battle-player-stats { gap: 4px; }
       .battle-player-stat .bps-val { font-size: 15px; }
       .battle-player-stat .bps-lbl { font-size: 9px; }
+      .bg-blob-1 { width: 300px; height: 300px; filter: blur(60px); }
+      .bg-blob-2 { width: 280px; height: 280px; filter: blur(60px); }
+      .bg-blob-3 { width: 250px; height: 250px; filter: blur(50px); }
+      .bg-blob-4 { width: 220px; height: 220px; filter: blur(50px); }
     }
     @media (max-width: 360px) {
       .stats-grid { flex-direction: column; gap: 4px; }
@@ -1625,9 +1679,16 @@
   </style>
 </head>
 <body>
-<!-- Анимированный фон -->
+
+<!-- ===== ПЕРЕЛИВАЮЩИЙСЯ ОРАНЖЕВЫЙ ФОН ===== -->
 <div class="bg-animated" aria-hidden="true">
-  <div class="bg-layer"></div>
+  <div class="bg-gradient"></div>
+  <div class="bg-blob bg-blob-1"></div>
+  <div class="bg-blob bg-blob-2"></div>
+  <div class="bg-blob bg-blob-3"></div>
+  <div class="bg-blob bg-blob-4"></div>
+  <div class="bg-particles" id="bgParticles"></div>
+  <div class="bg-overlay"></div>
 </div>
 
 <div class="app" id="app">
@@ -1737,6 +1798,25 @@
 <script>
   (function(){
     "use strict";
+
+    // ===== ГЕНЕРАЦИЯ ЧАСТИЦ НА ФОНЕ =====
+    function generateParticles() {
+      const container = document.getElementById('bgParticles');
+      if (!container) return;
+      const count = 25;
+      for (let i = 0; i < count; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.style.left = Math.random() * 100 + '%';
+        p.style.animationDuration = (10 + Math.random() * 15) + 's';
+        p.style.animationDelay = (Math.random() * 10) + 's';
+        const size = 1 + Math.random() * 3;
+        p.style.width = size + 'px';
+        p.style.height = size + 'px';
+        container.appendChild(p);
+      }
+    }
+    generateParticles();
 
     const XP_TO_SOAP_RATE = 500;
     const SOAP_REWARD = 20;
@@ -2041,7 +2121,7 @@
       toastEl.textContent = message;
       toastEl.classList.add('show');
       clearTimeout(toastTimeout);
-      toastTimeout = setTimeout(() => toastEl.classList.remove('show'), duration);
+      toastTimeout = setTimeout(() => { toastEl.classList.remove('show'); }, duration);
     }
     function getActiveRelic() {
       if (!state.activeRelic) return null;
@@ -2058,9 +2138,7 @@
       const boost = getBoostForQuest(quest);
       return Math.round(quest.xp * (1 + boost));
     }
-    function getQuestSoapReward(quest) {
-      return quest.isHard ? HARD_QUEST_SOAP : NORMAL_QUEST_SOAP;
-    }
+    function getQuestSoapReward(quest) { return quest.isHard ? HARD_QUEST_SOAP : NORMAL_QUEST_SOAP; }
     function isModeLocked() { return state.modeLocked; }
 
     function updateStreakOnNewDay(oldDate, newDate) {
@@ -2068,13 +2146,13 @@
       const oldD = new Date(oldDate + 'T00:00:00');
       const newD = new Date(newDate + 'T00:00:00');
       const diffDays = Math.round((newD - oldD) / (1000 * 60 * 60 * 24));
-      if (diffDays === 1) state.stats.streak = (state.stats.streak || 0) + 1;
+      if (diffDays === 1) { state.stats.streak = (state.stats.streak || 0) + 1; }
       else if (diffDays > 1) {
         if (state.streakShield > 0 && diffDays === 2) {
           state.streakShield -= 1;
           state.stats.streak = (state.stats.streak || 0) + 1;
           showToast('🛡️ Щит серии использован!', 2500);
-        } else state.stats.streak = 1;
+        } else { state.stats.streak = 1; }
       }
       if (state.stats.streak > (state.stats.bestStreak || 0)) state.stats.bestStreak = state.stats.streak;
     }
@@ -2085,7 +2163,6 @@
         if (state.stats.activeDays.length > 60) state.stats.activeDays = state.stats.activeDays.slice(-60);
       }
     }
-
     function generateDailyQuests(level, mode) {
       const modeConfig = MODES[mode] || MODES.balance;
       const allowedTypes = modeConfig.questTypes;
@@ -2100,7 +2177,6 @@
         return { type: template.type, title: template.baseTitle, desc: template.baseDesc(level), xp: scaledXp };
       });
     }
-
     function generateHardQuest(level, mode) {
       const modeConfig = MODES[mode] || MODES.balance;
       const allowedTypes = modeConfig.questTypes;
@@ -2112,21 +2188,18 @@
       const scaledXp = Math.round(baseQuest.xp * xpMultiplier);
       return { ...baseQuest, xp: scaledXp };
     }
-
     function recalcLevel() {
       const newLevel = Math.floor(state.xp / 100) + 1;
       if (newLevel > state.level) {
         state.level = newLevel;
         levelUpBadge.style.display = 'inline-block';
         showToast(`⬆ Уровень ${state.level}!`, 2500);
-        setTimeout(() => levelUpBadge.style.display = 'none', 2800);
-      } else state.level = Math.max(1, newLevel);
+        setTimeout(() => { levelUpBadge.style.display = 'none'; }, 2800);
+      } else { state.level = Math.max(1, newLevel); }
     }
-
     function saveState() {
       try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
     }
-
     function loadState() {
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
@@ -2169,7 +2242,6 @@
         return true;
       } catch (e) { return false; }
     }
-
     function initDay() {
       const today = getTodayStr();
       todayDate.textContent = formatDate(today);
@@ -2200,16 +2272,14 @@
         saveState();
       }
     }
-
     function isAllQuestsCompleted() {
       const totalQuests = state.currentQuests.length;
       if (totalQuests === 0) return false;
       return state.completedToday.length === totalQuests;
     }
-
     function switchMode(newMode) {
       if (state.mode === newMode) return;
-      if (isModeLocked()) { showToast('🔒 Режим зафиксирован!', 2800); return; }
+      if (isModeLocked()) { showToast('🔒 Режим зафиксирован! Вы уже начали выполнять квесты.', 2800); return; }
       state.mode = newMode;
       document.querySelectorAll('.mode-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.mode === newMode);
@@ -2221,10 +2291,10 @@
       state.hardQuestCompleted = false;
       state.hardQuestIndex = -1;
       state.hardRefreshCount = 1;
-      saveState(); render();
+      saveState();
+      render();
       showToast(`${MODES[newMode].label} — квесты обновлены`, 2000);
     }
-
     function refreshQuests() {
       if (isAllQuestsCompleted()) { showToast('✅ Все квесты выполнены!', 2500); return; }
       if (state.refreshCount <= 0) { showToast('⚠️ Лимит обновлений исчерпан', 2000); return; }
@@ -2236,13 +2306,19 @@
         if (q && !q.isHard) completedTitles.add(q.title);
       });
       const newCompleted = [];
-      newQuests.forEach((q, idx) => { if (completedTitles.has(q.title)) newCompleted.push(idx); });
+      newQuests.forEach((q, idx) => {
+        if (completedTitles.has(q.title)) newCompleted.push(idx);
+      });
       let hasHard = false, hardData = null;
       if (state.hardQuestIndex >= 0 && state.hardQuestIndex < state.currentQuests.length) {
         const hq = state.currentQuests[state.hardQuestIndex];
         if (hq && hq.isHard) {
-          if (!state.completedToday.includes(state.hardQuestIndex)) { hasHard = true; hardData = hq; }
-          else { state.hardQuestCompleted = true; state.hardQuestUsed = true; }
+          if (!state.completedToday.includes(state.hardQuestIndex)) {
+            hasHard = true; hardData = hq;
+          } else {
+            state.hardQuestCompleted = true;
+            state.hardQuestUsed = true;
+          }
         }
       }
       let final = [...newQuests], hIdx = -1;
@@ -2256,7 +2332,6 @@
       showToast(`🔄 Обновлено (осталось ${state.refreshCount}/2)`, 1800);
       recalcLevel(); saveState(); render();
     }
-
     function handleHardQuest() {
       if (isAllQuestsCompleted()) { showToast('✅ Все квесты выполнены!', 2500); return; }
       if (state.hardRefreshCount <= 0) { showToast('⚠️ Лимит сложных квестов', 2000); return; }
@@ -2264,7 +2339,9 @@
       if (state.hardQuestIndex >= 0 && state.hardQuestIndex < state.currentQuests.length) {
         const existing = state.currentQuests[state.hardQuestIndex];
         if (existing && existing.isHard) {
-          if (state.completedToday.includes(state.hardQuestIndex)) { showToast('⚠️ Уже выполнен', 2000); return; }
+          if (state.completedToday.includes(state.hardQuestIndex)) {
+            showToast('⚠️ Сложный квест уже выполнен', 2000); return;
+          }
           state.currentQuests.splice(state.hardQuestIndex, 1);
           state.hardQuestIndex = -1;
         }
@@ -2280,7 +2357,6 @@
       showToast(`⭐ Сложный квест (осталось ${state.hardRefreshCount}/1)`, 2000);
       recalcLevel(); saveState(); render();
     }
-
     function completeQuest(index) {
       if (state.completedToday.includes(index)) return;
       const quest = state.currentQuests[index];
@@ -2305,17 +2381,17 @@
         state.hardQuestCompleted = true;
         state.hardQuestUsed = true;
         showToast(`⭐ +${boostedXp} XP${boostText} • +${soapReward} 🧼`, 2200);
-      } else showToast(`✅ +${boostedXp} XP${boostText} • +${soapReward} 🧼${lockText}`, 2000);
+      } else {
+        showToast(`✅ +${boostedXp} XP${boostText} • +${soapReward} 🧼${lockText}`, 2000);
+      }
       recalcLevel(); saveState(); render();
     }
-
     function render() {
       levelDisplay.textContent = state.level;
       xpDisplay.innerHTML = `${state.xp} <small>XP</small>`;
       dayCounter.textContent = state.dayCounter;
       soapDisplay.innerHTML = `${state.soap} <small>🧼</small>`;
       difficultyLevel.textContent = `⚡ Lv.${state.level}`;
-
       const relic = getActiveRelic();
       if (relic) {
         activeRelicBanner.style.display = 'flex';
@@ -2325,17 +2401,15 @@
         if (relic.type === 'mind') boostText += ' (только ум)';
         else if (relic.type === 'body') boostText += ' (только тело)';
         activeRelicDesc.textContent = boostText;
-      } else activeRelicBanner.style.display = 'none';
-
+      } else { activeRelicBanner.style.display = 'none'; }
       const allCompleted = isAllQuestsCompleted();
       const modeLocked = isModeLocked();
-
       document.querySelectorAll('.mode-btn').forEach(btn => {
-        btn.disabled = btn.dataset.mode !== state.mode && modeLocked;
+        if (btn.dataset.mode === state.mode) btn.disabled = false;
+        else btn.disabled = modeLocked;
       });
       if (modeLocked) modeSwitcher.classList.add('locked');
       else modeSwitcher.classList.remove('locked');
-
       if (modeLocked && !allCompleted) {
         modeHint.textContent = '🔒 Режим зафиксирован на сегодня (выполнен квест)';
         modeHint.classList.add('locked-hint');
@@ -2343,7 +2417,6 @@
         modeHint.textContent = MODES[state.mode].hint;
         modeHint.classList.remove('locked-hint');
       }
-
       if (allCompleted) {
         refreshBtn.disabled = true;
         refreshBadge.textContent = '✓';
@@ -2355,7 +2428,6 @@
         refreshBadge.style.background = '#3a4f58';
         refreshBtn.style.opacity = state.refreshCount <= 0 ? '0.4' : '1';
       }
-
       const isLocked = state.hardQuestCompleted;
       const isExhausted = state.hardRefreshCount <= 0;
       if (allCompleted) {
@@ -2384,12 +2456,10 @@
         hardQuestBadge.style.background = '#ff6b35';
         hardQuestBtn.style.opacity = '1';
       }
-
       if (!state.currentQuests || state.currentQuests.length === 0) {
         questContainer.innerHTML = `<div class="empty-quests"><span class="emoji">📭</span>Нет активных квестов</div>`;
         return;
       }
-
       let html = '';
       state.currentQuests.forEach((quest, index) => {
         const isDone = state.completedToday.includes(index);
@@ -2423,7 +2493,6 @@
         `;
       });
       questContainer.innerHTML = html;
-
       if (allCompleted) {
         const notice = document.createElement('div');
         notice.className = 'all-completed-notice';
@@ -2437,7 +2506,6 @@
         const existing = questContainer.querySelector('.mode-locked-notice');
         if (!existing) questContainer.appendChild(notice);
       }
-
       document.querySelectorAll('.btn-done:not(.completed)').forEach(btn => {
         btn.addEventListener('click', function(e) {
           e.stopPropagation();
@@ -2517,7 +2585,9 @@
               ${state.xp} XP → ${Math.floor(state.xp / XP_TO_SOAP_RATE) * SOAP_REWARD} 🧼 (${Math.floor(state.xp / XP_TO_SOAP_RATE)} обменов)
             </div>
           </div>
-          <button class="shop-buy-btn exchange-btn" data-action="exchange-xp" ${!canExchange ? 'disabled' : ''}>Обменять</button>
+          <button class="shop-buy-btn exchange-btn" data-action="exchange-xp" ${!canExchange ? 'disabled' : ''}>
+            Обменять
+          </button>
         </div>
       `;
       html += `<div class="shop-section-title">🧪 Расходники</div>`;
@@ -2550,20 +2620,21 @@
         });
       });
     }
-
     function buyRelic(relicId) {
       const relic = SHOP_ITEMS.relics.find(r => r.id === relicId);
-      if (!relic || state.ownedRelics.includes(relicId)) { showToast('⚠️ Уже куплена', 1800); return; }
+      if (!relic) return;
+      if (state.ownedRelics.includes(relicId)) { showToast('⚠️ Уже куплена', 1800); return; }
       if (state.soap < relic.price) { showToast('⚠️ Недостаточно мыла', 1800); return; }
       if (!confirm(`Купить "${relic.name}" за ${relic.price} 🧼?`)) return;
       state.soap -= relic.price;
       state.stats.totalSoapSpent += relic.price;
       state.ownedRelics.push(relicId);
-      if (!state.activeRelic) { state.activeRelic = relicId; showToast(`${relic.icon} Куплена и активирована!`, 2500); }
-      else showToast(`${relic.icon} Куплена!`, 2200);
+      if (!state.activeRelic) {
+        state.activeRelic = relicId;
+        showToast(`${relic.icon} Куплена и активирована!`, 2500);
+      } else { showToast(`${relic.icon} Куплена!`, 2200); }
       saveState(); render(); renderShop();
     }
-
     function activateRelic(relicId) {
       if (!state.ownedRelics.includes(relicId)) return;
       const relic = SHOP_ITEMS.relics.find(r => r.id === relicId);
@@ -2572,13 +2643,12 @@
       saveState(); render(); renderShop();
       showToast(`${relic.icon} ${relic.name} активирована!`, 2000);
     }
-
     function exchangeXpForSoap() {
       if (state.xp < XP_TO_SOAP_RATE) { showToast(`⚠️ Нужно ${XP_TO_SOAP_RATE} XP`, 2000); return; }
       const exchangesPossible = Math.floor(state.xp / XP_TO_SOAP_RATE);
       const totalXpToSpend = exchangesPossible * XP_TO_SOAP_RATE;
       const totalSoapToGet = exchangesPossible * SOAP_REWARD;
-      if (!confirm(`Обменять ${totalXpToSpend} XP на ${totalSoapToGet} 🧼?`)) return;
+      if (!confirm(`Обменять ${totalXpToSpend} XP на ${totalSoapToGet} 🧼?\n\nУровень может понизиться!`)) return;
       state.xp -= totalXpToSpend;
       state.soap += totalSoapToGet;
       state.stats.totalXpExchanged += totalXpToSpend;
@@ -2587,7 +2657,6 @@
       saveState(); render(); renderShop();
       showToast(`💱 ${totalXpToSpend} XP → ${totalSoapToGet} 🧼`, 2500);
     }
-
     function recalcLevelAfterExchange() {
       const newLevel = Math.floor(state.xp / 100) + 1;
       if (newLevel !== state.level) {
@@ -2597,11 +2666,10 @@
         else if (state.level > oldLevel) {
           levelUpBadge.style.display = 'inline-block';
           showToast(`⬆ Уровень ${state.level}!`, 2500);
-          setTimeout(() => levelUpBadge.style.display = 'none', 2800);
+          setTimeout(() => { levelUpBadge.style.display = 'none'; }, 2800);
         }
       }
     }
-
     function buyConsumable(itemId) {
       const item = SHOP_ITEMS.consumables.find(c => c.id === itemId);
       if (!item) return;
@@ -2631,7 +2699,6 @@
       saveState(); render(); renderShop();
       showToast(`${item.icon} ${effectMessage}`, 2400);
     }
-
     function openShop() { renderShop(); shopModal.classList.add('open'); }
     function closeShop() { shopModal.classList.remove('open'); }
 
@@ -2721,21 +2788,23 @@
         html += `<div class="${classes.join(' ')}" title="${d.date}">${d.day}</div>`;
       });
       html += `</div><div class="activity-legend"><span>← 4 недели назад</span><span>Сегодня →</span></div></div>`;
-      if (total === 0) html += `<div class="empty-stats"><span class="emoji">🌱</span>Начните выполнять квесты!</div>`;
-      else html += `
-        <div class="stat-block" style="margin-bottom: 0;">
-          <h3>💡 Итог</h3>
-          <div style="font-size: 13px; color: #a6bbc8; line-height: 1.6;">
-            Выполнено <b style="color:#e0f0fa;">${total}</b> квестов, заработано 
-            <b style="color:#b8e0a0;">${s.totalXpEarned} XP</b> и 
-            <b style="color:#a0d8ff;">${s.totalSoapEarned} 🧼</b>. 
-            ${s.streak > 1 ? `Серия — <b style="color:#ffd780;">${s.streak} дней!</b>` : 'Продолжайте!'}
+      if (total === 0) {
+        html += `<div class="empty-stats"><span class="emoji">🌱</span>Начните выполнять квесты!</div>`;
+      } else {
+        html += `
+          <div class="stat-block" style="margin-bottom: 0;">
+            <h3>💡 Итог</h3>
+            <div style="font-size: 13px; color: #a6bbc8; line-height: 1.6;">
+              Выполнено <b style="color:#e0f0fa;">${total}</b> квестов, заработано 
+              <b style="color:#b8e0a0;">${s.totalXpEarned} XP</b> и 
+              <b style="color:#a0d8ff;">${s.totalSoapEarned} 🧼</b>. 
+              ${s.streak > 1 ? `Серия — <b style="color:#ffd780;">${s.streak} дней!</b>` : 'Продолжайте!'}
+            </div>
           </div>
-        </div>
-      `;
+        `;
+      }
       statsContent.innerHTML = html;
     }
-
     function openStats() { renderStats(); statsModal.classList.add('open'); }
     function closeStats() { statsModal.classList.remove('open'); }
 
@@ -2750,7 +2819,6 @@
         days: state.dayCounter, br: state.battleRecord.wins,
       };
     }
-
     function encodeBattleCode() {
       try {
         const data = getBattleData();
@@ -2759,12 +2827,12 @@
         return BATTLE_CODE_PREFIX + b64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
       } catch (e) { return null; }
     }
-
     function decodeBattleCode(code) {
       try {
         code = code.trim();
         if (!code.startsWith(BATTLE_CODE_PREFIX)) return null;
-        let b64 = code.slice(BATTLE_CODE_PREFIX.length).replace(/-/g, '+').replace(/_/g, '/');
+        let b64 = code.slice(BATTLE_CODE_PREFIX.length);
+        b64 = b64.replace(/-/g, '+').replace(/_/g, '/');
         while (b64.length % 4) b64 += '=';
         const json = decodeURIComponent(escape(atob(b64)));
         const data = JSON.parse(json);
@@ -2772,7 +2840,6 @@
         return data;
       } catch (e) { return null; }
     }
-
     function compareBattles(me, enemy) {
       const categories = [
         { key: 'lvl', label: 'Уровень', icon: '🏋️', me: me.lvl, enemy: enemy.lvl },
@@ -2790,7 +2857,7 @@
         let winner = 'draw';
         if (c.me > c.enemy) { winner = 'me'; myWins++; }
         else if (c.me < c.enemy) { winner = 'enemy'; enemyWins++; }
-        else draws++;
+        else { draws++; }
         return { ...c, winner };
       });
       let overall = 'draw';
@@ -2798,14 +2865,11 @@
       else if (myWins < enemyWins) overall = 'loss';
       return { results, myWins, enemyWins, draws, overall };
     }
-
     function saveBattleToHistory(enemyData, comparison) {
       const battle = {
         date: getTodayStr(),
         enemy: { lvl: enemyData.lvl, totalXp: enemyData.totalXp, totalQ: enemyData.totalQ },
-        myWins: comparison.myWins,
-        enemyWins: comparison.enemyWins,
-        overall: comparison.overall,
+        myWins: comparison.myWins, enemyWins: comparison.enemyWins, overall: comparison.overall,
       };
       state.battleHistory.unshift(battle);
       if (state.battleHistory.length > 20) state.battleHistory = state.battleHistory.slice(0, 20);
@@ -2814,16 +2878,15 @@
       else state.battleRecord.draws += 1;
       saveState();
     }
-
     function renderBattle() {
       let html = '';
       html += `
         <div class="battle-intro">
           <h3>⚔️ Арена поединков</h3>
-          <p>Бросьте вызов другу! Поделитесь своим кодом,<br>или вставьте код соперника для сравнения.</p>
+          <p>Бросьте вызов другу! Поделитесь своим кодом,<br>или вставьте код соперника для сравнения статистик.</p>
           <div class="battle-actions">
             <button class="battle-action-btn share" id="shareCodeBtn">📤 Поделиться кодом</button>
-            <button class="battle-action-btn fight" id="enterCodeBtn">⚔️ Ввести код</button>
+            <button class="battle-action-btn fight" id="enterCodeBtn">⚔️ Ввести код соперника</button>
           </div>
           <div id="shareCodeArea"></div>
         </div>
@@ -2849,9 +2912,18 @@
           <div class="battle-history">
             <h3>🏆 Ваша запись</h3>
             <div style="display: flex; gap: 12px; justify-content: space-around;">
-              <div style="text-align: center;"><div style="font-size: 22px; font-weight: 700; color: #90e0a0;">${br.wins}</div><div style="font-size: 11px; color: #7a8b96;">Победы</div></div>
-              <div style="text-align: center;"><div style="font-size: 22px; font-weight: 700; color: #e09090;">${br.losses}</div><div style="font-size: 11px; color: #7a8b96;">Поражения</div></div>
-              <div style="text-align: center;"><div style="font-size: 22px; font-weight: 700; color: #e0d090;">${br.draws}</div><div style="font-size: 11px; color: #7a8b96;">Ничьи</div></div>
+              <div style="text-align: center;">
+                <div style="font-size: 22px; font-weight: 700; color: #90e0a0;">${br.wins}</div>
+                <div style="font-size: 11px; color: #7a8b96;">Победы</div>
+              </div>
+              <div style="text-align: center;">
+                <div style="font-size: 22px; font-weight: 700; color: #e09090;">${br.losses}</div>
+                <div style="font-size: 11px; color: #7a8b96;">Поражения</div>
+              </div>
+              <div style="text-align: center;">
+                <div style="font-size: 22px; font-weight: 700; color: #e0d090;">${br.draws}</div>
+                <div style="font-size: 11px; color: #7a8b96;">Ничьи</div>
+              </div>
             </div>
           </div>
         `;
@@ -2869,7 +2941,7 @@
                 <div class="battle-history-icon">${icon}</div>
                 <div class="battle-history-info">
                   <div class="battle-history-name">${resultText} vs Lv.${b.enemy.lvl}</div>
-                  <div class="battle-history-date">${formatDate(b.date)} • ${b.enemy.totalQ} квестов</div>
+                  <div class="battle-history-date">${formatDate(b.date)} • ${b.enemy.totalQ} квестов у врага</div>
                 </div>
               </div>
               <div class="battle-history-score ${b.overall}">${b.myWins}:${b.enemyWins}</div>
@@ -2882,12 +2954,14 @@
       document.getElementById('shareCodeBtn').addEventListener('click', showShareCode);
       document.getElementById('enterCodeBtn').addEventListener('click', showEnterCode);
     }
-
     function showShareCode() {
       const code = encodeBattleCode();
       const area = document.getElementById('shareCodeArea');
       if (!code) { area.innerHTML = `<div class="battle-input-error show">Ошибка генерации кода</div>`; return; }
-      area.innerHTML = `<div class="battle-code" id="myBattleCode">${code}</div><div class="battle-code-hint">👆 Нажмите на код, чтобы скопировать</div>`;
+      area.innerHTML = `
+        <div class="battle-code" id="myBattleCode">${code}</div>
+        <div class="battle-code-hint">👆 Нажмите на код, чтобы скопировать</div>
+      `;
       const codeEl = document.getElementById('myBattleCode');
       codeEl.addEventListener('click', async () => {
         try {
@@ -2903,7 +2977,6 @@
         }
       });
     }
-
     function showEnterCode() {
       const area = document.getElementById('shareCodeArea');
       area.innerHTML = `
@@ -2919,19 +2992,20 @@
         const errEl = document.getElementById('battleInputError');
         if (!input) { errEl.textContent = 'Введите код'; errEl.classList.add('show'); return; }
         const enemyData = decodeBattleCode(input);
-        if (!enemyData) { errEl.textContent = '❌ Неверный код. Проверьте и попробуйте снова.'; errEl.classList.add('show'); return; }
+        if (!enemyData) {
+          errEl.textContent = '❌ Неверный код. Проверьте и попробуйте снова.';
+          errEl.classList.add('show'); return;
+        }
         errEl.classList.remove('show');
         startBattle(enemyData);
       });
     }
-
     function startBattle(enemyData) {
       const my = getBattleData();
       const comparison = compareBattles(my, enemyData);
       saveBattleToHistory(enemyData, comparison);
       renderBattleResult(enemyData, comparison);
     }
-
     function renderBattleResult(enemyData, comparison) {
       const overall = comparison.overall;
       let headerClass, emoji, title;
@@ -2960,12 +3034,14 @@
       `;
       html += `<div class="battle-stats-list">`;
       comparison.results.forEach(r => {
+        const meVal = r.me;
+        const enemyVal = r.enemy;
         const meWin = r.winner === 'me';
         const enemyWin = r.winner === 'enemy';
         html += `
           <div class="battle-stat-row ${meWin ? 'win-me' : ''} ${enemyWin ? 'win-enemy' : ''}">
             <div class="battle-stat-side left">
-              <div class="battle-stat-value ${meWin ? 'win' : 'lose'}">${r.me}</div>
+              <div class="battle-stat-value ${meWin ? 'win' : 'lose'}">${meVal}</div>
               <div class="battle-stat-label">Вы</div>
             </div>
             <div class="battle-stat-middle">
@@ -2973,19 +3049,22 @@
               <div class="battle-stat-category">${r.label}</div>
             </div>
             <div class="battle-stat-side right">
-              <div class="battle-stat-value ${enemyWin ? 'win' : 'lose'}">${r.enemy}</div>
+              <div class="battle-stat-value ${enemyWin ? 'win' : 'lose'}">${enemyVal}</div>
               <div class="battle-stat-label">Соперник</div>
             </div>
           </div>
         `;
       });
       html += `</div>`;
-      html += `<button class="battle-submit-btn" id="battleAgainBtn" style="background: linear-gradient(135deg, #2a3a4a, #3a4a5a); border-color: #5a7a9a; color: #d0e8f8;">🔄 Новый поединок</button>`;
+      html += `
+        <button class="battle-submit-btn" id="battleAgainBtn" style="background: linear-gradient(135deg, #2a3a4a, #3a4a5a); border-color: #5a7a9a; color: #d0e8f8;">
+          🔄 Новый поединок
+        </button>
+      `;
       battleContent.innerHTML = html;
       document.getElementById('battleAgainBtn').addEventListener('click', renderBattle);
-      showToast(overall === 'win' ? '🏆 Победа!' : overall === 'loss' ? '💀 Поражение' : '🤝 Ничья', 2500);
+      showToast(overall === 'win' ? '🏆 Победа! +1 в копилку' : overall === 'loss' ? '💀 Поражение' : '🤝 Ничья', 2500);
     }
-
     function openBattle() { renderBattle(); battleModal.classList.add('open'); }
     function closeBattle() { battleModal.classList.remove('open'); }
 
@@ -3025,10 +3104,7 @@
         btn.classList.toggle('active', btn.dataset.mode === state.mode);
       });
       modeHint.textContent = MODES[state.mode].hint;
-      initDay();
-      recalcLevel();
-      render();
-
+      initDay(); recalcLevel(); render();
       modeSwitcher.addEventListener('click', function(e) {
         const btn = e.target.closest('.mode-btn');
         if (!btn || btn.disabled) return;
@@ -3043,10 +3119,10 @@
       shopCloseBtn.addEventListener('click', closeShop);
       battleBtn.addEventListener('click', openBattle);
       battleCloseBtn.addEventListener('click', closeBattle);
-      statsModal.addEventListener('click', e => { if (e.target === statsModal) closeStats(); });
-      shopModal.addEventListener('click', e => { if (e.target === shopModal) closeShop(); });
-      battleModal.addEventListener('click', e => { if (e.target === battleModal) closeBattle(); });
-      document.addEventListener('keydown', e => {
+      statsModal.addEventListener('click', function(e) { if (e.target === statsModal) closeStats(); });
+      shopModal.addEventListener('click', function(e) { if (e.target === shopModal) closeShop(); });
+      battleModal.addEventListener('click', function(e) { if (e.target === battleModal) closeBattle(); });
+      document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') { closeStats(); closeShop(); closeBattle(); }
       });
       setInterval(() => {
