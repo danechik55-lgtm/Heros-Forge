@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>⚡ Hero's Forge — прокачка тела и ума</title>
   <style>
     * {
@@ -12,9 +12,7 @@
       font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
       -webkit-tap-highlight-color: transparent;
     }
-    html {
-      background: #0b0d0e;
-    }
+    html { background: #0b0d0e; }
     body {
       background: #0b0d0e;
       color: #e8edf0;
@@ -26,7 +24,6 @@
       position: relative;
       overflow-x: hidden;
     }
-    /* 🌅 Мягкое фоновое свечение по краям экрана */
     body::before {
       content: '';
       position: fixed;
@@ -39,7 +36,6 @@
         radial-gradient(circle at 0% 100%, rgba(255, 140, 60, 0.09) 0%, transparent 35%),
         radial-gradient(circle at 100% 100%, rgba(255, 140, 60, 0.10) 0%, transparent 35%);
     }
-
     .app {
       max-width: 500px;
       width: 100%;
@@ -57,7 +53,6 @@
         0 0 30px rgba(255, 140, 60, 0.06),
         inset 0 0 20px rgba(255, 140, 60, 0.03);
     }
-
     h1 {
       font-size: 22px;
       font-weight: 500;
@@ -69,25 +64,9 @@
       margin-bottom: 6px;
       flex-wrap: wrap;
     }
-    h1 .title-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    h1 span {
-      background: #2a3135;
-      padding: 2px 12px;
-      border-radius: 100px;
-      font-size: 14px;
-      font-weight: 400;
-      color: #b0c4d0;
-    }
-    .header-buttons {
-      display: flex;
-      gap: 4px;
-      flex-wrap: wrap;
-    }
+    h1 .title-left { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    h1 span { background: #2a3135; padding: 2px 12px; border-radius: 100px; font-size: 14px; font-weight: 400; color: #b0c4d0; }
+    .header-buttons { display: flex; gap: 4px; flex-wrap: wrap; }
     .btn-header {
       background: #1e2a30;
       border: 1px solid #3a4f58;
@@ -102,49 +81,16 @@
       align-items: center;
       gap: 4px;
       touch-action: manipulation;
-      -webkit-touch-callout: none;
       user-select: none;
     }
     .btn-header:active { transform: scale(0.95); }
-    .btn-header:hover {
-      background: #2a3f48;
-      border-color: #5a8596;
-      color: #e0f4ff;
-      box-shadow: 0 0 10px rgba(120, 180, 220, 0.25);
-    }
-    .btn-header.shop-btn {
-      background: #2a3a2a;
-      border-color: #5a8a5a;
-      color: #b0e0b0;
-    }
-    .btn-header.shop-btn:hover {
-      background: #3a5a3a;
-      border-color: #7aba7a;
-      color: #d0f4d0;
-      box-shadow: 0 0 10px rgba(120, 200, 120, 0.3);
-    }
-    .btn-header.battle-btn {
-      background: #3a1f1f;
-      border-color: #b03030;
-      color: #f0a0a0;
-    }
-    .btn-header.battle-btn:hover {
-      background: #5a2a2a;
-      border-color: #d04040;
-      color: #ffc0c0;
-      box-shadow: 0 0 10px rgba(220, 70, 70, 0.35);
-    }
-    .btn-header.art-btn {
-      background: #2a1f3a;
-      border-color: #8050b0;
-      color: #d0a0f0;
-    }
-    .btn-header.art-btn:hover {
-      background: #3a2a5a;
-      border-color: #a070d0;
-      color: #e8c0ff;
-      box-shadow: 0 0 10px rgba(180, 100, 240, 0.4);
-    }
+    .btn-header:hover { background: #2a3f48; border-color: #5a8596; color: #e0f4ff; }
+    .btn-header.shop-btn { background: #2a3a2a; border-color: #5a8a5a; color: #b0e0b0; }
+    .btn-header.shop-btn:hover { background: #3a5a3a; border-color: #7aba7a; color: #d0f4d0; }
+    .btn-header.battle-btn { background: #3a1f1f; border-color: #b03030; color: #f0a0a0; }
+    .btn-header.battle-btn:hover { background: #5a2a2a; border-color: #d04040; color: #ffc0c0; }
+    .btn-header.art-btn { background: #2a1f3a; border-color: #8050b0; color: #d0a0f0; }
+    .btn-header.art-btn:hover { background: #3a2a5a; border-color: #a070d0; color: #e8c0ff; }
 
     .wallet-bar {
       display: flex;
@@ -157,64 +103,27 @@
       margin: 14px 0 0;
       gap: 12px;
       flex-wrap: wrap;
-      box-shadow:
-        0 0 0 1px rgba(120, 180, 220, 0.08),
-        0 0 12px rgba(120, 180, 220, 0.08);
     }
     .wallet-left { display: flex; align-items: center; gap: 12px; }
-    .soap-icon {
-      font-size: 32px;
-      line-height: 1;
-      filter: drop-shadow(0 0 6px rgba(160, 216, 255, 0.5));
-      animation: float 3s ease-in-out infinite;
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-3px); }
-    }
+    .soap-icon { font-size: 32px; line-height: 1; filter: drop-shadow(0 0 6px rgba(160, 216, 255, 0.5)); animation: float 3s ease-in-out infinite; }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
     .wallet-info { display: flex; flex-direction: column; gap: 2px; }
-    .wallet-label {
-      font-size: 11px;
-      color: #8aacbc;
-      letter-spacing: 0.3px;
-      text-transform: uppercase;
-      font-weight: 500;
-    }
-    .wallet-value {
-      font-size: 24px;
-      font-weight: 700;
-      color: #e0f4ff;
-      letter-spacing: -0.5px;
-      line-height: 1;
-      text-shadow: 0 0 8px rgba(160, 216, 255, 0.4);
-    }
-    .wallet-value small {
-      font-size: 13px;
-      font-weight: 400;
-      color: #7a9aac;
-      margin-left: 4px;
-    }
-    .wallet-hint {
-      font-size: 11px;
-      color: #6a8a9a;
-      text-align: right;
-      line-height: 1.3;
-    }
+    .wallet-label { font-size: 11px; color: #8aacbc; letter-spacing: 0.3px; text-transform: uppercase; font-weight: 500; }
+    .wallet-value { font-size: 24px; font-weight: 700; color: #e0f4ff; letter-spacing: -0.5px; line-height: 1; text-shadow: 0 0 8px rgba(160, 216, 255, 0.4); }
+    .wallet-value small { font-size: 13px; font-weight: 400; color: #7a9aac; margin-left: 4px; }
+    .wallet-hint { font-size: 11px; color: #6a8a9a; text-align: right; line-height: 1.3; }
 
     .active-relic-banner {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      display: flex; align-items: center; gap: 10px;
       background: linear-gradient(135deg, #2a2a1a, #3a3a2a);
       border: 1px solid #6a6a3a;
       padding: 10px 16px;
       border-radius: 20px;
       margin-top: 10px;
-      box-shadow: 0 0 0 1px rgba(255, 215, 128, 0.12), 0 0 12px rgba(255, 215, 128, 0.1);
     }
     .relic-icon-big { font-size: 24px; line-height: 1; filter: drop-shadow(0 0 8px rgba(255, 215, 128, 0.6)); }
     .relic-active-info { flex: 1; display: flex; flex-direction: column; gap: 2px; }
-    .relic-active-name { font-size: 13px; font-weight: 600; color: #ffd780; text-shadow: 0 0 8px rgba(255, 215, 128, 0.4); }
+    .relic-active-name { font-size: 13px; font-weight: 600; color: #ffd780; }
     .relic-active-desc { font-size: 11px; color: #b0a880; }
 
     .mode-switcher {
@@ -252,24 +161,16 @@
       align-items: center;
       justify-content: center;
       gap: 4px;
-      touch-action: manipulation;
       user-select: none;
       white-space: nowrap;
     }
     .mode-btn:active:not(:disabled) { transform: scale(0.96); }
-    .mode-btn.active { background: #2a3b44; color: #e0f0fa; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
-    .mode-btn.active[data-mode="mind"] { background: #2a3a44; color: #b0d8ff; box-shadow: 0 0 12px rgba(140, 180, 255, 0.25); }
-    .mode-btn.active[data-mode="body"] { background: #3a2f24; color: #ffb088; box-shadow: 0 0 12px rgba(255, 160, 100, 0.25); }
-    .mode-btn.active[data-mode="balance"] { background: #2a3b35; color: #b0e0c8; box-shadow: 0 0 12px rgba(140, 220, 180, 0.25); }
+    .mode-btn.active { background: #2a3b44; color: #e0f0fa; }
+    .mode-btn.active[data-mode="mind"] { background: #2a3a44; color: #b0d8ff; }
+    .mode-btn.active[data-mode="body"] { background: #3a2f24; color: #ffb088; }
+    .mode-btn.active[data-mode="balance"] { background: #2a3b35; color: #b0e0c8; }
     .mode-btn:disabled { opacity: 0.35; cursor: not-allowed; }
-    .mode-hint {
-      text-align: center;
-      font-size: 11px;
-      color: #6a8a96;
-      margin-bottom: 12px;
-      min-height: 16px;
-      letter-spacing: 0.2px;
-    }
+    .mode-hint { text-align: center; font-size: 11px; color: #6a8a96; margin-bottom: 12px; min-height: 16px; }
     .mode-hint.locked-hint { color: #e0a080; }
 
     .stats-grid {
@@ -305,36 +206,10 @@
       margin: 16px 0 20px;
       border: 1px solid #263034;
     }
-    .quest-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 14px;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-    .quest-header h2 {
-      font-weight: 500;
-      font-size: 17px;
-      color: #d0dfe8;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .quest-header .date {
-      background: #1e292f;
-      padding: 2px 12px;
-      border-radius: 40px;
-      font-size: 12px;
-      color: #a0b8c4;
-      white-space: nowrap;
-    }
-    .level-icon {
-      font-size: 12px;
-      color: #ffd700;
-      margin-left: 2px;
-      text-shadow: 0 0 6px rgba(255, 215, 0, 0.5);
-    }
+    .quest-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 6px; }
+    .quest-header h2 { font-weight: 500; font-size: 17px; color: #d0dfe8; display: flex; align-items: center; gap: 6px; }
+    .quest-header .date { background: #1e292f; padding: 2px 12px; border-radius: 40px; font-size: 12px; color: #a0b8c4; white-space: nowrap; }
+    .level-icon { font-size: 12px; color: #ffd700; margin-left: 2px; }
     .quest-item {
       background: #1b2429;
       padding: 12px 14px;
@@ -347,8 +222,8 @@
       gap: 8px;
       flex-wrap: wrap;
     }
-    .quest-item.mind-quest { border-left-color: #5a8ac0; box-shadow: 0 0 0 1px rgba(90, 138, 192, 0.08), 0 0 10px rgba(90, 138, 192, 0.05); }
-    .quest-item.body-quest { border-left-color: #c08a5a; box-shadow: 0 0 0 1px rgba(192, 138, 90, 0.08), 0 0 10px rgba(192, 138, 90, 0.05); }
+    .quest-item.mind-quest { border-left-color: #5a8ac0; }
+    .quest-item.body-quest { border-left-color: #c08a5a; }
     .quest-item .info { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 120px; }
     .quest-item .title { font-weight: 500; font-size: 15px; display: flex; align-items: center; flex-wrap: wrap; gap: 4px; }
     .quest-item .desc { font-size: 12px; color: #a6bbc8; line-height: 1.3; }
@@ -365,37 +240,18 @@
       margin-top: 4px;
     }
     .quest-item .badge .xp { color: #b8d9b0; font-weight: 500; }
-    .quest-item .badge .xp-boosted { color: #ffd780; font-weight: 700; text-shadow: 0 0 6px rgba(255, 215, 128, 0.5); }
+    .quest-item .badge .xp-boosted { color: #ffd780; font-weight: 700; }
     .quest-item .badge .soap-reward { color: #a0d8ff; font-weight: 500; }
-    .quest-item .badge .soap-reward-big { color: #ffd780; font-weight: 700; text-shadow: 0 0 6px rgba(255, 215, 128, 0.5); }
-    .quest-item.hard-quest {
-      border-left-color: #ff6b35;
-      background: #1f2a2e;
-      box-shadow: 0 0 0 1px rgba(255, 107, 53, 0.18), 0 0 15px rgba(255, 107, 53, 0.12);
-    }
-    .quest-item.hard-quest .title { color: #ff8a5c; text-shadow: 0 0 8px rgba(255, 138, 92, 0.4); }
+    .quest-item .badge .soap-reward-big { color: #ffd780; font-weight: 700; }
+    .quest-item.hard-quest { border-left-color: #ff6b35; background: #1f2a2e; box-shadow: 0 0 0 1px rgba(255, 107, 53, 0.18), 0 0 15px rgba(255, 107, 53, 0.12); }
+    .quest-item.hard-quest .title { color: #ff8a5c; }
     .quest-item.hard-quest .badge { background: #2f3f3a; border: 1px solid #ff6b35; }
     .quest-item.hard-quest .badge .xp { color: #ffb088; }
     .quest-item.hard-quest .badge .xp-boosted { color: #ffd780; }
     .quest-item.hard-quest .badge .soap-reward-big { color: #ffd780; }
     .quest-item.hard-quest .btn-done { background: #3f2f28; border-color: #ff6b35; color: #ffb088; }
-    .hard-icon {
-      background: #ff6b35;
-      color: #0b0d0e;
-      padding: 1px 8px;
-      border-radius: 16px;
-      font-size: 9px;
-      font-weight: 700;
-      display: inline-block;
-      box-shadow: 0 0 8px rgba(255, 107, 53, 0.6);
-    }
-    .boost-indicator {
-      color: #ffd780;
-      font-size: 10px;
-      font-weight: 700;
-      margin-left: 4px;
-      text-shadow: 0 0 6px rgba(255, 215, 128, 0.6);
-    }
+    .hard-icon { background: #ff6b35; color: #0b0d0e; padding: 1px 8px; border-radius: 16px; font-size: 9px; font-weight: 700; display: inline-block; }
+    .boost-indicator { color: #ffd780; font-size: 10px; font-weight: 700; margin-left: 4px; }
     .btn-done {
       background: #2b3f3a;
       border: none;
@@ -410,22 +266,12 @@
       display: flex;
       align-items: center;
       gap: 4px;
-      touch-action: manipulation;
       user-select: none;
-      box-shadow: 0 0 8px rgba(60, 120, 100, 0.15);
     }
     .btn-done:active { transform: scale(0.94); }
-    .btn-done:hover { box-shadow: 0 0 12px rgba(96, 200, 160, 0.35); border-color: #67a095; }
-    .btn-done.completed { background: #1f3a35; color: #7aa89b; border-color: #3b6a60; opacity: 0.7; pointer-events: none; box-shadow: none; }
+    .btn-done.completed { background: #1f3a35; color: #7aa89b; border-color: #3b6a60; opacity: 0.7; pointer-events: none; }
 
-    .action-row {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-top: 14px;
-      align-items: center;
-      justify-content: space-between;
-    }
+    .action-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; align-items: center; justify-content: space-between; }
     .action-row .left-buttons { display: flex; gap: 8px; flex-wrap: wrap; flex: 1; }
     .btn-refresh, .btn-hard {
       padding: 8px 14px;
@@ -444,12 +290,10 @@
     }
     .btn-refresh { background: #1e2a30; border: 1px solid #3a4f58; color: #b8d4e0; }
     .btn-refresh:active:not(:disabled) { transform: scale(0.95); }
-    .btn-refresh:hover:not(:disabled) { box-shadow: 0 0 12px rgba(120, 180, 220, 0.3); border-color: #5a8596; }
-    .btn-refresh:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-    .btn-hard { background: #2f241e; border: 1px solid #ff6b35; color: #ffb088; box-shadow: 0 0 10px rgba(255, 107, 53, 0.15); }
+    .btn-refresh:disabled { opacity: 0.4; cursor: not-allowed; }
+    .btn-hard { background: #2f241e; border: 1px solid #ff6b35; color: #ffb088; }
     .btn-hard:active:not(:disabled) { transform: scale(0.95); }
-    .btn-hard:hover:not(:disabled) { box-shadow: 0 0 15px rgba(255, 107, 53, 0.4); }
-    .btn-hard:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+    .btn-hard:disabled { opacity: 0.5; cursor: not-allowed; }
     .badge-count {
       background: #3a4f58;
       color: #b8d4e0;
@@ -463,27 +307,11 @@
       justify-content: center;
       flex-shrink: 0;
     }
-    .btn-hard .badge-count { background: #ff6b35; color: #0b0d0e; box-shadow: 0 0 8px rgba(255, 107, 53, 0.6); }
+    .btn-hard .badge-count { background: #ff6b35; color: #0b0d0e; }
     .reset-area { display: flex; justify-content: flex-end; margin-top: 4px; }
-    .reset-btn {
-      background: transparent;
-      border: 1px solid #2f3f44;
-      color: #7f9aa8;
-      padding: 6px 16px;
-      border-radius: 60px;
-      font-size: 12px;
-      cursor: pointer;
-      transition: 0.2s;
-      user-select: none;
-    }
+    .reset-btn { background: transparent; border: 1px solid #2f3f44; color: #7f9aa8; padding: 6px 16px; border-radius: 60px; font-size: 12px; cursor: pointer; user-select: none; }
     .reset-btn:active { transform: scale(0.94); }
-    .reset-btn:hover { box-shadow: 0 0 10px rgba(200, 80, 80, 0.25); border-color: #7a4a4a; color: #e0a0a0; }
-    .footnote {
-      margin-top: 12px;
-      font-size: 11px;
-      color: #50676f;
-      text-align: center;
-    }
+    .footnote { margin-top: 12px; font-size: 11px; color: #50676f; text-align: center; }
     .level-up {
       background: #263f3c;
       padding: 6px 14px;
@@ -493,7 +321,6 @@
       border: 1px solid #4d8a7a;
       display: inline-block;
       white-space: nowrap;
-      box-shadow: 0 0 12px rgba(100, 220, 180, 0.3);
     }
     .toast {
       position: fixed;
@@ -514,7 +341,6 @@
       max-width: 90%;
       text-align: center;
       white-space: nowrap;
-      box-shadow: 0 0 0 1px rgba(255, 140, 60, 0.15), 0 0 20px rgba(255, 140, 60, 0.15);
     }
     .toast.show { opacity: 1; }
     .empty-quests { padding: 20px 12px; text-align: center; color: #7e959f; font-size: 14px; }
@@ -528,7 +354,6 @@
       text-align: center;
       font-size: 13px;
       color: #8ac0a0;
-      box-shadow: 0 0 12px rgba(100, 200, 140, 0.15);
     }
     .mode-locked-notice {
       margin-top: 8px;
@@ -542,7 +367,6 @@
       line-height: 1.4;
     }
 
-    /* МОДАЛЬНЫЕ ОКНА */
     .modal-overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -567,23 +391,14 @@
       width: 100%;
       max-width: 500px;
       max-height: calc(100vh - 40px);
-      max-height: calc(100dvh - 40px);
       overflow-y: auto;
       border: 1px solid #3a2a1a;
-      box-shadow:
-        0 25px 50px rgba(0,0,0,0.9),
-        0 0 0 1px rgba(255, 140, 60, 0.15),
-        0 0 25px rgba(255, 140, 60, 0.15);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.9), 0 0 0 1px rgba(255, 140, 60, 0.15), 0 0 25px rgba(255, 140, 60, 0.15);
       transform: scale(0.95);
       transition: transform 0.25s ease;
-      scrollbar-width: thin;
-      scrollbar-color: #3a4f58 #14181a;
       margin: auto;
     }
     .modal-overlay.open .modal { transform: scale(1); }
-    .modal::-webkit-scrollbar { width: 6px; }
-    .modal::-webkit-scrollbar-track { background: #14181a; }
-    .modal::-webkit-scrollbar-thumb { background: #3a4f58; border-radius: 3px; }
     .modal-header {
       display: flex;
       justify-content: space-between;
@@ -603,7 +418,6 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      text-shadow: 0 0 12px rgba(255, 140, 60, 0.25);
     }
     .modal-close {
       background: #1e2a30;
@@ -625,7 +439,6 @@
       padding: 0;
     }
     .modal-close:active { transform: scale(0.9); }
-    .modal-close:hover { background: #3a2a2a; border-color: #7a4a4a; color: #ffb0b0; box-shadow: 0 0 12px rgba(255, 100, 100, 0.35); }
 
     .stat-block {
       background: #101618;
@@ -655,53 +468,20 @@
       flex-direction: column;
       gap: 4px;
     }
-    .big-number .num {
-      font-size: 24px;
-      font-weight: 700;
-      color: #e0f0fa;
-      letter-spacing: -0.5px;
-      line-height: 1.1;
-    }
-    .big-number .num.mind-color { color: #8ab8e8; text-shadow: 0 0 10px rgba(140, 180, 255, 0.35); }
-    .big-number .num.body-color { color: #e8b888; text-shadow: 0 0 10px rgba(232, 184, 136, 0.35); }
-    .big-number .num.xp-color { color: #b8e0a0; text-shadow: 0 0 10px rgba(184, 224, 160, 0.35); }
-    .big-number .num.soap-color { color: #a0d8ff; text-shadow: 0 0 10px rgba(160, 216, 255, 0.35); }
-    .big-number .num.streak-color { color: #ffd780; text-shadow: 0 0 10px rgba(255, 215, 128, 0.4); }
-    .big-number .num.win-color { color: #90e0a0; text-shadow: 0 0 10px rgba(144, 224, 160, 0.35); }
-    .big-number .num.loss-color { color: #e09090; text-shadow: 0 0 10px rgba(224, 144, 144, 0.35); }
-    .big-number .num.art-color { color: #d8a0e8; text-shadow: 0 0 10px rgba(216, 160, 232, 0.4); }
+    .big-number .num { font-size: 24px; font-weight: 700; color: #e0f0fa; letter-spacing: -0.5px; line-height: 1.1; }
+    .big-number .num.mind-color { color: #8ab8e8; }
+    .big-number .num.body-color { color: #e8b888; }
+    .big-number .num.xp-color { color: #b8e0a0; }
+    .big-number .num.soap-color { color: #a0d8ff; }
+    .big-number .num.streak-color { color: #ffd780; }
+    .big-number .num.win-color { color: #90e0a0; }
+    .big-number .num.loss-color { color: #e09090; }
+    .big-number .num.art-color { color: #d8a0e8; }
     .big-number .lbl { font-size: 11px; color: #8a9ba5; }
-    .progress-line {
-      margin-top: 10px;
-      background: #1b2429;
-      border-radius: 12px;
-      padding: 10px 14px;
-      border: 1px solid #2a3b44;
-    }
-    .progress-line .pl-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 12px;
-      color: #a6bbc8;
-      margin-bottom: 8px;
-    }
-    .progress-line .pl-top .pl-label { font-weight: 500; }
-    .progress-line .pl-top .pl-value { color: #e0f0fa; font-weight: 600; }
-    .progress-bar-bg {
-      width: 100%;
-      height: 8px;
-      background: #0b0d0e;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-    .progress-bar-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #4a7a8c, #6a9aac);
-      border-radius: 10px;
-      transition: width 0.4s ease;
-      box-shadow: 0 0 10px rgba(106, 154, 172, 0.5);
-    }
+    .progress-line { margin-top: 10px; background: #1b2429; border-radius: 12px; padding: 10px 14px; border: 1px solid #2a3b44; }
+    .progress-line .pl-top { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #a6bbc8; margin-bottom: 8px; }
+    .progress-bar-bg { width: 100%; height: 8px; background: #0b0d0e; border-radius: 10px; overflow: hidden; }
+    .progress-bar-fill { height: 100%; background: linear-gradient(90deg, #4a7a8c, #6a9aac); border-radius: 10px; transition: width 0.4s ease; }
     .quest-type-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
     .type-stat {
       background: #1b2429;
@@ -712,25 +492,12 @@
       flex-direction: column;
       gap: 8px;
     }
-    .type-stat .ts-header {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      color: #a6bbc8;
-      font-weight: 500;
-    }
+    .type-stat .ts-header { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #a6bbc8; font-weight: 500; }
     .type-stat .ts-count { font-size: 22px; font-weight: 700; color: #e0f0fa; line-height: 1; }
-    .type-stat .ts-bar {
-      width: 100%;
-      height: 5px;
-      background: #0b0d0e;
-      border-radius: 10px;
-      overflow: hidden;
-    }
+    .type-stat .ts-bar { width: 100%; height: 5px; background: #0b0d0e; border-radius: 10px; overflow: hidden; }
     .type-stat .ts-bar-fill { height: 100%; border-radius: 10px; transition: width 0.4s ease; }
-    .ts-bar-fill.mind-fill { background: #5a8ac0; box-shadow: 0 0 8px rgba(90, 138, 192, 0.6); }
-    .ts-bar-fill.body-fill { background: #c08a5a; box-shadow: 0 0 8px rgba(192, 138, 90, 0.6); }
+    .ts-bar-fill.mind-fill { background: #5a8ac0; }
+    .ts-bar-fill.body-fill { background: #c08a5a; }
     .type-stat .ts-pct { font-size: 11px; color: #7a8b96; }
     .activity-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-top: 4px; }
     .activity-day {
@@ -744,16 +511,9 @@
       font-size: 9px;
       color: #6a7a85;
     }
-    .activity-day.active { background: #3a6a5a; border-color: #5a9a8a; color: #c0f0e0; font-weight: 600; box-shadow: 0 0 6px rgba(90, 154, 138, 0.5); }
-    .activity-day.today { border-color: #ffd700; box-shadow: 0 0 8px rgba(255, 215, 0, 0.5); }
-    .activity-legend {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 8px;
-      font-size: 10px;
-      color: #6a7a85;
-    }
+    .activity-day.active { background: #3a6a5a; border-color: #5a9a8a; color: #c0f0e0; font-weight: 600; }
+    .activity-day.today { border-color: #ffd700; }
+    .activity-legend { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; font-size: 10px; color: #6a7a85; }
     .empty-stats { text-align: center; padding: 30px 20px; color: #7e959f; font-size: 14px; }
     .empty-stats .emoji { font-size: 42px; display: block; margin-bottom: 12px; }
 
@@ -768,11 +528,10 @@
       margin-bottom: 16px;
       gap: 10px;
       flex-wrap: wrap;
-      box-shadow: 0 0 0 1px rgba(120, 180, 220, 0.1), 0 0 15px rgba(120, 180, 220, 0.1);
     }
     .shop-balance-left { display: flex; align-items: center; gap: 10px; }
-    .shop-balance-icon { font-size: 26px; filter: drop-shadow(0 0 6px rgba(160, 216, 255, 0.5)); }
-    .shop-balance-text { font-size: 20px; font-weight: 700; color: #e0f4ff; text-shadow: 0 0 8px rgba(160, 216, 255, 0.4); }
+    .shop-balance-icon { font-size: 26px; }
+    .shop-balance-text { font-size: 20px; font-weight: 700; color: #e0f4ff; }
     .shop-balance-label { font-size: 11px; color: #8aacbc; text-transform: uppercase; }
     .shop-balance-right { display: flex; align-items: center; gap: 10px; }
     .shop-xp-badge {
@@ -784,7 +543,6 @@
       flex-direction: column;
       gap: 2px;
       align-items: center;
-      box-shadow: 0 0 10px rgba(120, 200, 120, 0.15);
     }
     .shop-xp-badge .xp-val { font-size: 16px; font-weight: 700; color: #b8e0a0; line-height: 1; }
     .shop-xp-badge .xp-lbl { font-size: 9px; color: #7aa87a; text-transform: uppercase; }
@@ -815,15 +573,8 @@
     .shop-item.consumable-item { border-left: 4px solid #50a0c0; }
     .shop-item.exchange-item { border-left: 4px solid #a050c0; }
     .shop-item.owned { background: #1a2a1a; border-color: #4a7a4a; }
-    .shop-item.active-relic {
-      background: #2a2a1a;
-      border-color: #ffd780;
-      box-shadow: 0 0 0 1px rgba(255, 215, 128, 0.3), 0 0 20px rgba(255, 215, 128, 0.2);
-    }
-    .shop-item.best-value {
-      background: linear-gradient(135deg, #1f2a1f, #2a3a2a);
-      border-color: #5a8a5a;
-    }
+    .shop-item.active-relic { background: #2a2a1a; border-color: #ffd780; }
+    .shop-item.best-value { background: linear-gradient(135deg, #1f2a1f, #2a3a2a); border-color: #5a8a5a; }
     .shop-item-icon { font-size: 32px; line-height: 1; flex-shrink: 0; width: 44px; text-align: center; }
     .shop-item-info { flex: 1; display: flex; flex-direction: column; gap: 3px; min-width: 120px; }
     .shop-item-name {
@@ -861,7 +612,6 @@
       flex-shrink: 0;
     }
     .shop-buy-btn:active:not(:disabled) { transform: scale(0.94); }
-    .shop-buy-btn:hover:not(:disabled) { background: #3a5a3a; border-color: #7aba7a; color: #d0f4d0; }
     .shop-buy-btn:disabled { background: #2a2a2a; border-color: #4a4a4a; color: #6a6a6a; cursor: not-allowed; opacity: 0.6; }
     .shop-buy-btn.activate-btn { background: #3a3a1a; border-color: #c0a050; color: #ffd780; }
     .shop-buy-btn.active-btn { background: #2a2a1a; border-color: #ffd780; color: #ffd780; }
@@ -876,7 +626,6 @@
     .relic-category-note { background: #1a1a2a; border: 1px solid #3a3a5a; color: #8a9ac8; }
     .exchange-category-note { background: #2a1a2a; border: 1px solid #5a3a5a; color: #c89ac8; }
 
-    /* Поединки */
     .battle-intro {
       background: linear-gradient(135deg, #2a1a1a, #3a2a1a);
       border: 1px solid #7a3a3a;
@@ -938,7 +687,7 @@
       min-height: 70px;
       outline: none;
     }
-    .battle-input:focus { border-color: #5a8ac0; box-shadow: 0 0 0 3px rgba(90, 138, 192, 0.15); }
+    .battle-input:focus { border-color: #5a8ac0; }
     .battle-submit-btn {
       width: 100%;
       margin-top: 12px;
@@ -1048,7 +797,6 @@
     .battle-player-stat .bps-val { font-size: 18px; font-weight: 700; color: #e0f0fa; line-height: 1; }
     .battle-player-stat .bps-lbl { font-size: 10px; color: #8a9ba5; margin-top: 4px; }
 
-    /* Арена творчества */
     .art-intro {
       background: linear-gradient(135deg, #2a1f3a, #3a2a4a);
       border: 1px solid #7a4a9a;
@@ -1087,14 +835,13 @@
       padding: 10px;
       border: 1px solid #3a2a4a;
       margin-bottom: 12px;
-      box-shadow: 0 0 0 1px rgba(160, 80, 220, 0.15), 0 0 20px rgba(160, 80, 220, 0.1);
       position: relative;
     }
     #drawCanvas {
       width: 100%;
       height: auto;
       aspect-ratio: 1/1;
-      background: #1a1a1f;
+      background: #ffffff;
       border-radius: 14px;
       cursor: crosshair;
       touch-action: none;
@@ -1112,15 +859,7 @@
       gap: 10px;
     }
     .art-tool-group { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
-    .art-tool-label {
-      font-size: 11px;
-      color: #8a9ba5;
-      font-weight: 500;
-      margin-right: 4px;
-      min-width: 55px;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-    }
+    .art-tool-label { font-size: 11px; color: #8a9ba5; font-weight: 500; margin-right: 4px; min-width: 55px; text-transform: uppercase; }
     .art-color-btn {
       width: 30px;
       height: 30px;
@@ -1133,7 +872,7 @@
       box-shadow: 0 0 0 1px rgba(255,255,255,0.08);
       padding: 0;
     }
-    .art-color-btn.active { border-color: #fff; box-shadow: 0 0 12px rgba(255,255,255,0.5), 0 0 0 1px #fff; transform: scale(1.1); }
+    .art-color-btn.active { border-color: #fff; transform: scale(1.1); }
     .art-size-btn {
       background: #1b2429;
       border: 1px solid #2a3b44;
@@ -1175,11 +914,7 @@
       border-color: #a070d0;
       color: #e8c0ff;
     }
-    .art-action-btn-small.danger {
-      background: #3a1f1f;
-      border-color: #9a4040;
-      color: #f0a0a0;
-    }
+    .art-action-btn-small.danger { background: #3a1f1f; border-color: #9a4040; color: #f0a0a0; }
 
     .art-gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 12px; }
     .art-gallery-item {
@@ -1197,7 +932,7 @@
       aspect-ratio: 1/1;
       object-fit: cover;
       display: block;
-      background: #0b0d0e;
+      background: #fff;
     }
     .art-gallery-item-info {
       padding: 8px 10px;
@@ -1223,7 +958,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      backdrop-filter: blur(4px);
       opacity: 0;
       transition: 0.2s;
       padding: 0;
@@ -1249,7 +983,7 @@
       border: 1px solid #3a2a4a;
       margin-bottom: 12px;
     }
-    .art-viewer-canvas-wrap img { width: 100%; height: auto; border-radius: 14px; display: block; background: #1a1a1f; }
+    .art-viewer-canvas-wrap img { width: 100%; height: auto; border-radius: 14px; display: block; background: #fff; }
     .art-viewer-meta {
       display: flex;
       justify-content: space-between;
@@ -1276,7 +1010,6 @@
       user-select: none;
     }
     .like-btn:active:not(:disabled) { transform: scale(0.95); }
-    .like-btn:disabled { opacity: 0.5; cursor: not-allowed; }
     .like-btn.liked { background: #4a1f2a; border-color: #ff80a0; color: #ffb0c8; }
 
     .art-share-code {
@@ -1294,8 +1027,82 @@
       cursor: pointer;
       margin-top: 10px;
     }
+    .art-code-info {
+      background: #1f1a2a;
+      border: 1px solid #4a3a5a;
+      border-radius: 14px;
+      padding: 10px 14px;
+      font-size: 11px;
+      color: #b8a0c8;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+    .share-success-banner {
+      background: linear-gradient(135deg, #1a3a1a, #2a4a2a);
+      border: 1px solid #5a9a5a;
+      border-radius: 16px;
+      padding: 14px 16px;
+      text-align: center;
+      margin-bottom: 12px;
+      color: #c0f0d0;
+    }
+    .share-success-banner .icon { font-size: 32px; display: block; margin-bottom: 6px; }
+    .share-success-banner .text { font-size: 13px; font-weight: 500; }
+    .share-success-banner .subtext { font-size: 11px; color: #8ac0a0; margin-top: 4px; }
+    .short-code-display {
+      background: #0b0d0e;
+      border: 2px solid #5a8a5a;
+      border-radius: 14px;
+      padding: 16px;
+      text-align: center;
+      margin: 10px 0;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .short-code-display:hover {
+      background: #101618;
+      border-color: #7aba7a;
+    }
+    .short-code-display .short-code-text {
+      font-family: 'Courier New', monospace;
+      font-size: 22px;
+      font-weight: 700;
+      color: #b0e0b0;
+      letter-spacing: 2px;
+      word-break: break-all;
+      text-shadow: 0 0 10px rgba(120, 200, 120, 0.5);
+    }
+    .short-code-display .hint {
+      font-size: 10px;
+      color: #7a9a7a;
+      margin-top: 6px;
+    }
 
-    /* АДАПТИВ */
+    .loading-spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid #4a3a5a;
+      border-top-color: #d0a0f0;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .upload-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      background: #1f1a2a;
+      border: 1px solid #4a3a5a;
+      border-radius: 14px;
+      margin: 10px 0;
+      font-size: 13px;
+      color: #d0a0f0;
+    }
+
     @media (max-width: 420px) {
       body { padding: 8px; }
       .app { padding: 14px 12px; border-radius: 24px; }
@@ -1335,6 +1142,7 @@
       .art-tool-label { min-width: auto; font-size: 10px; }
       .art-color-btn { width: 26px; height: 26px; }
       .art-size-btn { width: 28px; height: 28px; }
+      .short-code-display .short-code-text { font-size: 18px; letter-spacing: 1px; }
     }
     @media (max-width: 360px) {
       .stats-grid { flex-direction: column; gap: 4px; }
@@ -1360,9 +1168,10 @@
       .battle-stat-category { font-size: 9px; padding: 3px 5px; }
       .battle-player-stats { grid-template-columns: repeat(2, 1fr); }
       .art-gallery { grid-template-columns: 1fr; }
+      .short-code-display .short-code-text { font-size: 16px; }
     }
     @media (hover: none) {
-      .btn-header:hover, .btn-refresh:hover, .btn-hard:hover, .btn-done:hover, .reset-btn:hover, .mode-btn:hover, .modal-close:hover, .shop-buy-btn:hover, .battle-action-btn:hover, .battle-submit-btn:hover, .battle-code:hover, .art-action-btn:hover, .art-color-btn:hover, .art-size-btn:hover, .art-action-btn-small:hover, .art-gallery-item:hover, .art-gallery-item-delete:hover, .like-btn:hover, .art-share-code:hover, .quest-item.mind-quest:hover, .quest-item.body-quest:hover, .quest-item.hard-quest:hover, .app:hover {
+      .btn-header:hover, .btn-refresh:hover, .btn-hard:hover, .btn-done:hover, .reset-btn:hover, .mode-btn:hover, .modal-close:hover, .shop-buy-btn:hover, .battle-action-btn:hover, .battle-submit-btn:hover, .battle-code:hover, .art-action-btn:hover, .art-action-btn-small:hover, .art-gallery-item:hover, .art-gallery-item-delete:hover, .like-btn:hover, .art-share-code:hover, .app:hover, .short-code-display:hover {
         transform: none;
       }
     }
@@ -1493,26 +1302,34 @@
     const HARD_QUEST_SOAP = 5;
     const NORMAL_QUEST_SOAP = 1;
     const BATTLE_CODE_PREFIX = 'HF1-';
-    const ART_CODE_PREFIX = 'ART1-';
+    const ART_CODE_PREFIX = 'A3-';       // Короткий код: A3-abc123
+    const ART_FULL_PREFIX = 'AF3-';       // Полный код fallback: AF3-<base64>
     const ART_XP_REWARD = 15;
     const MAX_ART_PIECES = 20;
+    const CANVAS_SIZE = 500;
+    const JPEG_QUALITY = 0.72;
+
+    // 🆕 Хостинги для загрузки картинок (бесплатные, без регистрации)
+    // Используем catbox.moe — стабильный, без API-ключа, с CORS
+    const IMAGE_HOST_UPLOAD = 'https://catbox.moe/user/api.php';
+    const IMAGE_HOST_VIEW = 'https://files.catbox.moe/';
 
     const SHOP_ITEMS = {
       relics: [
-        { id: 'demeter', name: 'Реликвия Деметры', icon: '🌾', price: 25, boost: 0.15, type: 'all', desc: 'Древняя реликвия плодородия. Даёт стабильный буст ко всему опыту.' },
-        { id: 'dionysus', name: 'Реликвия Диониса', icon: '🍇', price: 35, boost: 0.20, type: 'all', desc: 'Реликвия веселья и вдохновения. Усиливает весь получаемый опыт.' },
-        { id: 'hermes', name: 'Реликвия Гермеса', icon: '🪽', price: 50, boost: 0.40, type: 'all', desc: 'Реликвия скорости и ловкости. Значительно ускоряет рост.' },
-        { id: 'poseidon', name: 'Реликвия Посейдона', icon: '🔱', price: 60, boost: 0.50, type: 'all', desc: 'Реликвия мощи океана. Мощный буст ко всему опыту.' },
-        { id: 'hera', name: 'Реликвия Геры', icon: '👑', price: 70, boost: 0.65, type: 'all', desc: 'Реликвия царственности. Один из лучших универсальных бустов.' },
-        { id: 'athena', name: 'Реликвия Афины', icon: '🦉', price: 150, boost: 0.75, type: 'mind', desc: 'Реликвия мудрости. Даёт +75% XP ТОЛЬКО за когнитивные квесты.' },
-        { id: 'hephaestus', name: 'Реликвия Гефеста', icon: '⚒️', price: 150, boost: 0.75, type: 'body', desc: 'Реликвия кузнеца. Даёт +75% XP ТОЛЬКО за физические квесты.' },
+        { id: 'demeter', name: 'Реликвия Деметры', icon: '🌾', price: 25, boost: 0.15, type: 'all', desc: 'Древняя реликвия плодородия.' },
+        { id: 'dionysus', name: 'Реликвия Диониса', icon: '🍇', price: 35, boost: 0.20, type: 'all', desc: 'Реликвия веселья и вдохновения.' },
+        { id: 'hermes', name: 'Реликвия Гермеса', icon: '🪽', price: 50, boost: 0.40, type: 'all', desc: 'Реликвия скорости и ловкости.' },
+        { id: 'poseidon', name: 'Реликвия Посейдона', icon: '🔱', price: 60, boost: 0.50, type: 'all', desc: 'Реликвия мощи океана.' },
+        { id: 'hera', name: 'Реликвия Геры', icon: '👑', price: 70, boost: 0.65, type: 'all', desc: 'Реликвия царственности.' },
+        { id: 'athena', name: 'Реликвия Афины', icon: '🦉', price: 150, boost: 0.75, type: 'mind', desc: 'Реликвия мудрости. Только ум.' },
+        { id: 'hephaestus', name: 'Реликвия Гефеста', icon: '⚒️', price: 150, boost: 0.75, type: 'body', desc: 'Реликвия кузнеца. Только тело.' },
       ],
       consumables: [
-        { id: 'extra_refresh', name: 'Дополнительное обновление', icon: '🔄', price: 15, desc: '+1 обновление обычных квестов (до конца дня).' },
-        { id: 'extra_hard', name: 'Второй сложный квест', icon: '⭐', price: 30, desc: '+1 попытка взять сложный квест сегодня.' },
-        { id: 'instant_xp', name: 'Эликсир опыта', icon: '🧪', price: 5, xpReward: 100, desc: 'Мгновенно даёт +100 XP. Самый выгодный обмен!', bestValue: true },
-        { id: 'full_reset_daily', name: 'Песочные часы', icon: '⏳', price: 80, desc: 'Полный сброс дневных лимитов.' },
-        { id: 'streak_shield', name: 'Щит серии', icon: '🛡️', price: 50, desc: 'Защищает серию дней от сброса при пропуске.' },
+        { id: 'extra_refresh', name: 'Дополнительное обновление', icon: '🔄', price: 15, desc: '+1 обновление обычных квестов.' },
+        { id: 'extra_hard', name: 'Второй сложный квест', icon: '⭐', price: 30, desc: '+1 попытка взять сложный квест.' },
+        { id: 'instant_xp', name: 'Эликсир опыта', icon: '🧪', price: 5, xpReward: 100, desc: 'Мгновенно даёт +100 XP.', bestValue: true },
+        { id: 'full_reset_daily', name: 'Песочные часы', icon: '⏳', price: 80, desc: 'Сброс дневных лимитов.' },
+        { id: 'streak_shield', name: 'Щит серии', icon: '🛡️', price: 50, desc: 'Защита серии от сброса.' },
       ],
     };
 
@@ -1534,42 +1351,42 @@
       { type: 'body', baseTitle: 'Выпады назад', baseDesc: (lvl) => { const c = 10 + lvl * 2; const s = 3 + Math.floor(lvl / 2); return `${s} подхода по ${c} на ногу`; }, baseXp: 24 },
       { type: 'body', baseTitle: 'Скалолаз', baseDesc: (lvl) => { const c = 15 + lvl * 3; const s = 3 + Math.floor(lvl / 3); return `${s} подхода по ${c} раз`; }, baseXp: 26 },
       { type: 'body', baseTitle: 'Боковые скручивания', baseDesc: (lvl) => { const c = 15 + lvl * 2; const s = 3 + Math.floor(lvl / 3); return `${s} подхода по ${c} на сторону`; }, baseXp: 22 },
-      { type: 'mind', baseTitle: 'Чтение книги', baseDesc: (lvl) => { const m = 30 + lvl * 5; return `${m} минут чтения (≈${Math.round(m/60)} ч)`; }, baseXp: 25 },
+      { type: 'mind', baseTitle: 'Чтение книги', baseDesc: (lvl) => { const m = 30 + lvl * 5; return `${m} минут чтения`; }, baseXp: 25 },
       { type: 'mind', baseTitle: 'Глубокая медитация', baseDesc: (lvl) => { const m = 15 + lvl * 3; return `${m} минут осознанности`; }, baseXp: 22 },
-      { type: 'mind', baseTitle: 'Изучение языка', baseDesc: (lvl) => { const m = 30 + lvl * 5; const w = 15 + lvl * 3; return `${m} мин (${Math.round(m/60)} ч) + ${w} слов`; }, baseXp: 30 },
+      { type: 'mind', baseTitle: 'Изучение языка', baseDesc: (lvl) => { const m = 30 + lvl * 5; const w = 15 + lvl * 3; return `${m} мин + ${w} слов`; }, baseXp: 30 },
       { type: 'mind', baseTitle: 'Тренировка памяти', baseDesc: (lvl) => { const c = 12 + lvl * 3; return `Запомнить ${c} чисел за 60 сек`; }, baseXp: 22 },
       { type: 'mind', baseTitle: 'Логические задачи', baseDesc: (lvl) => { const c = 4 + Math.floor(lvl / 2); const m = 20 + lvl * 3; return `${c} задач за ${m} минут`; }, baseXp: 28 },
-      { type: 'mind', baseTitle: 'Дневник рефлексии', baseDesc: (lvl) => { const m = 10 + Math.floor(lvl / 2) * 2; return `${m} минут рефлексии и планирования`; }, baseXp: 18 },
+      { type: 'mind', baseTitle: 'Дневник рефлексии', baseDesc: (lvl) => { const m = 10 + Math.floor(lvl / 2) * 2; return `${m} минут рефлексии`; }, baseXp: 18 },
       { type: 'mind', baseTitle: 'Ментальная арифметика', baseDesc: (lvl) => { const m = 10 + lvl * 2; return `${m} минут счёта в уме`; }, baseXp: 20 },
       { type: 'mind', baseTitle: 'Судоку', baseDesc: (lvl) => { const c = 2 + Math.floor(lvl / 3); const m = 20 + lvl * 3; return `${c} головоломок за ${m} минут`; }, baseXp: 24 },
       { type: 'mind', baseTitle: 'Кроссворд', baseDesc: (lvl) => { const c = ['лёгкий','средний','сложный'][Math.min(2, Math.floor(lvl / 3))]; const m = 25 + lvl * 4; return `${c} кроссворд за ${m} минут`; }, baseXp: 22 },
-      { type: 'mind', baseTitle: 'Шахматы', baseDesc: (lvl) => { const m = 30 + lvl * 5; return `${m} минут игры в шахматы`; }, baseXp: 30 },
-      { type: 'mind', baseTitle: 'Изучение новых слов', baseDesc: (lvl) => { const c = 8 + lvl * 2; const m = 20 + lvl * 3; return `${c} новых слов за ${m} минут`; }, baseXp: 22 },
-      { type: 'mind', baseTitle: 'Творческое письмо', baseDesc: (lvl) => { const m = 25 + lvl * 4; return `${m} минут свободного письма`; }, baseXp: 25 },
+      { type: 'mind', baseTitle: 'Шахматы', baseDesc: (lvl) => { const m = 30 + lvl * 5; return `${m} минут игры`; }, baseXp: 30 },
+      { type: 'mind', baseTitle: 'Изучение новых слов', baseDesc: (lvl) => { const c = 8 + lvl * 2; const m = 20 + lvl * 3; return `${c} слов за ${m} минут`; }, baseXp: 22 },
+      { type: 'mind', baseTitle: 'Творческое письмо', baseDesc: (lvl) => { const m = 25 + lvl * 4; return `${m} минут письма`; }, baseXp: 25 },
       { type: 'mind', baseTitle: 'Аудиокнига / Подкаст', baseDesc: (lvl) => { const m = 45 + lvl * 5; return `${m} минут прослушивания`; }, baseXp: 24 },
-      { type: 'mind', baseTitle: 'Изучение новой темы', baseDesc: (lvl) => { const m = 40 + lvl * 5; return `${m} минут изучения с конспектом`; }, baseXp: 28 },
+      { type: 'mind', baseTitle: 'Изучение новой темы', baseDesc: (lvl) => { const m = 40 + lvl * 5; return `${m} минут изучения`; }, baseXp: 28 },
       { type: 'mind', baseTitle: 'Анаграммы', baseDesc: (lvl) => { const c = 8 + lvl * 2; const m = 15 + lvl * 2; return `${c} анаграмм за ${m} минут`; }, baseXp: 22 },
-      { type: 'mind', baseTitle: 'Планирование целей', baseDesc: (lvl) => { const c = 4 + Math.floor(lvl / 2); const m = 15 + lvl * 3; return `${c} целей на неделю за ${m} минут`; }, baseXp: 20 },
-      { type: 'mind', baseTitle: 'Ментальная карта', baseDesc: (lvl) => { const i = 10 + lvl * 2; const m = 20 + lvl * 3; return `Карта с ${i} элементами за ${m} минут`; }, baseXp: 24 },
+      { type: 'mind', baseTitle: 'Планирование целей', baseDesc: (lvl) => { const c = 4 + Math.floor(lvl / 2); const m = 15 + lvl * 3; return `${c} целей за ${m} минут`; }, baseXp: 20 },
+      { type: 'mind', baseTitle: 'Ментальная карта', baseDesc: (lvl) => { const i = 10 + lvl * 2; const m = 20 + lvl * 3; return `Карта с ${i} элементами`; }, baseXp: 24 },
     ];
 
     const HARD_QUEST_POOL = [
       { type: 'body', title: 'Интенсивная тренировка', desc: 'Отжимания 5×20, приседания 5×30, планка 3×60с', xp: 80 },
       { type: 'body', title: 'Челлендж на выносливость', desc: '100 отжиманий за 10 минут', xp: 90 },
-      { type: 'body', title: 'Силовой комплекс', desc: 'Подтягивания 5×макс, бёрпи 5×15, выпады 5×15', xp: 85 },
+      { type: 'body', title: 'Силовой комплекс', desc: 'Подтягивания 5×макс, бёрпи 5×15', xp: 85 },
       { type: 'body', title: 'Экстремальная планка', desc: '5 подходов по 90 секунд', xp: 75 },
       { type: 'body', title: 'Круговая тренировка', desc: '10 упражнений по 1 минуте', xp: 95 },
       { type: 'body', title: 'Марафон приседаний', desc: '200 приседаний за 15 минут', xp: 80 },
       { type: 'body', title: 'Отжимания на брусьях', desc: '5 подходов по 15-20 раз', xp: 85 },
-      { type: 'body', title: 'Тренировка на баланс', desc: 'Стойка на руках 3×45с + планка', xp: 70 },
+      { type: 'body', title: 'Тренировка на баланс', desc: 'Стойка на руках 3×45с', xp: 70 },
       { type: 'mind', title: 'Глубокая медитация', desc: '30-40 минут осознанности', xp: 75 },
-      { type: 'mind', title: 'Интеллектуальный марафон', desc: '1.5-2 часа чтения сложной литературы', xp: 80 },
-      { type: 'mind', title: 'Изучение языка: интенсив', desc: '1 час практики + 40 слов', xp: 85 },
-      { type: 'mind', title: 'Когнитивный челлендж', desc: '15 сложных задач за 45 минут', xp: 90 },
-      { type: 'mind', title: 'Двойной дневник', desc: '20 мин рефлексии + 20 мин планирования', xp: 70 },
+      { type: 'mind', title: 'Интеллектуальный марафон', desc: '1.5-2 часа чтения', xp: 80 },
+      { type: 'mind', title: 'Изучение языка: интенсив', desc: '1 час + 40 слов', xp: 85 },
+      { type: 'mind', title: 'Когнитивный челлендж', desc: '15 задач за 45 минут', xp: 90 },
+      { type: 'mind', title: 'Двойной дневник', desc: '20+20 минут', xp: 70 },
       { type: 'mind', title: 'Шахматный турнир', desc: '5 партий с анализом', xp: 95 },
-      { type: 'mind', title: 'Изучение сложной темы', desc: '1.5 часа изучения с конспектом', xp: 85 },
-      { type: 'mind', title: 'Публичное выступление', desc: 'Подготовка и запись 10-минутной речи', xp: 80 },
+      { type: 'mind', title: 'Изучение сложной темы', desc: '1.5 часа с конспектом', xp: 85 },
+      { type: 'mind', title: 'Публичное выступление', desc: 'Подготовка речи 10 мин', xp: 80 },
     ];
 
     const STORAGE_KEY = 'hero_forge_data';
@@ -2015,29 +1832,13 @@
 
     // МАГАЗИН (сокращённый)
     function renderShop() {
-      let html = '';
-      html += `
-        <div class="shop-balance">
-          <div class="shop-balance-left">
-            <div class="shop-balance-icon">🧼</div>
-            <div>
-              <div class="shop-balance-label">Баланс</div>
-              <div class="shop-balance-text">${state.soap} 🧼</div>
-            </div>
-          </div>
-          <div class="shop-balance-right">
-            <div class="shop-xp-badge"><div class="xp-val">${state.xp}</div><div class="xp-lbl">Всего XP</div></div>
-          </div>
-        </div>
-      `;
-      html += `<div class="shop-section-title">🏛️ Реликвии (эффект не складывается)</div>
-        <div class="relic-category-note">⚠️ Одновременно активна только <b>одна</b> реликвия.</div>`;
+      let html = `<div class="shop-balance"><div class="shop-balance-left"><div class="shop-balance-icon">🧼</div><div><div class="shop-balance-label">Баланс</div><div class="shop-balance-text">${state.soap} 🧼</div></div></div><div class="shop-balance-right"><div class="shop-xp-badge"><div class="xp-val">${state.xp}</div><div class="xp-lbl">Всего XP</div></div></div></div>`;
+      html += `<div class="shop-section-title">🏛️ Реликвии</div><div class="relic-category-note">⚠️ Одновременно активна только <b>одна</b> реликвия.</div>`;
       SHOP_ITEMS.relics.forEach(relic => {
         const owned = state.ownedRelics.includes(relic.id);
         const isActive = state.activeRelic === relic.id;
         const canAfford = state.soap >= relic.price;
-        let btnHtml = '';
-        let itemClass = 'shop-item relic-item';
+        let btnHtml = '', itemClass = 'shop-item relic-item';
         if (isActive) { itemClass += ' active-relic'; btnHtml = `<button class="shop-buy-btn active-btn" disabled>✓ Активна</button>`; }
         else if (owned) { itemClass += ' owned'; btnHtml = `<button class="shop-buy-btn activate-btn" data-action="activate-relic" data-id="${relic.id}">⚡ Активировать</button>`; }
         else btnHtml = `<button class="shop-buy-btn" data-action="buy-relic" data-id="${relic.id}" ${!canAfford ? 'disabled' : ''}>Купить • ${relic.price} 🧼</button>`;
@@ -2047,9 +1848,7 @@
         html += `<div class="${itemClass}"><div class="shop-item-icon">${relic.icon}</div><div class="shop-item-info"><div class="shop-item-name">${relic.name}<span class="relic-badge">РЕЛИКВИЯ</span></div><div class="shop-item-desc">${relic.desc}</div><div class="${eC}">${eT}</div></div>${btnHtml}</div>`;
       });
       const canExchange = state.xp >= XP_TO_SOAP_RATE;
-      html += `<div class="shop-section-title">💱 Обмен опыта на мыло</div>
-        <div class="exchange-category-note">⚠️ Обмен опыта <b>снижает ваш уровень</b>!</div>
-        <div class="shop-item exchange-item"><div class="shop-item-icon">💱</div><div class="shop-item-info"><div class="shop-item-name">Обмен<span class="exchange-badge">ОБМЕН</span></div><div class="shop-item-desc">${XP_TO_SOAP_RATE} XP → ${SOAP_REWARD} 🧼</div><div class="shop-item-effect exchange-effect">${state.xp} XP → ${Math.floor(state.xp / XP_TO_SOAP_RATE) * SOAP_REWARD} 🧼 (${Math.floor(state.xp / XP_TO_SOAP_RATE)} обменов)</div></div><button class="shop-buy-btn exchange-btn" data-action="exchange-xp" ${!canExchange ? 'disabled' : ''}>Обменять</button></div>`;
+      html += `<div class="shop-section-title">💱 Обмен опыта на мыло</div><div class="exchange-category-note">⚠️ Обмен опыта <b>снижает ваш уровень</b>!</div><div class="shop-item exchange-item"><div class="shop-item-icon">💱</div><div class="shop-item-info"><div class="shop-item-name">Обмен<span class="exchange-badge">ОБМЕН</span></div><div class="shop-item-desc">${XP_TO_SOAP_RATE} XP → ${SOAP_REWARD} 🧼</div><div class="shop-item-effect exchange-effect">${state.xp} XP → ${Math.floor(state.xp / XP_TO_SOAP_RATE) * SOAP_REWARD} 🧼 (${Math.floor(state.xp / XP_TO_SOAP_RATE)} обменов)</div></div><button class="shop-buy-btn exchange-btn" data-action="exchange-xp" ${!canExchange ? 'disabled' : ''}>Обменять</button></div>`;
       html += `<div class="shop-section-title">🧪 Расходники</div>`;
       SHOP_ITEMS.consumables.forEach(item => {
         const canAfford = state.soap >= item.price;
@@ -2127,7 +1926,7 @@
     function openShop() { renderShop(); shopModal.classList.add('open'); }
     function closeShop() { shopModal.classList.remove('open'); }
 
-    // СТАТИСТИКА
+    // СТАТИСТИКА (сокращённый)
     function renderStats() {
       const s = state.stats;
       const total = s.totalCompleted || 0;
@@ -2148,8 +1947,8 @@
       html += `<div class="stat-block"><h3>🎨 Творчество</h3><div class="big-numbers"><div class="big-number"><div class="num art-color">${s.artPieces || 0}</div><div class="lbl">Рисунков</div></div><div class="big-number"><div class="num" style="color:#ff80a0;">${s.artLikesReceived || 0}</div><div class="lbl">Лайков получено</div></div><div class="big-number"><div class="num" style="color:#80c0ff;">${s.artLikesGiven || 0}</div><div class="lbl">Лайков отдано</div></div><div class="big-number"><div class="num">${artGallery.length}</div><div class="lbl">В галерее</div></div></div></div>`;
       html += `<div class="stat-block"><h3>⚔️ Поединки</h3><div class="big-numbers"><div class="big-number"><div class="num win-color">${br.wins}</div><div class="lbl">Побед</div></div><div class="big-number"><div class="num loss-color">${br.losses}</div><div class="lbl">Поражений</div></div><div class="big-number"><div class="num" style="color:#e0d090;">${br.draws}</div><div class="lbl">Ничьих</div></div><div class="big-number"><div class="num">${br.wins + br.losses + br.draws}</div><div class="lbl">Всего</div></div></div></div>`;
       html += `<div class="stat-block"><h3>🧼 Мыло</h3><div class="big-numbers"><div class="big-number"><div class="num soap-color">${state.soap}</div><div class="lbl">Текущий</div></div><div class="big-number"><div class="num soap-color">${s.totalSoapEarned}</div><div class="lbl">Заработано</div></div><div class="big-number"><div class="num" style="color:#e0a080;">${s.totalSoapSpent}</div><div class="lbl">Потрачено</div></div><div class="big-number"><div class="num" style="color:#d8a0e8;">${s.totalXpExchanged || 0}</div><div class="lbl">Обменяно XP</div></div></div></div>`;
-      html += `<div class="stat-block"><h3>📈 Прогресс</h3><div class="big-numbers"><div class="big-number"><div class="num xp-color">${s.totalXpEarned}</div><div class="lbl">Всего XP</div></div><div class="big-number"><div class="num">${s.totalCompleted}</div><div class="lbl">Квестов</div></div><div class="big-number"><div class="num streak-color">${s.streak}</div><div class="lbl">Серия</div></div><div class="big-number"><div class="num" style="color: #ffb088;">${s.bestStreak}</div><div class="lbl">Лучшая</div></div></div><div class="progress-line" style="margin-top: 12px;"><div class="pl-top"><span class="pl-label">До ур. ${state.level + 1}</span><span class="pl-value">${xpIL} / 100 XP</span></div><div class="progress-bar-bg"><div class="progress-bar-fill" style="width: ${lvlP}%;"></div></div></div></div>`;
-      html += `<div class="stat-block"><h3>🎯 По типам</h3><div class="quest-type-stats"><div class="type-stat"><div class="ts-header">🧠 Ум</div><div class="ts-count mind-color">${s.mindCompleted}</div><div class="ts-bar"><div class="ts-bar-fill mind-fill" style="width: ${(s.mindCompleted / maxTC) * 100}%;"></div></div><div class="ts-pct">${mindPct}%</div></div><div class="type-stat"><div class="ts-header">💪 Тело</div><div class="ts-count body-color">${s.bodyCompleted}</div><div class="ts-bar"><div class="ts-bar-fill body-fill" style="width: ${(s.bodyCompleted / maxTC) * 100}%;"></div></div><div class="ts-pct">${bodyPct}%</div></div></div><div class="progress-line" style="margin-top: 10px;"><div class="pl-top"><span class="pl-label">🔥 Сложных</span><span class="pl-value" style="color: #ffb088;">${s.hardCompleted}</span></div></div></div>`;
+      html += `<div class="stat-block"><h3>📈 Прогресс</h3><div class="big-numbers"><div class="big-number"><div class="num xp-color">${s.totalXpEarned}</div><div class="lbl">Всего XP</div></div><div class="big-number"><div class="num">${s.totalCompleted}</div><div class="lbl">Квестов</div></div><div class="big-number"><div class="num streak-color">${s.streak}</div><div class="lbl">Серия</div></div><div class="big-number"><div class="num" style="color: #ffb088;">${s.bestStreak}</div><div class="lbl">Лучшая</div></div></div><div class="progress-line" style="margin-top: 12px;"><div class="pl-top"><span>До ур. ${state.level + 1}</span><span>${xpIL} / 100 XP</span></div><div class="progress-bar-bg"><div class="progress-bar-fill" style="width: ${lvlP}%;"></div></div></div></div>`;
+      html += `<div class="stat-block"><h3>🎯 По типам</h3><div class="quest-type-stats"><div class="type-stat"><div class="ts-header">🧠 Ум</div><div class="ts-count mind-color">${s.mindCompleted}</div><div class="ts-bar"><div class="ts-bar-fill mind-fill" style="width: ${(s.mindCompleted / maxTC) * 100}%;"></div></div><div class="ts-pct">${mindPct}%</div></div><div class="type-stat"><div class="ts-header">💪 Тело</div><div class="ts-count body-color">${s.bodyCompleted}</div><div class="ts-bar"><div class="ts-bar-fill body-fill" style="width: ${(s.bodyCompleted / maxTC) * 100}%;"></div></div><div class="ts-pct">${bodyPct}%</div></div></div><div class="progress-line" style="margin-top: 10px;"><div class="pl-top"><span>🔥 Сложных</span><span style="color: #ffb088;">${s.hardCompleted}</span></div></div></div>`;
       html += `<div class="stat-block"><h3>📅 Активность</h3><div class="activity-grid">`;
       days.forEach(d => {
         const c = ['activity-day']; if (d.isActive) c.push('active'); if (d.isToday) c.push('today');
@@ -2162,7 +1961,7 @@
     function openStats() { renderStats(); statsModal.classList.add('open'); }
     function closeStats() { statsModal.classList.remove('open'); }
 
-    // ПОЕДИНКИ
+    // ПОЕДИНКИ (сокращённый)
     function getBattleData() {
       return {
         v: 1, lvl: state.level, xp: state.xp, soap: state.soap,
@@ -2228,8 +2027,7 @@
       saveState();
     }
     function renderBattle() {
-      let html = '';
-      html += `<div class="battle-intro"><h3>⚔️ Арена поединков</h3><p>Бросьте вызов другу! Поделитесь кодом или вставьте код соперника.</p><div class="battle-actions"><button class="battle-action-btn share" id="shareCodeBtn">📤 Поделиться</button><button class="battle-action-btn fight" id="enterCodeBtn">⚔️ Ввести код</button></div><div id="shareCodeArea"></div></div>`;
+      let html = `<div class="battle-intro"><h3>⚔️ Арена поединков</h3><p>Бросьте вызов другу!</p><div class="battle-actions"><button class="battle-action-btn share" id="shareCodeBtn">📤 Поделиться</button><button class="battle-action-btn fight" id="enterCodeBtn">⚔️ Ввести код</button></div><div id="shareCodeArea"></div></div>`;
       const my = getBattleData();
       html += `<div class="battle-player-card"><h4>🛡️ Ваш профиль</h4><div class="battle-player-stats"><div class="battle-player-stat"><div class="bps-val">${my.lvl}</div><div class="bps-lbl">Уровень</div></div><div class="battle-player-stat"><div class="bps-val">${my.totalXp}</div><div class="bps-lbl">Всего XP</div></div><div class="battle-player-stat"><div class="bps-val">${my.totalQ}</div><div class="bps-lbl">Квестов</div></div><div class="battle-player-stat"><div class="bps-val">${my.mind}</div><div class="bps-lbl">🧠 Ум</div></div><div class="battle-player-stat"><div class="bps-val">${my.body}</div><div class="bps-lbl">💪 Тело</div></div><div class="battle-player-stat"><div class="bps-val">${my.hard}</div><div class="bps-lbl">⭐ Сложных</div></div></div></div>`;
       const br = state.battleRecord;
@@ -2265,7 +2063,7 @@
     }
     function showEnterCode() {
       const area = document.getElementById('shareCodeArea');
-      area.innerHTML = `<div class="battle-input-container"><label class="battle-input-label">📥 Код соперника (HF1-...):</label><textarea class="battle-input" id="battleCodeInput" placeholder="HF1-..."></textarea><div class="battle-input-error" id="battleInputError"></div><button class="battle-submit-btn" id="battleFightBtn">⚔️ Начать поединок</button></div>`;
+      area.innerHTML = `<div class="battle-input-container"><label class="battle-input-label">📥 Код соперника:</label><textarea class="battle-input" id="battleCodeInput" placeholder="HF1-..."></textarea><div class="battle-input-error" id="battleInputError"></div><button class="battle-submit-btn" id="battleFightBtn">⚔️ Начать</button></div>`;
       document.getElementById('battleFightBtn').addEventListener('click', () => {
         const input = document.getElementById('battleCodeInput').value.trim();
         const errEl = document.getElementById('battleInputError');
@@ -2303,9 +2101,9 @@
     function openBattle() { renderBattle(); battleModal.classList.add('open'); }
     function closeBattle() { battleModal.classList.remove('open'); }
 
-    // АРЕНА ТВОРЧЕСТВА
+    // 🎨 АРЕНА ТВОРЧЕСТВА (с коротким кодом через хостинг)
     let canvasState = {
-      color: '#ffffff', size: 6, isDrawing: false, lastX: 0, lastY: 0,
+      color: '#000000', size: 6, isDrawing: false, lastX: 0, lastY: 0,
       history: [], historyIndex: -1, currentView: 'menu', viewingArt: null, isLiked: false,
     };
 
@@ -2329,10 +2127,10 @@
       const today = getTodayStr();
       const canGetReward = state.artLastRewardDate !== today;
       const totalLikes = artGallery.reduce((sum, a) => sum + (a.likes || 0), 0);
-      let html = '';
-      html += `<div class="art-intro"><h3>🎨 Арена творчества</h3><p>Рисуйте, сохраняйте в галерею и делитесь с друзьями!</p><div class="art-actions"><button class="art-action-btn draw" id="artDrawBtn">🖌️ Рисовать</button><button class="art-action-btn gallery" id="artGalleryBtn">🖼️ Галерея (${artGallery.length})</button><button class="art-action-btn view" id="artViewBtn">📥 Посмотреть код</button></div></div>`;
+      let html = `<div class="art-intro"><h3>🎨 Арена творчества</h3><p>Рисуйте, сохраняйте и делитесь с друзьями!</p><div class="art-actions"><button class="art-action-btn draw" id="artDrawBtn">🖌️ Рисовать</button><button class="art-action-btn gallery" id="artGalleryBtn">🖼️ Галерея (${artGallery.length})</button><button class="art-action-btn view" id="artViewBtn">📥 Ввести код</button></div></div>`;
       html += `<div class="stat-block"><h3>📊 Ваше творчество</h3><div class="big-numbers"><div class="big-number"><div class="num art-color">${state.stats.artPieces || 0}</div><div class="lbl">Создано</div></div><div class="big-number"><div class="num" style="color:#ff80a0;">${totalLikes}</div><div class="lbl">Лайков</div></div></div></div>`;
       if (canGetReward) html += `<div class="all-completed-notice" style="background:#2a1f3a;border-color:#8050b0;color:#d0a0f0;">🎁 За первый рисунок дня — <b>+${ART_XP_REWARD} XP</b></div>`;
+      html += `<div class="art-code-info">⚡ <b>Новое:</b> Короткие коды для отправки! Рисунок загружается на хостинг — получаешь код типа <code>A3-abc123</code> (можно отправить в любом мессенджере). Если нет интернета — используешь длинный код AF3-...</div>`;
       html += `<div class="battle-history"><h3>📜 Последние рисунки</h3>`;
       if (artGallery.length === 0) html += `<div class="battle-empty-history"><span class="emoji">🎨</span>Ещё нет рисунков.</div>`;
       else {
@@ -2356,15 +2154,23 @@
       });
     }
     function showArtCodeInput() {
-      let html = `<div class="art-intro"><h3>📥 Просмотр рисунка друга</h3><p>Вставьте код рисунка (ART1-...).</p></div><div class="battle-input-container"><label class="battle-input-label">Код рисунка:</label><textarea class="battle-input" id="artCodeInput" placeholder="ART1-..."></textarea><div class="battle-input-error" id="artCodeError"></div><button class="battle-submit-btn" id="artCodeSubmit" style="background: linear-gradient(135deg, #4a2a7a, #6a3a9a); border-color: #a070d0; color: #e8c0ff;">🎨 Показать</button><button class="art-action-btn-small" id="artBackBtn" style="width:100%;margin-top:8px;justify-content:center;">← Назад</button></div>`;
+      let html = `<div class="art-intro"><h3>📥 Просмотр рисунка друга</h3><p>Вставь короткий код (A3-...) или длинный (AF3-...).</p></div><div class="battle-input-container"><label class="battle-input-label">Код рисунка:</label><textarea class="battle-input" id="artCodeInput" placeholder="A3-abc123 или AF3-..."></textarea><div class="battle-input-error" id="artCodeError"></div><button class="battle-submit-btn" id="artCodeSubmit" style="background: linear-gradient(135deg, #4a2a7a, #6a3a9a); border-color: #a070d0; color: #e8c0ff;">🎨 Показать</button><button class="art-action-btn-small" id="artBackBtn" style="width:100%;margin-top:8px;justify-content:center;">← Назад</button></div>`;
       artContent.innerHTML = html;
       document.getElementById('artBackBtn').addEventListener('click', () => { canvasState.currentView = 'menu'; renderArt(); });
-      document.getElementById('artCodeSubmit').addEventListener('click', () => {
+      document.getElementById('artCodeSubmit').addEventListener('click', async () => {
         const input = document.getElementById('artCodeInput').value.trim();
         const errEl = document.getElementById('artCodeError');
         if (!input) { errEl.textContent = 'Введите код'; errEl.classList.add('show'); return; }
-        const artData = decodeArtCode(input);
-        if (!artData) { errEl.textContent = '❌ Неверный код'; errEl.classList.add('show'); return; }
+        errEl.textContent = '⏳ Загрузка...';
+        errEl.style.color = '#d0a0f0';
+        errEl.classList.add('show');
+        const artData = await decodeArtCode(input);
+        if (!artData) { 
+          errEl.textContent = '❌ Неверный код или рисунок не найден';
+          errEl.style.color = '#f0a0a0';
+          return; 
+        }
+        errEl.classList.remove('show');
         canvasState.viewingArt = artData;
         canvasState.isLiked = false;
         canvasState.currentView = 'view';
@@ -2372,7 +2178,7 @@
       });
     }
     function renderArtDraw() {
-      let html = `<div class="canvas-container"><canvas id="drawCanvas" width="600" height="600"></canvas></div><div class="art-toolbar"><div class="art-tool-group"><span class="art-tool-label">Цвет:</span>`;
+      let html = `<div class="canvas-container"><canvas id="drawCanvas" width="${CANVAS_SIZE}" height="${CANVAS_SIZE}"></canvas></div><div class="art-toolbar"><div class="art-tool-group"><span class="art-tool-label">Цвет:</span>`;
       ART_PALETTE.forEach(c => {
         const active = c === canvasState.color ? 'active' : '';
         html += `<div class="art-color-btn ${active}" data-color="${c}" style="background:${c};"></div>`;
@@ -2386,7 +2192,7 @@
       artContent.innerHTML = html;
       const canvas = document.getElementById('drawCanvas');
       const ctx = canvas.getContext('2d');
-      ctx.fillStyle = '#1a1a1f';
+      ctx.fillStyle = '#ffffff';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       ctx.lineCap = 'round';
       ctx.lineJoin = 'round';
@@ -2458,7 +2264,7 @@
       });
       document.getElementById('artClear').addEventListener('click', () => {
         if (!confirm('Очистить холст?')) return;
-        ctx.fillStyle = '#1a1a1f';
+        ctx.fillStyle = '#ffffff';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         saveCanvasHistory(canvas);
       });
@@ -2472,19 +2278,19 @@
       document.getElementById('artSave').addEventListener('click', () => saveArtPiece(canvas));
     }
     function saveCanvasHistory(canvas) {
-      const dataUrl = canvas.toDataURL('image/png');
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.5);
       if (canvasState.historyIndex < canvasState.history.length - 1) {
         canvasState.history = canvasState.history.slice(0, canvasState.historyIndex + 1);
       }
       canvasState.history.push(dataUrl);
-      if (canvasState.history.length > 15) canvasState.history.shift();
+      if (canvasState.history.length > 10) canvasState.history.shift();
       canvasState.historyIndex = canvasState.history.length - 1;
     }
     function saveArtPiece(canvas) {
-      const dataUrl = canvas.toDataURL('image/png');
+      const dataUrl = canvas.toDataURL('image/jpeg', JPEG_QUALITY);
       const today = getTodayStr();
       const id = 'art_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
-      const art = { id, dataUrl, date: today, likes: 0, timestamp: Date.now() };
+      const art = { id, dataUrl, date: today, likes: 0, timestamp: Date.now(), shared: null };
       artGallery.push(art);
       if (artGallery.length > MAX_ART_PIECES) artGallery.shift();
       saveArtGallery();
@@ -2503,15 +2309,16 @@
       canvasState.historyIndex = -1;
       render();
       renderArt();
-      showToast(`🎨 Рисунок сохранён!${rewardMsg}`, 2500);
+      const sizeKB = Math.round(dataUrl.length / 1024);
+      showToast(`🎨 Сохранено! (~${sizeKB} КБ)${rewardMsg}`, 2500);
     }
     function renderArtGallery() {
-      let html = `<div class="art-intro"><h3>🖼️ Ваша галерея</h3><p>Всего рисунков: ${artGallery.length} из ${MAX_ART_PIECES}</p><div class="art-actions"><button class="art-action-btn draw" id="artDrawNewBtn">🖌️ Новый рисунок</button><button class="art-action-btn view" id="artBackToMenu">← Назад</button></div></div>`;
-      if (artGallery.length === 0) html += `<div class="art-gallery-empty"><span class="emoji">🎨</span>Ещё нет рисунков.<br>Создайте первый!</div>`;
+      let html = `<div class="art-intro"><h3>🖼️ Ваша галерея</h3><p>Всего: ${artGallery.length} из ${MAX_ART_PIECES}</p><div class="art-actions"><button class="art-action-btn draw" id="artDrawNewBtn">🖌️ Новый рисунок</button><button class="art-action-btn view" id="artBackToMenu">← Назад</button></div></div>`;
+      if (artGallery.length === 0) html += `<div class="art-gallery-empty"><span class="emoji">🎨</span>Ещё нет рисунков.</div>`;
       else {
         html += `<div class="art-gallery">`;
         [...artGallery].reverse().forEach(art => {
-          html += `<div class="art-gallery-item" data-id="${art.id}"><img src="${art.dataUrl}" alt="art"><button class="art-gallery-item-delete" data-delete="${art.id}" title="Удалить">🗑️</button><div class="art-gallery-item-info"><div class="art-gallery-item-date">${formatDate(art.date)}</div><div class="art-gallery-item-likes">❤️ ${art.likes || 0}</div></div></div>`;
+          html += `<div class="art-gallery-item" data-id="${art.id}"><img src="${art.dataUrl}" alt="art"><button class="art-gallery-item-delete" data-delete="${art.id}" title="Удалить">🗑️</button><div class="art-gallery-item-info"><div class="art-gallery-item-date">${formatDate(art.date)}${art.shared ? ' 🔗' : ''}</div><div class="art-gallery-item-likes">❤️ ${art.likes || 0}</div></div></div>`;
         });
         html += `</div>`;
       }
@@ -2541,7 +2348,9 @@
     function renderArtViewer() {
       const art = canvasState.viewingArt;
       if (!art) { canvasState.currentView = 'menu'; renderArt(); return; }
-      let html = `<div class="art-viewer-canvas-wrap"><img src="${art.dataUrl}" alt="art"></div><div class="art-viewer-meta"><div class="art-viewer-date">📅 ${formatDate(art.date)}</div><button class="like-btn ${canvasState.isLiked ? 'liked' : ''}" id="artLikeBtn">${canvasState.isLiked ? '❤️ Понравилось' : '🤍 Нравится'} (${art.likes || 0})</button></div><div class="art-viewer-actions"><button class="art-action-btn-small primary" id="artShareBtn" style="flex:1;justify-content:center;">📤 Поделиться</button><button class="art-action-btn-small" id="artViewerBack">← Назад</button></div><div id="artShareArea"></div>`;
+      const sizeKB = Math.round(art.dataUrl.length / 1024);
+      const isMine = artGallery.some(a => a.id === art.id);
+      let html = `<div class="art-viewer-canvas-wrap"><img src="${art.dataUrl}" alt="art"></div><div class="art-viewer-meta"><div class="art-viewer-date">📅 ${formatDate(art.date)} • ~${sizeKB} КБ</div><button class="like-btn ${canvasState.isLiked ? 'liked' : ''}" id="artLikeBtn">${canvasState.isLiked ? '❤️ Понравилось' : '🤍 Нравится'} (${art.likes || 0})</button></div><div class="art-viewer-actions"><button class="art-action-btn-small primary" id="artShareBtn" style="flex:1;justify-content:center;">📤 Поделиться</button><button class="art-action-btn-small" id="artViewerBack">← Назад</button></div><div id="artShareArea"></div>`;
       artContent.innerHTML = html;
       document.getElementById('artViewerBack').addEventListener('click', () => { canvasState.viewingArt = null; canvasState.currentView = 'gallery'; renderArt(); });
       document.getElementById('artLikeBtn').addEventListener('click', () => {
@@ -2555,43 +2364,184 @@
         render();
         showToast('❤️ Лайк поставлен!', 1500);
       });
-      document.getElementById('artShareBtn').addEventListener('click', () => {
-        const code = encodeArtCode(art);
-        const area = document.getElementById('artShareArea');
-        if (!code) { showToast('⚠️ Ошибка', 1500); return; }
-        area.innerHTML = `<div class="art-share-code" id="artShareCode">${code}</div><div class="battle-code-hint" style="color:#b8a0c8;">👆 Нажмите, чтобы скопировать</div>`;
-        const codeEl = document.getElementById('artShareCode');
+      document.getElementById('artShareBtn').addEventListener('click', () => showArtShareMenu(art));
+    }
+    function showArtShareMenu(art) {
+      const area = document.getElementById('artShareArea');
+      area.innerHTML = `
+        <div class="battle-code-hint" style="color:#b8a0c8;margin-top:10px;margin-bottom:10px;">Выбери способ:</div>
+        <button class="battle-action-btn share" id="artShareShortBtn" style="width:100%;margin-bottom:8px;">📤 Короткий код (через интернет)</button>
+        <button class="battle-action-btn fight" id="artShareLongBtn" style="width:100%;">📋 Полный код (работает без интернета)</button>
+        <div id="artShareResult" style="margin-top:10px;"></div>
+      `;
+      document.getElementById('artShareShortBtn').addEventListener('click', () => uploadArtToHost(art));
+      document.getElementById('artShareLongBtn').addEventListener('click', () => showLongCode(art));
+    }
+    async function uploadArtToHost(art) {
+      const resultArea = document.getElementById('artShareResult');
+      resultArea.innerHTML = `<div class="upload-status"><span class="loading-spinner"></span> Загрузка на сервер... (2-5 сек)</div>`;
+      
+      try {
+        // Конвертируем dataURL в Blob
+        const blob = await (await fetch(art.dataUrl)).blob();
+        
+        // Формируем FormData
+        const formData = new FormData();
+        formData.append('reqtype', 'fileupload');
+        const file = new File([blob], 'art.jpg', { type: 'image/jpeg' });
+        formData.append('fileToUpload', file);
+        
+        // Загружаем с таймаутом
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 15000);
+        
+        const response = await fetch(IMAGE_HOST_UPLOAD, {
+          method: 'POST',
+          body: formData,
+          signal: controller.signal,
+        });
+        clearTimeout(timeoutId);
+        
+        if (!response.ok) throw new Error('Upload failed');
+        const fileUrl = (await response.text()).trim();
+        
+        if (!fileUrl || !fileUrl.startsWith('http')) throw new Error('Bad response');
+        
+        // Извлекаем короткий ID из URL
+        // Пример: https://files.catbox.moe/abc123.jpg → abc123
+        const match = fileUrl.match(/\/([a-z0-9]+)\.(jpg|jpeg|png|gif|webp)$/i);
+        if (!match) throw new Error('Bad URL format');
+        const shortId = match[1];
+        
+        // Формируем короткий код
+        const shortCode = ART_CODE_PREFIX + shortId;
+        
+        // Сохраняем в art
+        art.shared = shortCode;
+        art.hostUrl = fileUrl;
+        saveArtGallery();
+        
+        // Показываем результат
+        resultArea.innerHTML = `
+          <div class="share-success-banner">
+            <span class="icon">✅</span>
+            <div class="text">Рисунок загружен!</div>
+            <div class="subtext">Код для отправки:</div>
+          </div>
+          <div class="short-code-display" id="shortCodeEl">
+            <div class="short-code-text">${shortCode}</div>
+            <div class="hint">👆 Нажми, чтобы скопировать</div>
+          </div>
+        `;
+        const codeEl = document.getElementById('shortCodeEl');
         codeEl.addEventListener('click', async () => {
-          try { await navigator.clipboard.writeText(code); showToast('📋 Скопирован!', 2000); }
+          try { await navigator.clipboard.writeText(shortCode); showToast(`📋 ${shortCode} скопирован!`, 2200); }
           catch (e) {
             const r = document.createRange(); r.selectNode(codeEl);
             window.getSelection().removeAllRanges(); window.getSelection().addRange(r);
-            try { document.execCommand('copy'); showToast('📋 Скопирован!', 2000); }
+            try { document.execCommand('copy'); showToast(`📋 ${shortCode} скопирован!`, 2200); }
             catch (err) { showToast('⚠️ Скопируйте вручную', 2000); }
           }
         });
+        
+        showToast(`✅ Код: ${shortCode} (3-10 символов!)`, 3000);
+        
+      } catch (err) {
+        console.error(err);
+        resultArea.innerHTML = `
+          <div class="share-success-banner" style="background: linear-gradient(135deg, #3a1a1a, #4a2a2a); border-color: #9a5a5a;">
+            <span class="icon">⚠️</span>
+            <div class="text" style="color:#f0c0c0;">Не удалось загрузить</div>
+            <div class="subtext" style="color:#c09090;">Проверь интернет или используй полный код ниже</div>
+          </div>
+          <button class="battle-submit-btn" id="fallbackToLongBtn" style="margin-top:10px;">📋 Использовать полный код</button>
+        `;
+        document.getElementById('fallbackToLongBtn').addEventListener('click', () => showLongCode(art));
+      }
+    }
+    function showLongCode(art) {
+      const resultArea = document.getElementById('artShareResult');
+      const code = encodeArtCodeFull(art);
+      if (!code) { showToast('⚠️ Ошибка', 1500); return; }
+      const codeSize = Math.round(code.length / 1024);
+      resultArea.innerHTML = `
+        <div class="battle-code-hint" style="color:#b8a0c8;margin-bottom:8px;">📏 Полный код ~${codeSize} КБ — работает без интернета, но требует копирования через мессенджер</div>
+        <div class="art-share-code" id="artShareCode">${code}</div>
+        <div class="battle-code-hint" style="color:#b8a0c8;">👆 Нажмите, чтобы скопировать</div>
+      `;
+      const codeEl = document.getElementById('artShareCode');
+      codeEl.addEventListener('click', async () => {
+        try { await navigator.clipboard.writeText(code); showToast(`📋 Скопировано! (${codeSize} КБ)`, 2200); }
+        catch (e) {
+          const r = document.createRange(); r.selectNode(codeEl);
+          window.getSelection().removeAllRanges(); window.getSelection().addRange(r);
+          try { document.execCommand('copy'); showToast(`📋 Скопировано! (${codeSize} КБ)`, 2200); }
+          catch (err) { showToast('⚠️ Скопируйте вручную', 2000); }
+        }
       });
     }
-    function encodeArtCode(art) {
+    // Полный код (fallback) — base64 картинки
+    function encodeArtCodeFull(art) {
       try {
-        const data = { v: 1, d: art.date, l: art.likes || 0, img: art.dataUrl };
+        const data = { v: 2, d: art.date, l: art.likes || 0, img: art.dataUrl };
         const json = JSON.stringify(data);
         const b64 = btoa(unescape(encodeURIComponent(json)));
-        return ART_CODE_PREFIX + b64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+        return ART_FULL_PREFIX + b64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
       } catch (e) { return null; }
     }
-    function decodeArtCode(code) {
+    // Универсальный декодер: короткий или длинный код
+    async function decodeArtCode(code) {
       try {
         code = code.trim();
-        if (!code.startsWith(ART_CODE_PREFIX)) return null;
-        let b64 = code.slice(ART_CODE_PREFIX.length);
+        
+        // 🆕 Короткий код: A3-abc123 → скачиваем с хостинга
+        if (code.startsWith(ART_CODE_PREFIX)) {
+          const shortId = code.slice(ART_CODE_PREFIX.length).trim();
+          // Валидация: только латиница и цифры
+          if (!/^[a-z0-9]+$/i.test(shortId)) return null;
+          const imageUrl = IMAGE_HOST_VIEW + shortId + '.jpg';
+          
+          // Скачиваем картинку
+          const response = await fetch(imageUrl);
+          if (!response.ok) {
+            // Пробуем с .png
+            const pngUrl = IMAGE_HOST_VIEW + shortId + '.png';
+            const pngResponse = await fetch(pngUrl);
+            if (!pngResponse.ok) return null;
+            const blob = await pngResponse.blob();
+            const dataUrl = await blobToDataURL(blob);
+            return { id: 'external_' + Date.now(), dataUrl, date: getTodayStr(), likes: 0, external: true };
+          }
+          const blob = await response.blob();
+          const dataUrl = await blobToDataURL(blob);
+          return { id: 'external_' + Date.now(), dataUrl, date: getTodayStr(), likes: 0, external: true };
+        }
+        
+        // Длинный код: AF3-<base64> — декодируем сразу
+        let b64;
+        if (code.startsWith(ART_FULL_PREFIX)) b64 = code.slice(ART_FULL_PREFIX.length);
+        else if (code.startsWith('A2-')) b64 = code.slice(3); // совместимость со старой версией
+        else if (code.startsWith('ART1-')) b64 = code.slice(5); // совместимость с ещё более старой
+        else return null;
+        
         b64 = b64.replace(/-/g, '+').replace(/_/g, '/');
         while (b64.length % 4) b64 += '=';
         const json = decodeURIComponent(escape(atob(b64)));
         const data = JSON.parse(json);
         if (!data.img || typeof data.img !== 'string') return null;
         return { id: 'external_' + Date.now(), dataUrl: data.img, date: data.d || getTodayStr(), likes: data.l || 0, external: true };
-      } catch (e) { return null; }
+      } catch (e) {
+        console.error(e);
+        return null;
+      }
+    }
+    function blobToDataURL(blob) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
     }
 
     function resetProgress() {
