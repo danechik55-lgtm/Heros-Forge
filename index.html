@@ -23,6 +23,18 @@
       padding: 12px;
       position: relative;
       overflow-x: hidden;
+      transition: filter 0.8s ease;
+    }
+    /* 🌑 Режим Дятла — весь экран чёрно-белый */
+    body.wyvern-mode {
+      filter: grayscale(100%) contrast(1.15);
+    }
+    body.wyvern-mode::before {
+      background:
+        radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.08) 0%, transparent 35%),
+        radial-gradient(circle at 100% 0%, rgba(255, 255, 255, 0.06) 0%, transparent 35%),
+        radial-gradient(circle at 0% 100%, rgba(255, 255, 255, 0.07) 0%, transparent 35%),
+        radial-gradient(circle at 100% 100%, rgba(255, 255, 255, 0.08) 0%, transparent 35%);
     }
     body::before {
       content: '';
@@ -35,6 +47,7 @@
         radial-gradient(circle at 100% 0%, rgba(255, 140, 60, 0.08) 0%, transparent 35%),
         radial-gradient(circle at 0% 100%, rgba(255, 140, 60, 0.09) 0%, transparent 35%),
         radial-gradient(circle at 100% 100%, rgba(255, 140, 60, 0.10) 0%, transparent 35%);
+      transition: background 0.8s ease;
     }
     .app {
       max-width: 500px;
@@ -52,7 +65,18 @@
         0 0 12px rgba(255, 140, 60, 0.12),
         0 0 30px rgba(255, 140, 60, 0.06),
         inset 0 0 20px rgba(255, 140, 60, 0.03);
+      transition: box-shadow 0.8s ease, border-color 0.8s ease;
     }
+    body.wyvern-mode .app {
+      border-color: #4a4a4a;
+      box-shadow:
+        0 20px 40px rgba(0,0,0,0.9),
+        0 0 0 1px rgba(255, 255, 255, 0.2),
+        0 0 15px rgba(255, 255, 255, 0.15),
+        0 0 40px rgba(255, 255, 255, 0.08),
+        inset 0 0 30px rgba(255, 255, 255, 0.04);
+    }
+
     h1 {
       font-size: 22px;
       font-weight: 500;
@@ -120,11 +144,30 @@
       padding: 10px 16px;
       border-radius: 20px;
       margin-top: 10px;
+      transition: all 0.8s ease;
+    }
+    /* 🦅 Реликвия Дятла активна — особый баннер */
+    .active-relic-banner.wyvern-active {
+      background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
+      border-color: #888888;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3), 0 0 25px rgba(255, 255, 255, 0.15);
     }
     .relic-icon-big { font-size: 24px; line-height: 1; filter: drop-shadow(0 0 8px rgba(255, 215, 128, 0.6)); }
+    .active-relic-banner.wyvern-active .relic-icon-big {
+      filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.8));
+    }
     .relic-active-info { flex: 1; display: flex; flex-direction: column; gap: 2px; }
     .relic-active-name { font-size: 13px; font-weight: 600; color: #ffd780; }
+    .active-relic-banner.wyvern-active .relic-active-name {
+      color: #ffffff;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+      letter-spacing: 1px;
+    }
     .relic-active-desc { font-size: 11px; color: #b0a880; }
+    .active-relic-banner.wyvern-active .relic-active-desc {
+      color: #999;
+      font-style: italic;
+    }
 
     .mode-switcher {
       display: flex;
@@ -252,6 +295,17 @@
     .quest-item.hard-quest .btn-done { background: #3f2f28; border-color: #ff6b35; color: #ffb088; }
     .hard-icon { background: #ff6b35; color: #0b0d0e; padding: 1px 8px; border-radius: 16px; font-size: 9px; font-weight: 700; display: inline-block; }
     .boost-indicator { color: #ffd780; font-size: 10px; font-weight: 700; margin-left: 4px; }
+    /* 🌑 Особый индикатор буста при Дятле */
+    .boost-indicator.wyvern {
+      color: #ffffff;
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
+      font-size: 11px;
+      animation: wyvernPulse 2s ease-in-out infinite;
+    }
+    @keyframes wyvernPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
     .btn-done {
       background: #2b3f3a;
       border: none;
@@ -343,6 +397,13 @@
       white-space: nowrap;
     }
     .toast.show { opacity: 1; }
+    /* 🌑 Особый тост при Дятле */
+    body.wyvern-mode .toast {
+      background: #000000;
+      color: #ffffff;
+      border-color: #888888;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    }
     .empty-quests { padding: 20px 12px; text-align: center; color: #7e959f; font-size: 14px; }
     .empty-quests .emoji { font-size: 36px; display: block; margin-bottom: 8px; }
     .all-completed-notice {
@@ -575,6 +636,58 @@
     .shop-item.owned { background: #1a2a1a; border-color: #4a7a4a; }
     .shop-item.active-relic { background: #2a2a1a; border-color: #ffd780; }
     .shop-item.best-value { background: linear-gradient(135deg, #1f2a1f, #2a3a2a); border-color: #5a8a5a; }
+    /* 🌑 Особый стиль для Реликвии Дятла */
+    .shop-item.wyvern-item {
+      background: linear-gradient(135deg, #000000, #1a1a1a);
+      border: 1px solid #666666;
+      border-left: 4px solid #ffffff;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15), 0 0 20px rgba(255, 255, 255, 0.08);
+      position: relative;
+      overflow: hidden;
+    }
+    .shop-item.wyvern-item::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      animation: wyvernShine 4s ease-in-out infinite;
+    }
+    @keyframes wyvernShine {
+      0%, 100% { left: -100%; }
+      50% { left: 100%; }
+    }
+    .shop-item.wyvern-item.active-relic {
+      border-color: #ffffff;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 255, 255, 0.25);
+    }
+    .shop-item.wyvern-item .shop-item-name {
+      color: #ffffff;
+      text-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+    .shop-item.wyvern-item .shop-item-desc {
+      color: #999999;
+      font-style: italic;
+      line-height: 1.5;
+    }
+    .shop-item.wyvern-item .shop-item-effect {
+      color: #ffffff;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+      font-weight: 700;
+      font-size: 12px;
+    }
+    .shop-item.wyvern-item .shop-item-icon {
+      filter: grayscale(100%) contrast(1.5);
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    }
+    .shop-item.wyvern-item .relic-badge {
+      background: #ffffff;
+      color: #000000;
+      font-weight: 900;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+    }
     .shop-item-icon { font-size: 32px; line-height: 1; flex-shrink: 0; width: 44px; text-align: center; }
     .shop-item-info { flex: 1; display: flex; flex-direction: column; gap: 3px; min-width: 120px; }
     .shop-item-name {
@@ -610,12 +723,40 @@
       white-space: nowrap;
       user-select: none;
       flex-shrink: 0;
+      position: relative;
+      z-index: 1;
     }
     .shop-buy-btn:active:not(:disabled) { transform: scale(0.94); }
     .shop-buy-btn:disabled { background: #2a2a2a; border-color: #4a4a4a; color: #6a6a6a; cursor: not-allowed; opacity: 0.6; }
     .shop-buy-btn.activate-btn { background: #3a3a1a; border-color: #c0a050; color: #ffd780; }
     .shop-buy-btn.active-btn { background: #2a2a1a; border-color: #ffd780; color: #ffd780; }
     .shop-buy-btn.exchange-btn { background: #3a2a4a; border-color: #a050c0; color: #d8a0e8; }
+    /* 🌑 Кнопка покупки Дятла */
+    .shop-item.wyvern-item .shop-buy-btn {
+      background: #ffffff;
+      border-color: #ffffff;
+      color: #000000;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+    }
+    .shop-item.wyvern-item .shop-buy-btn:active:not(:disabled) {
+      transform: scale(0.94);
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.7);
+    }
+    .shop-item.wyvern-item .shop-buy-btn:disabled {
+      background: #333333;
+      border-color: #555555;
+      color: #777777;
+      box-shadow: none;
+    }
+    .shop-item.wyvern-item .shop-buy-btn.active-btn {
+      background: #000000;
+      border-color: #ffffff;
+      color: #ffffff;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    }
     .relic-category-note, .exchange-category-note {
       border-radius: 14px;
       padding: 10px 14px;
@@ -1059,10 +1200,7 @@
       cursor: pointer;
       transition: 0.2s;
     }
-    .short-code-display:hover {
-      background: #101618;
-      border-color: #7aba7a;
-    }
+    .short-code-display:hover { background: #101618; border-color: #7aba7a; }
     .short-code-display .short-code-text {
       font-family: 'Courier New', monospace;
       font-size: 22px;
@@ -1072,11 +1210,7 @@
       word-break: break-all;
       text-shadow: 0 0 10px rgba(120, 200, 120, 0.5);
     }
-    .short-code-display .hint {
-      font-size: 10px;
-      color: #7a9a7a;
-      margin-top: 6px;
-    }
+    .short-code-display .hint { font-size: 10px; color: #7a9a7a; margin-top: 6px; }
 
     .loading-spinner {
       display: inline-block;
@@ -1087,9 +1221,7 @@
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
     }
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
+    @keyframes spin { to { transform: rotate(360deg); } }
     .upload-status {
       display: flex;
       align-items: center;
@@ -1101,6 +1233,45 @@
       margin: 10px 0;
       font-size: 13px;
       color: #d0a0f0;
+    }
+
+    /* 🌑 СПЕЦИАЛЬНЫЙ ЭФФЕКТ ПРИ АКТИВНОЙ РЕЛИКВИИ ДЯТЛА */
+    body.wyvern-mode .app::before {
+      content: '🦅';
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      font-size: 20px;
+      opacity: 0.4;
+      filter: grayscale(100%);
+      animation: wyvernFloat 4s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 10;
+    }
+    @keyframes wyvernFloat {
+      0%, 100% { transform: translateY(0) rotate(-5deg); opacity: 0.4; }
+      50% { transform: translateY(-5px) rotate(5deg); opacity: 0.7; }
+    }
+
+    /* 🌑 Скрываем яркие цвета в режиме Дятла */
+    body.wyvern-mode .wallet-bar,
+    body.wyvern-mode .active-relic-banner,
+    body.wyvern-mode .mode-switcher,
+    body.wyvern-mode .stats-grid,
+    body.wyvern-mode .quest-section,
+    body.wyvern-mode .shop-balance,
+    body.wyvern-mode .battle-intro,
+    body.wyvern-mode .art-intro,
+    body.wyvern-mode .battle-player-card,
+    body.wyvern-mode .stat-block,
+    body.wyvern-mode .shop-item,
+    body.wyvern-mode .art-gallery-item-info {
+      background: #1a1a1a !important;
+      border-color: #3a3a3a !important;
+    }
+    body.wyvern-mode .wallet-bar,
+    body.wyvern-mode .active-relic-banner {
+      background: linear-gradient(135deg, #1a1a1a, #2a2a2a) !important;
     }
 
     @media (max-width: 420px) {
@@ -1302,17 +1473,27 @@
     const HARD_QUEST_SOAP = 5;
     const NORMAL_QUEST_SOAP = 1;
     const BATTLE_CODE_PREFIX = 'HF1-';
-    const ART_CODE_PREFIX = 'A3-';       // Короткий код: A3-abc123
-    const ART_FULL_PREFIX = 'AF3-';       // Полный код fallback: AF3-<base64>
+    const ART_CODE_PREFIX = 'A3-';
+    const ART_FULL_PREFIX = 'AF3-';
     const ART_XP_REWARD = 15;
     const MAX_ART_PIECES = 20;
     const CANVAS_SIZE = 500;
     const JPEG_QUALITY = 0.72;
 
-    // 🆕 Хостинги для загрузки картинок (бесплатные, без регистрации)
-    // Используем catbox.moe — стабильный, без API-ключа, с CORS
     const IMAGE_HOST_UPLOAD = 'https://catbox.moe/user/api.php';
     const IMAGE_HOST_VIEW = 'https://files.catbox.moe/';
+
+    // 🦅 Реликвия Дятла — особые параметры
+    const WYVERN_RELIC = {
+      id: 'wyvern',
+      name: 'Реликвия Дятла',
+      icon: '🦅',
+      price: 1000000000, // 1 миллиард
+      boost: 100, // 10 000 000% (boost = 100 → +10000% ... умножаем ниже особым образом)
+      type: 'all',
+      desc: 'Тот, кто возьмёт эту реликвию, познает на себе её силу. Подобно рассекающему плоть клинку, она будет терзать его душу. Весь Hero\'s Forge погрузится во тьму.',
+      isWyvern: true,
+    };
 
     const SHOP_ITEMS = {
       relics: [
@@ -1323,6 +1504,7 @@
         { id: 'hera', name: 'Реликвия Геры', icon: '👑', price: 70, boost: 0.65, type: 'all', desc: 'Реликвия царственности.' },
         { id: 'athena', name: 'Реликвия Афины', icon: '🦉', price: 150, boost: 0.75, type: 'mind', desc: 'Реликвия мудрости. Только ум.' },
         { id: 'hephaestus', name: 'Реликвия Гефеста', icon: '⚒️', price: 150, boost: 0.75, type: 'body', desc: 'Реликвия кузнеца. Только тело.' },
+        WYVERN_RELIC, // 🦅 Реликвия Дятла в конце
       ],
       consumables: [
         { id: 'extra_refresh', name: 'Дополнительное обновление', icon: '🔄', price: 15, desc: '+1 обновление обычных квестов.' },
@@ -1484,6 +1666,13 @@
     function getBoostForQuest(quest) {
       const relic = getActiveRelic();
       if (!relic) return 0;
+      // 🦅 Реликвия Дятла — буст ×100001 (т.е. 10 000 000%)
+      if (relic.isWyvern) return 100; // +10000% в формуле (1 + 100 = ×101)... но нужно больше
+      // Пересчитаем: boost хранится как коэффициент к добавке.
+      // Обычные: boost=0.15 → ×1.15
+      // Дятел: должен давать ×100001 (то есть +10000000%)
+      // Но в формуле: xp * (1 + boost). Значит boost должен быть 100000.
+      if (relic.isWyvern) return 100000;
       if (relic.type === 'mind' && quest.type !== 'mind') return 0;
       if (relic.type === 'body' && quest.type !== 'body') return 0;
       return relic.boost;
@@ -1493,6 +1682,18 @@
     }
     function getQuestSoapReward(quest) { return quest.isHard ? HARD_QUEST_SOAP : NORMAL_QUEST_SOAP; }
     function isModeLocked() { return state.modeLocked; }
+    // 🦅 Проверка активна ли Реликвия Дятла
+    function isWyvernActive() {
+      return state.activeRelic === 'wyvern';
+    }
+    // 🌑 Применение/снятие режима Дятла
+    function applyWyvernMode() {
+      if (isWyvernActive()) {
+        document.body.classList.add('wyvern-mode');
+      } else {
+        document.body.classList.remove('wyvern-mode');
+      }
+    }
 
     function updateStreakOnNewDay(oldDate, newDate) {
       if (!oldDate) { state.stats.streak = 0; return; }
@@ -1601,6 +1802,8 @@
         }
         const artRaw = localStorage.getItem(ART_STORAGE_KEY);
         if (artRaw) artGallery = JSON.parse(artRaw);
+        // 🌑 Применяем режим Дятла при загрузке
+        applyWyvernMode();
       } catch(e) {}
     }
     function initDay() {
@@ -1737,11 +1940,21 @@
         activeRelicBanner.style.display = 'flex';
         activeRelicIcon.textContent = relic.icon;
         activeRelicName.textContent = relic.name;
-        let bt = `+${Math.round(relic.boost * 100)}% XP`;
-        if (relic.type === 'mind') bt += ' (только ум)';
-        else if (relic.type === 'body') bt += ' (только тело)';
-        activeRelicDesc.textContent = bt;
+        // 🦅 Особый баннер для Дятла
+        if (relic.isWyvern) {
+          activeRelicBanner.classList.add('wyvern-active');
+          activeRelicDesc.textContent = '+10 000 000% XP • тьма поглотила Forge';
+        } else {
+          activeRelicBanner.classList.remove('wyvern-active');
+          let bt = `+${Math.round(relic.boost * 100)}% XP`;
+          if (relic.type === 'mind') bt += ' (только ум)';
+          else if (relic.type === 'body') bt += ' (только тело)';
+          activeRelicDesc.textContent = bt;
+        }
       } else activeRelicBanner.style.display = 'none';
+      // 🌑 Применяем режим Дятла
+      applyWyvernMode();
+      
       const allCompleted = isAllQuestsCompleted();
       const modeLocked = isModeLocked();
       document.querySelectorAll('.mode-btn').forEach(btn => {
@@ -1788,7 +2001,15 @@
         const boostedXp = getQuestXpWithBoost(quest);
         const hasBoost = boost > 0;
         const xpClass = hasBoost ? 'xp-boosted' : 'xp';
-        const boostIndicator = hasBoost ? `<span class="boost-indicator">🔥+${Math.round(boost * 100)}%</span>` : '';
+        // 🦅 Особый индикатор для Дятла
+        let boostIndicator = '';
+        if (hasBoost) {
+          if (state.activeRelic === 'wyvern') {
+            boostIndicator = `<span class="boost-indicator wyvern">🦅 ×100001</span>`;
+          } else {
+            boostIndicator = `<span class="boost-indicator">🔥+${Math.round(boost * 100)}%</span>`;
+          }
+        }
         const soapReward = getQuestSoapReward(quest);
         const soapClass = quest.isHard ? 'soap-reward-big' : 'soap-reward';
         html += `
@@ -1830,22 +2051,35 @@
       levelUpBadge.style.display = 'none';
     }
 
-    // МАГАЗИН (сокращённый)
+    // МАГАЗИН
     function renderShop() {
-      let html = `<div class="shop-balance"><div class="shop-balance-left"><div class="shop-balance-icon">🧼</div><div><div class="shop-balance-label">Баланс</div><div class="shop-balance-text">${state.soap} 🧼</div></div></div><div class="shop-balance-right"><div class="shop-xp-badge"><div class="xp-val">${state.xp}</div><div class="xp-lbl">Всего XP</div></div></div></div>`;
+      let html = `<div class="shop-balance"><div class="shop-balance-left"><div class="shop-balance-icon">🧼</div><div><div class="shop-balance-label">Баланс</div><div class="shop-balance-text">${state.soap.toLocaleString('ru-RU')} 🧼</div></div></div><div class="shop-balance-right"><div class="shop-xp-badge"><div class="xp-val">${state.xp}</div><div class="xp-lbl">Всего XP</div></div></div></div>`;
       html += `<div class="shop-section-title">🏛️ Реликвии</div><div class="relic-category-note">⚠️ Одновременно активна только <b>одна</b> реликвия.</div>`;
       SHOP_ITEMS.relics.forEach(relic => {
         const owned = state.ownedRelics.includes(relic.id);
         const isActive = state.activeRelic === relic.id;
         const canAfford = state.soap >= relic.price;
         let btnHtml = '', itemClass = 'shop-item relic-item';
+        
+        // 🦅 Особый стиль для Дятла
+        if (relic.isWyvern) {
+          itemClass += ' wyvern-item';
+        }
         if (isActive) { itemClass += ' active-relic'; btnHtml = `<button class="shop-buy-btn active-btn" disabled>✓ Активна</button>`; }
         else if (owned) { itemClass += ' owned'; btnHtml = `<button class="shop-buy-btn activate-btn" data-action="activate-relic" data-id="${relic.id}">⚡ Активировать</button>`; }
-        else btnHtml = `<button class="shop-buy-btn" data-action="buy-relic" data-id="${relic.id}" ${!canAfford ? 'disabled' : ''}>Купить • ${relic.price} 🧼</button>`;
-        let eC = 'shop-item-effect', eT = `+${Math.round(relic.boost * 100)}% XP ко всем`;
-        if (relic.type === 'mind') { eC += ' mind-effect'; eT = `+${Math.round(relic.boost * 100)}% XP только 🧠 ум`; }
-        else if (relic.type === 'body') { eC += ' body-effect'; eT = `+${Math.round(relic.boost * 100)}% XP только 💪 тело`; }
-        html += `<div class="${itemClass}"><div class="shop-item-icon">${relic.icon}</div><div class="shop-item-info"><div class="shop-item-name">${relic.name}<span class="relic-badge">РЕЛИКВИЯ</span></div><div class="shop-item-desc">${relic.desc}</div><div class="${eC}">${eT}</div></div>${btnHtml}</div>`;
+        else btnHtml = `<button class="shop-buy-btn" data-action="buy-relic" data-id="${relic.id}" ${!canAfford ? 'disabled' : ''}>Купить • ${relic.price.toLocaleString('ru-RU')} 🧼</button>`;
+        
+        let eC = 'shop-item-effect', eT;
+        if (relic.isWyvern) {
+          eT = '+10 000 000% XP ко всем квестам';
+        } else {
+          eT = `+${Math.round(relic.boost * 100)}% XP ко всем`;
+          if (relic.type === 'mind') { eC += ' mind-effect'; eT = `+${Math.round(relic.boost * 100)}% XP только 🧠 ум`; }
+          else if (relic.type === 'body') { eC += ' body-effect'; eT = `+${Math.round(relic.boost * 100)}% XP только 💪 тело`; }
+        }
+        
+        const relicBadge = relic.isWyvern ? 'ТЬМА' : 'РЕЛИКВИЯ';
+        html += `<div class="${itemClass}"><div class="shop-item-icon">${relic.icon}</div><div class="shop-item-info"><div class="shop-item-name">${relic.name}<span class="relic-badge">${relicBadge}</span></div><div class="shop-item-desc">${relic.desc}</div><div class="${eC}">${eT}</div></div>${btnHtml}</div>`;
       });
       const canExchange = state.xp >= XP_TO_SOAP_RATE;
       html += `<div class="shop-section-title">💱 Обмен опыта на мыло</div><div class="exchange-category-note">⚠️ Обмен опыта <b>снижает ваш уровень</b>!</div><div class="shop-item exchange-item"><div class="shop-item-icon">💱</div><div class="shop-item-info"><div class="shop-item-name">Обмен<span class="exchange-badge">ОБМЕН</span></div><div class="shop-item-desc">${XP_TO_SOAP_RATE} XP → ${SOAP_REWARD} 🧼</div><div class="shop-item-effect exchange-effect">${state.xp} XP → ${Math.floor(state.xp / XP_TO_SOAP_RATE) * SOAP_REWARD} 🧼 (${Math.floor(state.xp / XP_TO_SOAP_RATE)} обменов)</div></div><button class="shop-buy-btn exchange-btn" data-action="exchange-xp" ${!canExchange ? 'disabled' : ''}>Обменять</button></div>`;
@@ -1874,10 +2108,25 @@
       if (!r) return;
       if (state.ownedRelics.includes(id)) { showToast('⚠️ Уже куплена', 1800); return; }
       if (state.soap < r.price) { showToast('⚠️ Недостаточно мыла', 1800); return; }
-      if (!confirm(`Купить "${r.name}" за ${r.price} 🧼?`)) return;
+      
+      // 🦅 Особое подтверждение для Дятла
+      if (r.isWyvern) {
+        if (!confirm(`⚠️ ВНИМАНИЕ ⚠️\n\nКупить "Реликвию Дятла" за ${r.price.toLocaleString('ru-RU')} 🧼?\n\nТот, кто возьмёт эту реликвию, познает на себе её силу. Подобно рассекающему плоть клинку, она будет терзать его душу.\n\nВесь Hero's Forge навсегда изменится...`)) return;
+      } else {
+        if (!confirm(`Купить "${r.name}" за ${r.price} 🧼?`)) return;
+      }
+      
       state.soap -= r.price; state.stats.totalSoapSpent += r.price;
       state.ownedRelics.push(id);
-      if (!state.activeRelic) { state.activeRelic = id; showToast(`${r.icon} Куплена и активирована!`, 2500); }
+      if (!state.activeRelic) { 
+        state.activeRelic = id; 
+        if (r.isWyvern) {
+          showToast(`🦅 ТЬМА ПОГЛОТИЛА FORGE...`, 4000);
+          applyWyvernMode();
+        } else {
+          showToast(`${r.icon} Куплена и активирована!`, 2500);
+        }
+      }
       else showToast(`${r.icon} Куплена!`, 2200);
       saveState(); render(); renderShop();
     }
@@ -1885,8 +2134,17 @@
       if (!state.ownedRelics.includes(id)) return;
       const r = SHOP_ITEMS.relics.find(x => x.id === id);
       if (!r) return;
-      state.activeRelic = id; saveState(); render(); renderShop();
-      showToast(`${r.icon} ${r.name} активирована!`, 2000);
+      state.activeRelic = id; 
+      saveState(); 
+      render(); 
+      renderShop();
+      // 🌑 Применяем/снимаем режим Дятла
+      applyWyvernMode();
+      if (r.isWyvern) {
+        showToast(`🦅 ТЬМА ПОГЛОТИЛА FORGE...`, 3500);
+      } else {
+        showToast(`${r.icon} ${r.name} активирована!`, 2000);
+      }
     }
     function exchangeXpForSoap() {
       if (state.xp < XP_TO_SOAP_RATE) { showToast(`⚠️ Нужно ${XP_TO_SOAP_RATE} XP`, 2000); return; }
@@ -1926,7 +2184,7 @@
     function openShop() { renderShop(); shopModal.classList.add('open'); }
     function closeShop() { shopModal.classList.remove('open'); }
 
-    // СТАТИСТИКА (сокращённый)
+    // СТАТИСТИКА
     function renderStats() {
       const s = state.stats;
       const total = s.totalCompleted || 0;
@@ -1946,7 +2204,7 @@
       const br = state.battleRecord;
       html += `<div class="stat-block"><h3>🎨 Творчество</h3><div class="big-numbers"><div class="big-number"><div class="num art-color">${s.artPieces || 0}</div><div class="lbl">Рисунков</div></div><div class="big-number"><div class="num" style="color:#ff80a0;">${s.artLikesReceived || 0}</div><div class="lbl">Лайков получено</div></div><div class="big-number"><div class="num" style="color:#80c0ff;">${s.artLikesGiven || 0}</div><div class="lbl">Лайков отдано</div></div><div class="big-number"><div class="num">${artGallery.length}</div><div class="lbl">В галерее</div></div></div></div>`;
       html += `<div class="stat-block"><h3>⚔️ Поединки</h3><div class="big-numbers"><div class="big-number"><div class="num win-color">${br.wins}</div><div class="lbl">Побед</div></div><div class="big-number"><div class="num loss-color">${br.losses}</div><div class="lbl">Поражений</div></div><div class="big-number"><div class="num" style="color:#e0d090;">${br.draws}</div><div class="lbl">Ничьих</div></div><div class="big-number"><div class="num">${br.wins + br.losses + br.draws}</div><div class="lbl">Всего</div></div></div></div>`;
-      html += `<div class="stat-block"><h3>🧼 Мыло</h3><div class="big-numbers"><div class="big-number"><div class="num soap-color">${state.soap}</div><div class="lbl">Текущий</div></div><div class="big-number"><div class="num soap-color">${s.totalSoapEarned}</div><div class="lbl">Заработано</div></div><div class="big-number"><div class="num" style="color:#e0a080;">${s.totalSoapSpent}</div><div class="lbl">Потрачено</div></div><div class="big-number"><div class="num" style="color:#d8a0e8;">${s.totalXpExchanged || 0}</div><div class="lbl">Обменяно XP</div></div></div></div>`;
+      html += `<div class="stat-block"><h3>🧼 Мыло</h3><div class="big-numbers"><div class="big-number"><div class="num soap-color">${state.soap.toLocaleString('ru-RU')}</div><div class="lbl">Текущий</div></div><div class="big-number"><div class="num soap-color">${s.totalSoapEarned.toLocaleString('ru-RU')}</div><div class="lbl">Заработано</div></div><div class="big-number"><div class="num" style="color:#e0a080;">${s.totalSoapSpent.toLocaleString('ru-RU')}</div><div class="lbl">Потрачено</div></div><div class="big-number"><div class="num" style="color:#d8a0e8;">${s.totalXpExchanged || 0}</div><div class="lbl">Обменяно XP</div></div></div></div>`;
       html += `<div class="stat-block"><h3>📈 Прогресс</h3><div class="big-numbers"><div class="big-number"><div class="num xp-color">${s.totalXpEarned}</div><div class="lbl">Всего XP</div></div><div class="big-number"><div class="num">${s.totalCompleted}</div><div class="lbl">Квестов</div></div><div class="big-number"><div class="num streak-color">${s.streak}</div><div class="lbl">Серия</div></div><div class="big-number"><div class="num" style="color: #ffb088;">${s.bestStreak}</div><div class="lbl">Лучшая</div></div></div><div class="progress-line" style="margin-top: 12px;"><div class="pl-top"><span>До ур. ${state.level + 1}</span><span>${xpIL} / 100 XP</span></div><div class="progress-bar-bg"><div class="progress-bar-fill" style="width: ${lvlP}%;"></div></div></div></div>`;
       html += `<div class="stat-block"><h3>🎯 По типам</h3><div class="quest-type-stats"><div class="type-stat"><div class="ts-header">🧠 Ум</div><div class="ts-count mind-color">${s.mindCompleted}</div><div class="ts-bar"><div class="ts-bar-fill mind-fill" style="width: ${(s.mindCompleted / maxTC) * 100}%;"></div></div><div class="ts-pct">${mindPct}%</div></div><div class="type-stat"><div class="ts-header">💪 Тело</div><div class="ts-count body-color">${s.bodyCompleted}</div><div class="ts-bar"><div class="ts-bar-fill body-fill" style="width: ${(s.bodyCompleted / maxTC) * 100}%;"></div></div><div class="ts-pct">${bodyPct}%</div></div></div><div class="progress-line" style="margin-top: 10px;"><div class="pl-top"><span>🔥 Сложных</span><span style="color: #ffb088;">${s.hardCompleted}</span></div></div></div>`;
       html += `<div class="stat-block"><h3>📅 Активность</h3><div class="activity-grid">`;
@@ -1961,7 +2219,7 @@
     function openStats() { renderStats(); statsModal.classList.add('open'); }
     function closeStats() { statsModal.classList.remove('open'); }
 
-    // ПОЕДИНКИ (сокращённый)
+    // ПОЕДИНКИ (сокращённо)
     function getBattleData() {
       return {
         v: 1, lvl: state.level, xp: state.xp, soap: state.soap,
@@ -2101,22 +2359,13 @@
     function openBattle() { renderBattle(); battleModal.classList.add('open'); }
     function closeBattle() { battleModal.classList.remove('open'); }
 
-    // 🎨 АРЕНА ТВОРЧЕСТВА (с коротким кодом через хостинг)
+    // АРЕНА ТВОРЧЕСТВА (сокращённо)
     let canvasState = {
       color: '#000000', size: 6, isDrawing: false, lastX: 0, lastY: 0,
       history: [], historyIndex: -1, currentView: 'menu', viewingArt: null, isLiked: false,
     };
-
-    function openArt() {
-      canvasState.currentView = 'menu';
-      renderArt();
-      artModal.classList.add('open');
-    }
-    function closeArt() {
-      artModal.classList.remove('open');
-      canvasState.history = [];
-      canvasState.historyIndex = -1;
-    }
+    function openArt() { canvasState.currentView = 'menu'; renderArt(); artModal.classList.add('open'); }
+    function closeArt() { artModal.classList.remove('open'); canvasState.history = []; canvasState.historyIndex = -1; }
     function renderArt() {
       if (canvasState.currentView === 'menu') renderArtMenu();
       else if (canvasState.currentView === 'draw') renderArtDraw();
@@ -2127,11 +2376,11 @@
       const today = getTodayStr();
       const canGetReward = state.artLastRewardDate !== today;
       const totalLikes = artGallery.reduce((sum, a) => sum + (a.likes || 0), 0);
-      let html = `<div class="art-intro"><h3>🎨 Арена творчества</h3><p>Рисуйте, сохраняйте и делитесь с друзьями!</p><div class="art-actions"><button class="art-action-btn draw" id="artDrawBtn">🖌️ Рисовать</button><button class="art-action-btn gallery" id="artGalleryBtn">🖼️ Галерея (${artGallery.length})</button><button class="art-action-btn view" id="artViewBtn">📥 Ввести код</button></div></div>`;
+      let html = `<div class="art-intro"><h3>🎨 Арена творчества</h3><p>Рисуйте, сохраняйте и делитесь!</p><div class="art-actions"><button class="art-action-btn draw" id="artDrawBtn">🖌️ Рисовать</button><button class="art-action-btn gallery" id="artGalleryBtn">🖼️ Галерея (${artGallery.length})</button><button class="art-action-btn view" id="artViewBtn">📥 Ввести код</button></div></div>`;
       html += `<div class="stat-block"><h3>📊 Ваше творчество</h3><div class="big-numbers"><div class="big-number"><div class="num art-color">${state.stats.artPieces || 0}</div><div class="lbl">Создано</div></div><div class="big-number"><div class="num" style="color:#ff80a0;">${totalLikes}</div><div class="lbl">Лайков</div></div></div></div>`;
       if (canGetReward) html += `<div class="all-completed-notice" style="background:#2a1f3a;border-color:#8050b0;color:#d0a0f0;">🎁 За первый рисунок дня — <b>+${ART_XP_REWARD} XP</b></div>`;
-      html += `<div class="art-code-info">⚡ <b>Новое:</b> Короткие коды для отправки! Рисунок загружается на хостинг — получаешь код типа <code>A3-abc123</code> (можно отправить в любом мессенджере). Если нет интернета — используешь длинный код AF3-...</div>`;
-      html += `<div class="battle-history"><h3>📜 Последние рисунки</h3>`;
+      html += `<div class="art-code-info">⚡ <b>Короткие коды:</b> A3-abc123 (через интернет) или AF3-... (полный, оффлайн)</div>`;
+      html += `<div class="battle-history"><h3>📜 Последние</h3>`;
       if (artGallery.length === 0) html += `<div class="battle-empty-history"><span class="emoji">🎨</span>Ещё нет рисунков.</div>`;
       else {
         html += `<div class="art-gallery" style="margin-top:0;">`;
@@ -2154,22 +2403,16 @@
       });
     }
     function showArtCodeInput() {
-      let html = `<div class="art-intro"><h3>📥 Просмотр рисунка друга</h3><p>Вставь короткий код (A3-...) или длинный (AF3-...).</p></div><div class="battle-input-container"><label class="battle-input-label">Код рисунка:</label><textarea class="battle-input" id="artCodeInput" placeholder="A3-abc123 или AF3-..."></textarea><div class="battle-input-error" id="artCodeError"></div><button class="battle-submit-btn" id="artCodeSubmit" style="background: linear-gradient(135deg, #4a2a7a, #6a3a9a); border-color: #a070d0; color: #e8c0ff;">🎨 Показать</button><button class="art-action-btn-small" id="artBackBtn" style="width:100%;margin-top:8px;justify-content:center;">← Назад</button></div>`;
+      let html = `<div class="art-intro"><h3>📥 Просмотр рисунка друга</h3><p>Вставь короткий (A3-...) или длинный (AF3-...) код.</p></div><div class="battle-input-container"><label class="battle-input-label">Код:</label><textarea class="battle-input" id="artCodeInput" placeholder="A3-abc123 или AF3-..."></textarea><div class="battle-input-error" id="artCodeError"></div><button class="battle-submit-btn" id="artCodeSubmit" style="background: linear-gradient(135deg, #4a2a7a, #6a3a9a); border-color: #a070d0; color: #e8c0ff;">🎨 Показать</button><button class="art-action-btn-small" id="artBackBtn" style="width:100%;margin-top:8px;justify-content:center;">← Назад</button></div>`;
       artContent.innerHTML = html;
       document.getElementById('artBackBtn').addEventListener('click', () => { canvasState.currentView = 'menu'; renderArt(); });
       document.getElementById('artCodeSubmit').addEventListener('click', async () => {
         const input = document.getElementById('artCodeInput').value.trim();
         const errEl = document.getElementById('artCodeError');
         if (!input) { errEl.textContent = 'Введите код'; errEl.classList.add('show'); return; }
-        errEl.textContent = '⏳ Загрузка...';
-        errEl.style.color = '#d0a0f0';
-        errEl.classList.add('show');
+        errEl.textContent = '⏳ Загрузка...'; errEl.style.color = '#d0a0f0'; errEl.classList.add('show');
         const artData = await decodeArtCode(input);
-        if (!artData) { 
-          errEl.textContent = '❌ Неверный код или рисунок не найден';
-          errEl.style.color = '#f0a0a0';
-          return; 
-        }
+        if (!artData) { errEl.textContent = '❌ Неверный код'; errEl.style.color = '#f0a0a0'; return; }
         errEl.classList.remove('show');
         canvasState.viewingArt = artData;
         canvasState.isLiked = false;
@@ -2188,7 +2431,7 @@
         const active = s === canvasState.size ? 'active' : '';
         html += `<button class="art-size-btn ${active}" data-size="${s}"><span class="dot" style="width:${Math.min(s, 16)}px;height:${Math.min(s, 16)}px;"></span></button>`;
       });
-      html += `</div><div class="art-tool-group" style="gap:6px;"><button class="art-action-btn-small" id="artUndo">↶ Отменить</button><button class="art-action-btn-small" id="artClear">🗑️ Очистить</button><button class="art-action-btn-small danger" id="artCancel">✕ Отмена</button><button class="art-action-btn-small primary" id="artSave" style="flex:1;justify-content:center;">💾 Сохранить</button></div></div>`;
+      html += `</div><div class="art-tool-group" style="gap:6px;"><button class="art-action-btn-small" id="artUndo">↶ Отменить</button><button class="art-action-btn-small" id="artClear">🗑️ Очистить</button><button class="art-action-btn-small danger" id="artCancel">✕</button><button class="art-action-btn-small primary" id="artSave" style="flex:1;justify-content:center;">💾 Сохранить</button></div></div>`;
       artContent.innerHTML = html;
       const canvas = document.getElementById('drawCanvas');
       const ctx = canvas.getContext('2d');
@@ -2206,82 +2449,37 @@
         else { clientX = e.clientX; clientY = e.clientY; }
         return { x: (clientX - rect.left) * scaleX, y: (clientY - rect.top) * scaleY };
       };
-      const startDraw = (e) => {
-        e.preventDefault();
-        canvasState.isDrawing = true;
-        const pos = getPos(e);
-        canvasState.lastX = pos.x;
-        canvasState.lastY = pos.y;
-        ctx.fillStyle = canvasState.color;
-        ctx.beginPath();
-        ctx.arc(pos.x, pos.y, canvasState.size / 2, 0, Math.PI * 2);
-        ctx.fill();
-      };
-      const moveDraw = (e) => {
-        if (!canvasState.isDrawing) return;
-        e.preventDefault();
-        const pos = getPos(e);
-        ctx.strokeStyle = canvasState.color;
-        ctx.lineWidth = canvasState.size;
-        ctx.beginPath();
-        ctx.moveTo(canvasState.lastX, canvasState.lastY);
-        ctx.lineTo(pos.x, pos.y);
-        ctx.stroke();
-        canvasState.lastX = pos.x;
-        canvasState.lastY = pos.y;
-      };
-      const endDraw = () => {
-        if (!canvasState.isDrawing) return;
-        canvasState.isDrawing = false;
-        saveCanvasHistory(canvas);
-      };
+      const startDraw = (e) => { e.preventDefault(); canvasState.isDrawing = true; const pos = getPos(e); canvasState.lastX = pos.x; canvasState.lastY = pos.y; ctx.fillStyle = canvasState.color; ctx.beginPath(); ctx.arc(pos.x, pos.y, canvasState.size / 2, 0, Math.PI * 2); ctx.fill(); };
+      const moveDraw = (e) => { if (!canvasState.isDrawing) return; e.preventDefault(); const pos = getPos(e); ctx.strokeStyle = canvasState.color; ctx.lineWidth = canvasState.size; ctx.beginPath(); ctx.moveTo(canvasState.lastX, canvasState.lastY); ctx.lineTo(pos.x, pos.y); ctx.stroke(); canvasState.lastX = pos.x; canvasState.lastY = pos.y; };
+      const endDraw = () => { if (!canvasState.isDrawing) return; canvasState.isDrawing = false; saveCanvasHistory(canvas); };
       canvas.addEventListener('pointerdown', startDraw);
       canvas.addEventListener('pointermove', moveDraw);
       canvas.addEventListener('pointerup', endDraw);
       canvas.addEventListener('pointerleave', endDraw);
       canvas.addEventListener('pointercancel', endDraw);
       artContent.querySelectorAll('.art-color-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          canvasState.color = btn.dataset.color;
-          artContent.querySelectorAll('.art-color-btn').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-        });
+        btn.addEventListener('click', () => { canvasState.color = btn.dataset.color; artContent.querySelectorAll('.art-color-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); });
       });
       artContent.querySelectorAll('.art-size-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          canvasState.size = parseInt(btn.dataset.size, 10);
-          artContent.querySelectorAll('.art-size-btn').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-        });
+        btn.addEventListener('click', () => { canvasState.size = parseInt(btn.dataset.size, 10); artContent.querySelectorAll('.art-size-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); });
       });
       document.getElementById('artUndo').addEventListener('click', () => {
-        if (canvasState.historyIndex > 0) {
-          canvasState.historyIndex -= 1;
-          const img = new Image();
-          img.onload = () => { ctx.clearRect(0, 0, canvas.width, canvas.height); ctx.drawImage(img, 0, 0); };
-          img.src = canvasState.history[canvasState.historyIndex];
-        } else showToast('⚠️ Нечего отменять', 1500);
+        if (canvasState.historyIndex > 0) { canvasState.historyIndex -= 1; const img = new Image(); img.onload = () => { ctx.clearRect(0, 0, canvas.width, canvas.height); ctx.drawImage(img, 0, 0); }; img.src = canvasState.history[canvasState.historyIndex]; }
+        else showToast('⚠️ Нечего отменять', 1500);
       });
       document.getElementById('artClear').addEventListener('click', () => {
         if (!confirm('Очистить холст?')) return;
-        ctx.fillStyle = '#ffffff';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        saveCanvasHistory(canvas);
+        ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, canvas.width, canvas.height); saveCanvasHistory(canvas);
       });
       document.getElementById('artCancel').addEventListener('click', () => {
         if (canvasState.history.length > 1 && !confirm('Выйти без сохранения?')) return;
-        canvasState.currentView = 'menu';
-        canvasState.history = [];
-        canvasState.historyIndex = -1;
-        renderArt();
+        canvasState.currentView = 'menu'; canvasState.history = []; canvasState.historyIndex = -1; renderArt();
       });
       document.getElementById('artSave').addEventListener('click', () => saveArtPiece(canvas));
     }
     function saveCanvasHistory(canvas) {
       const dataUrl = canvas.toDataURL('image/jpeg', 0.5);
-      if (canvasState.historyIndex < canvasState.history.length - 1) {
-        canvasState.history = canvasState.history.slice(0, canvasState.historyIndex + 1);
-      }
+      if (canvasState.historyIndex < canvasState.history.length - 1) canvasState.history = canvasState.history.slice(0, canvasState.historyIndex + 1);
       canvasState.history.push(dataUrl);
       if (canvasState.history.length > 10) canvasState.history.shift();
       canvasState.historyIndex = canvasState.history.length - 1;
@@ -2307,13 +2505,12 @@
       canvasState.currentView = 'gallery';
       canvasState.history = [];
       canvasState.historyIndex = -1;
-      render();
-      renderArt();
+      render(); renderArt();
       const sizeKB = Math.round(dataUrl.length / 1024);
       showToast(`🎨 Сохранено! (~${sizeKB} КБ)${rewardMsg}`, 2500);
     }
     function renderArtGallery() {
-      let html = `<div class="art-intro"><h3>🖼️ Ваша галерея</h3><p>Всего: ${artGallery.length} из ${MAX_ART_PIECES}</p><div class="art-actions"><button class="art-action-btn draw" id="artDrawNewBtn">🖌️ Новый рисунок</button><button class="art-action-btn view" id="artBackToMenu">← Назад</button></div></div>`;
+      let html = `<div class="art-intro"><h3>🖼️ Галерея</h3><p>Всего: ${artGallery.length} из ${MAX_ART_PIECES}</p><div class="art-actions"><button class="art-action-btn draw" id="artDrawNewBtn">🖌️ Новый</button><button class="art-action-btn view" id="artBackToMenu">← Назад</button></div></div>`;
       if (artGallery.length === 0) html += `<div class="art-gallery-empty"><span class="emoji">🎨</span>Ещё нет рисунков.</div>`;
       else {
         html += `<div class="art-gallery">`;
@@ -2339,8 +2536,7 @@
           const id = btn.dataset.delete;
           if (!confirm('Удалить рисунок?')) return;
           artGallery = artGallery.filter(a => a.id !== id);
-          saveArtGallery();
-          renderArt();
+          saveArtGallery(); renderArt();
           showToast('🗑️ Удалено', 1500);
         });
       });
@@ -2349,7 +2545,6 @@
       const art = canvasState.viewingArt;
       if (!art) { canvasState.currentView = 'menu'; renderArt(); return; }
       const sizeKB = Math.round(art.dataUrl.length / 1024);
-      const isMine = artGallery.some(a => a.id === art.id);
       let html = `<div class="art-viewer-canvas-wrap"><img src="${art.dataUrl}" alt="art"></div><div class="art-viewer-meta"><div class="art-viewer-date">📅 ${formatDate(art.date)} • ~${sizeKB} КБ</div><button class="like-btn ${canvasState.isLiked ? 'liked' : ''}" id="artLikeBtn">${canvasState.isLiked ? '❤️ Понравилось' : '🤍 Нравится'} (${art.likes || 0})</button></div><div class="art-viewer-actions"><button class="art-action-btn-small primary" id="artShareBtn" style="flex:1;justify-content:center;">📤 Поделиться</button><button class="art-action-btn-small" id="artViewerBack">← Назад</button></div><div id="artShareArea"></div>`;
       artContent.innerHTML = html;
       document.getElementById('artViewerBack').addEventListener('click', () => { canvasState.viewingArt = null; canvasState.currentView = 'gallery'; renderArt(); });
@@ -2359,9 +2554,7 @@
         const myArt = artGallery.find(a => a.id === art.id);
         if (myArt) { myArt.likes = (myArt.likes || 0) + 1; saveArtGallery(); }
         state.stats.artLikesGiven = (state.stats.artLikesGiven || 0) + 1;
-        saveState();
-        renderArtViewer();
-        render();
+        saveState(); renderArtViewer(); render();
         showToast('❤️ Лайк поставлен!', 1500);
       });
       document.getElementById('artShareBtn').addEventListener('click', () => showArtShareMenu(art));
@@ -2370,8 +2563,8 @@
       const area = document.getElementById('artShareArea');
       area.innerHTML = `
         <div class="battle-code-hint" style="color:#b8a0c8;margin-top:10px;margin-bottom:10px;">Выбери способ:</div>
-        <button class="battle-action-btn share" id="artShareShortBtn" style="width:100%;margin-bottom:8px;">📤 Короткий код (через интернет)</button>
-        <button class="battle-action-btn fight" id="artShareLongBtn" style="width:100%;">📋 Полный код (работает без интернета)</button>
+        <button class="battle-action-btn share" id="artShareShortBtn" style="width:100%;margin-bottom:8px;">📤 Короткий код (интернет)</button>
+        <button class="battle-action-btn fight" id="artShareLongBtn" style="width:100%;">📋 Полный код (оффлайн)</button>
         <div id="artShareResult" style="margin-top:10px;"></div>
       `;
       document.getElementById('artShareShortBtn').addEventListener('click', () => uploadArtToHost(art));
@@ -2379,59 +2572,30 @@
     }
     async function uploadArtToHost(art) {
       const resultArea = document.getElementById('artShareResult');
-      resultArea.innerHTML = `<div class="upload-status"><span class="loading-spinner"></span> Загрузка на сервер... (2-5 сек)</div>`;
-      
+      resultArea.innerHTML = `<div class="upload-status"><span class="loading-spinner"></span> Загрузка... (2-5 сек)</div>`;
       try {
-        // Конвертируем dataURL в Blob
         const blob = await (await fetch(art.dataUrl)).blob();
-        
-        // Формируем FormData
         const formData = new FormData();
         formData.append('reqtype', 'fileupload');
         const file = new File([blob], 'art.jpg', { type: 'image/jpeg' });
         formData.append('fileToUpload', file);
-        
-        // Загружаем с таймаутом
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 15000);
-        
-        const response = await fetch(IMAGE_HOST_UPLOAD, {
-          method: 'POST',
-          body: formData,
-          signal: controller.signal,
-        });
+        const response = await fetch(IMAGE_HOST_UPLOAD, { method: 'POST', body: formData, signal: controller.signal });
         clearTimeout(timeoutId);
-        
         if (!response.ok) throw new Error('Upload failed');
         const fileUrl = (await response.text()).trim();
-        
         if (!fileUrl || !fileUrl.startsWith('http')) throw new Error('Bad response');
-        
-        // Извлекаем короткий ID из URL
-        // Пример: https://files.catbox.moe/abc123.jpg → abc123
         const match = fileUrl.match(/\/([a-z0-9]+)\.(jpg|jpeg|png|gif|webp)$/i);
-        if (!match) throw new Error('Bad URL format');
+        if (!match) throw new Error('Bad URL');
         const shortId = match[1];
-        
-        // Формируем короткий код
         const shortCode = ART_CODE_PREFIX + shortId;
-        
-        // Сохраняем в art
         art.shared = shortCode;
         art.hostUrl = fileUrl;
         saveArtGallery();
-        
-        // Показываем результат
         resultArea.innerHTML = `
-          <div class="share-success-banner">
-            <span class="icon">✅</span>
-            <div class="text">Рисунок загружен!</div>
-            <div class="subtext">Код для отправки:</div>
-          </div>
-          <div class="short-code-display" id="shortCodeEl">
-            <div class="short-code-text">${shortCode}</div>
-            <div class="hint">👆 Нажми, чтобы скопировать</div>
-          </div>
+          <div class="share-success-banner"><span class="icon">✅</span><div class="text">Загружено!</div><div class="subtext">Код для отправки:</div></div>
+          <div class="short-code-display" id="shortCodeEl"><div class="short-code-text">${shortCode}</div><div class="hint">👆 Нажми, чтобы скопировать</div></div>
         `;
         const codeEl = document.getElementById('shortCodeEl');
         codeEl.addEventListener('click', async () => {
@@ -2439,23 +2603,14 @@
           catch (e) {
             const r = document.createRange(); r.selectNode(codeEl);
             window.getSelection().removeAllRanges(); window.getSelection().addRange(r);
-            try { document.execCommand('copy'); showToast(`📋 ${shortCode} скопирован!`, 2200); }
+            try { document.execCommand('copy'); showToast(`📋 ${shortCode}!`, 2200); }
             catch (err) { showToast('⚠️ Скопируйте вручную', 2000); }
           }
         });
-        
-        showToast(`✅ Код: ${shortCode} (3-10 символов!)`, 3000);
-        
+        showToast(`✅ Код: ${shortCode}`, 3000);
       } catch (err) {
         console.error(err);
-        resultArea.innerHTML = `
-          <div class="share-success-banner" style="background: linear-gradient(135deg, #3a1a1a, #4a2a2a); border-color: #9a5a5a;">
-            <span class="icon">⚠️</span>
-            <div class="text" style="color:#f0c0c0;">Не удалось загрузить</div>
-            <div class="subtext" style="color:#c09090;">Проверь интернет или используй полный код ниже</div>
-          </div>
-          <button class="battle-submit-btn" id="fallbackToLongBtn" style="margin-top:10px;">📋 Использовать полный код</button>
-        `;
+        resultArea.innerHTML = `<div class="share-success-banner" style="background: linear-gradient(135deg, #3a1a1a, #4a2a2a); border-color: #9a5a5a;"><span class="icon">⚠️</span><div class="text" style="color:#f0c0c0;">Не удалось</div><div class="subtext" style="color:#c09090;">Проверь интернет или используй полный код</div></div><button class="battle-submit-btn" id="fallbackToLongBtn" style="margin-top:10px;">📋 Полный код</button>`;
         document.getElementById('fallbackToLongBtn').addEventListener('click', () => showLongCode(art));
       }
     }
@@ -2464,23 +2619,18 @@
       const code = encodeArtCodeFull(art);
       if (!code) { showToast('⚠️ Ошибка', 1500); return; }
       const codeSize = Math.round(code.length / 1024);
-      resultArea.innerHTML = `
-        <div class="battle-code-hint" style="color:#b8a0c8;margin-bottom:8px;">📏 Полный код ~${codeSize} КБ — работает без интернета, но требует копирования через мессенджер</div>
-        <div class="art-share-code" id="artShareCode">${code}</div>
-        <div class="battle-code-hint" style="color:#b8a0c8;">👆 Нажмите, чтобы скопировать</div>
-      `;
+      resultArea.innerHTML = `<div class="battle-code-hint" style="color:#b8a0c8;margin-bottom:8px;">📏 ~${codeSize} КБ — работает без интернета</div><div class="art-share-code" id="artShareCode">${code}</div><div class="battle-code-hint" style="color:#b8a0c8;">👆 Нажмите, чтобы скопировать</div>`;
       const codeEl = document.getElementById('artShareCode');
       codeEl.addEventListener('click', async () => {
         try { await navigator.clipboard.writeText(code); showToast(`📋 Скопировано! (${codeSize} КБ)`, 2200); }
         catch (e) {
           const r = document.createRange(); r.selectNode(codeEl);
           window.getSelection().removeAllRanges(); window.getSelection().addRange(r);
-          try { document.execCommand('copy'); showToast(`📋 Скопировано! (${codeSize} КБ)`, 2200); }
+          try { document.execCommand('copy'); showToast(`📋 Скопировано!`, 2200); }
           catch (err) { showToast('⚠️ Скопируйте вручную', 2000); }
         }
       });
     }
-    // Полный код (fallback) — base64 картинки
     function encodeArtCodeFull(art) {
       try {
         const data = { v: 2, d: art.date, l: art.likes || 0, img: art.dataUrl };
@@ -2489,22 +2639,15 @@
         return ART_FULL_PREFIX + b64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
       } catch (e) { return null; }
     }
-    // Универсальный декодер: короткий или длинный код
     async function decodeArtCode(code) {
       try {
         code = code.trim();
-        
-        // 🆕 Короткий код: A3-abc123 → скачиваем с хостинга
         if (code.startsWith(ART_CODE_PREFIX)) {
           const shortId = code.slice(ART_CODE_PREFIX.length).trim();
-          // Валидация: только латиница и цифры
           if (!/^[a-z0-9]+$/i.test(shortId)) return null;
           const imageUrl = IMAGE_HOST_VIEW + shortId + '.jpg';
-          
-          // Скачиваем картинку
           const response = await fetch(imageUrl);
           if (!response.ok) {
-            // Пробуем с .png
             const pngUrl = IMAGE_HOST_VIEW + shortId + '.png';
             const pngResponse = await fetch(pngUrl);
             if (!pngResponse.ok) return null;
@@ -2516,24 +2659,18 @@
           const dataUrl = await blobToDataURL(blob);
           return { id: 'external_' + Date.now(), dataUrl, date: getTodayStr(), likes: 0, external: true };
         }
-        
-        // Длинный код: AF3-<base64> — декодируем сразу
         let b64;
         if (code.startsWith(ART_FULL_PREFIX)) b64 = code.slice(ART_FULL_PREFIX.length);
-        else if (code.startsWith('A2-')) b64 = code.slice(3); // совместимость со старой версией
-        else if (code.startsWith('ART1-')) b64 = code.slice(5); // совместимость с ещё более старой
+        else if (code.startsWith('A2-')) b64 = code.slice(3);
+        else if (code.startsWith('ART1-')) b64 = code.slice(5);
         else return null;
-        
         b64 = b64.replace(/-/g, '+').replace(/_/g, '/');
         while (b64.length % 4) b64 += '=';
         const json = decodeURIComponent(escape(atob(b64)));
         const data = JSON.parse(json);
         if (!data.img || typeof data.img !== 'string') return null;
         return { id: 'external_' + Date.now(), dataUrl: data.img, date: data.d || getTodayStr(), likes: data.l || 0, external: true };
-      } catch (e) {
-        console.error(e);
-        return null;
-      }
+      } catch (e) { return null; }
     }
     function blobToDataURL(blob) {
       return new Promise((resolve, reject) => {
@@ -2560,6 +2697,7 @@
           artLastRewardDate: null,
           stats: { totalCompleted: 0, mindCompleted: 0, bodyCompleted: 0, hardCompleted: 0, totalXpEarned: 0, streak: 0, bestStreak: 0, activeDays: [], totalSoapEarned: 0, totalSoapSpent: 0, totalXpExchanged: 0, artPieces: 0, artLikesReceived: 0, artLikesGiven: 0 },
         };
+        document.body.classList.remove('wyvern-mode');
         document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.mode === 'balance'));
         modeHint.textContent = MODES.balance.hint;
         modeHint.classList.remove('locked-hint');
