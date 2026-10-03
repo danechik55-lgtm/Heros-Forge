@@ -386,7 +386,6 @@
     .inventory-item { background: #1b2429; border-radius: 18px; padding: 12px; border: 1px solid #2a3b44; display: flex; flex-direction: column; gap: 8px; transition: 0.2s; position: relative; }
     .inventory-item.active { background: linear-gradient(135deg, #2a2a1a, #3a3a1a); border-color: #ffd780; box-shadow: 0 0 15px rgba(255, 215, 128, 0.25); }
     .inventory-item.forged { border-left: 4px solid #ff8040; }
-    .inventory-item.consumed { opacity: 0.5; filter: grayscale(0.6); }
     .inventory-item .inv-icon { font-size: 36px; text-align: center; line-height: 1; filter: drop-shadow(0 0 6px rgba(255, 215, 128, 0.3)); }
     .inventory-item .inv-name { font-size: 13px; font-weight: 600; color: #e0f0fa; text-align: center; line-height: 1.2; }
     .inventory-item .inv-boost { font-size: 11px; color: #ffd780; text-align: center; font-weight: 600; }
@@ -653,7 +652,7 @@
     refreshCount: 2, hardRefreshCount: 1, mode: 'balance',
     soap: 0, ownedRelics: [], activeRelic: null, streakShield: 0,
     modeLocked: false, battleHistory: [], battleRecord: { wins: 0, losses: 0, draws: 0 },
-    artLastRewardDate: null, forgedRelics: [], consumedRelics: [], activeForgedRelic: null,
+    artLastRewardDate: null, forgedRelics: [], activeForgedRelic: null,
     stats: {
       totalCompleted: 0, mindCompleted: 0, bodyCompleted: 0, hardCompleted: 0,
       totalXpEarned: 0, streak: 0, bestStreak: 0, activeDays: [],
@@ -777,10 +776,14 @@
     if (!state.activeRelic) return null;
     return SHOP_ITEMS.relics.find(r => r.id === state.activeRelic) || null;
   }
-  function hasRelic(id) { return (state.ownedRelics.includes(id) && !state.consumedRelics.includes(id)) || state.forgedRelics.includes(id); }
+  function hasRelic(id) {
+    if (state.ownedRelics.includes(id)) return true;
+    if (state.forgedRelics.includes(id)) return true;
+    return false;
+  }
   function getAvailableRelics() {
     const arr = [];
-    state.ownedRelics.forEach(id => { if (state.consumedRelics.includes(id)) return; const r = SHOP_ITEMS.relics.find(x => x.id === id); if (r) arr.push({ ...r, source: 'shop' }); });
+    state.ownedRelics.forEach(id => { const r = SHOP_ITEMS.relics.find(x => x.id === id); if (r) arr.push({ ...r, source: 'shop' }); });
     state.forgedRelics.forEach(id => { const r = FORGED_RELICS.find(x => x.id === id); if (r) arr.push({ ...r, source: 'forged', isForged: true }); });
     return arr;
   }
@@ -870,7 +873,7 @@
         state.modeLocked = d.modeLocked ?? false; state.battleHistory = d.battleHistory ?? [];
         state.battleRecord = d.battleRecord ?? { wins: 0, losses: 0, draws: 0 };
         state.artLastRewardDate = d.artLastRewardDate ?? null;
-        state.forgedRelics = d.forgedRelics ?? []; state.consumedRelics = d.consumedRelics ?? [];
+        state.forgedRelics = d.forgedRelics ?? [];
         state.activeForgedRelic = d.activeForgedRelic ?? null;
         if (typeof d.lastResetTime === 'number') state.lastResetTime = d.lastResetTime;
         else if (d.lastDate) { const p = d.lastDate.split('-'); state.lastResetTime = new Date(parseInt(p[0]), parseInt(p[1]) - 1, parseInt(p[2])).getTime(); }
@@ -1089,12 +1092,10 @@
     html += `<div class="shop-section-title">🏛️ Реликвии</div><div class="relic-category-note">⚠️ Одна активна. 🔨 Комбо — через наковальню</div>`;
     SHOP_ITEMS.relics.forEach(relic => {
       const owned = state.ownedRelics.includes(relic.id);
-      const consumed = state.consumedRelics.includes(relic.id);
       const isActive = state.activeRelic === relic.id && !state.activeForgedRelic;
       const canAfford = state.soap >= relic.price;
       let btnHtml = '', itemClass = 'shop-item relic-item';
-      if (consumed) { itemClass += ' owned'; btnHtml = `<button class="shop-buy-btn" disabled>🔨 Поглощена</button>`; }
-      else if (isActive) { itemClass += ' active-relic'; btnHtml = `<button class="shop-buy-btn active-btn" disabled>✓ Активна</button>`; }
+      if (isActive) { itemClass += ' active-relic'; btnHtml = `<button class="shop-buy-btn active-btn" disabled>✓ Активна</button>`; }
       else if (owned) { itemClass += ' owned'; btnHtml = `<button class="shop-buy-btn activate-btn" data-action="activate-relic" data-id="${relic.id}">⚡ Активировать</button>`; }
       else btnHtml = `<button class="shop-buy-btn" data-action="buy-relic" data-id="${relic.id}" ${!canAfford ? 'disabled' : ''}>Купить • ${relic.price} 🧼</button>`;
       let eC = 'shop-item-effect', eT = `+${Math.round(relic.boost * 100)}% XP`;
@@ -1147,7 +1148,7 @@
     saveState(); render(); renderShop();
   }
   function activateRelic(id) {
-    if (!state.ownedRelics.includes(id) || state.consumedRelics.includes(id)) return;
+    if (!state.ownedRelics.includes(id)) return;
     const r = SHOP_ITEMS.relics.find(x => x.id === id); if (!r) return;
     state.activeRelic = id; state.activeForgedRelic = null;
     saveState(); render(); renderShop();
@@ -1218,7 +1219,7 @@
     const timerInfo = remainingMs > 0 ? formatRemainingTime(remainingMs) : 'готово ✓';
     html += `<div class="stat-block"><h3>⏱️ Кулдаун</h3><div class="big-numbers"><div class="big-number"><div class="num" style="color:#c0f0d0;font-size:20px;">${timerInfo}</div><div class="lbl">До сброса</div></div><div class="big-number"><div class="num" style="color:#a0d8ff;font-size:14px;">${new Date(state.lastResetTime + COOLDOWN_MS).toLocaleString('ru-RU', { day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit' })}</div><div class="lbl">Время</div></div></div></div>`;
     html += `<div class="stat-block"><h3>${isMaxed ? '🏆 Лимит!' : '🧼 Прогресс'}</h3><div class="progress-line"><div class="pl-top"><span>${formatNumber(state.soap)} / ${formatNumber(SOAP_LIMIT)}</span><span>${soapPct.toFixed(1)}%</span></div><div class="progress-bar-bg" style="height:12px;"><div class="progress-bar-fill" style="width:${soapPct}%;"></div></div></div></div>`;
-    html += `<div class="stat-block"><h3>🔨 Наковальня</h3><div class="big-numbers"><div class="big-number"><div class="num forge-color">${state.forgedRelics.length}</div><div class="lbl">Комбо</div></div><div class="big-number"><div class="num forge-color">${state.consumedRelics.length}</div><div class="lbl">Поглощено</div></div></div></div>`;
+    html += `<div class="stat-block"><h3>🔨 Наковальня</h3><div class="big-numbers"><div class="big-number"><div class="num forge-color">${state.forgedRelics.length}</div><div class="lbl">Комбо</div></div><div class="big-number"><div class="num forge-color">${state.ownedRelics.length}</div><div class="lbl">Реликвий</div></div></div></div>`;
     html += `<div class="stat-block"><h3>⚔️ Поединки</h3><div class="big-numbers"><div class="big-number"><div class="num win-color">${br.wins}</div><div class="lbl">Побед</div></div><div class="big-number"><div class="num loss-color">${br.losses}</div><div class="lbl">Поражений</div></div><div class="big-number"><div class="num" style="color:#e0d090;">${br.draws}</div><div class="lbl">Ничьих</div></div><div class="big-number"><div class="num">${br.wins + br.losses + br.draws}</div><div class="lbl">Всего</div></div></div></div>`;
     html += `<div class="stat-block"><h3>📈 Прогресс</h3><div class="big-numbers"><div class="big-number"><div class="num xp-color">${s.totalXpEarned}</div><div class="lbl">XP</div></div><div class="big-number"><div class="num">${s.totalCompleted}</div><div class="lbl">Квестов</div></div><div class="big-number"><div class="num streak-color">${s.streak}</div><div class="lbl">Серия</div></div><div class="big-number"><div class="num" style="color:#ffb088;">${s.bestStreak}</div><div class="lbl">Лучшая</div></div></div><div class="progress-line" style="margin-top:12px;"><div class="pl-top"><span>До ур. ${state.level + 1}</span><span>${xpIL}/100</span></div><div class="progress-bar-bg"><div class="progress-bar-fill" style="width:${lvlP}%;"></div></div></div></div>`;
     html += `<div class="stat-block"><h3>📅 Активность</h3><div class="activity-grid">`;
@@ -1518,14 +1519,10 @@
   function closeInventory() { inventoryModal.classList.remove('open'); }
   function renderInventory() {
     const shopRelics = state.ownedRelics
-      .filter(id => !state.consumedRelics.includes(id))
       .map(id => SHOP_ITEMS.relics.find(r => r.id === id))
       .filter(Boolean);
     const forgedRelics = state.forgedRelics
       .map(id => FORGED_RELICS.find(r => r.id === id))
-      .filter(Boolean);
-    const consumedRelics = state.consumedRelics
-      .map(id => SHOP_ITEMS.relics.find(r => r.id === id))
       .filter(Boolean);
 
     const activeRelic = getActiveRelic();
@@ -1586,20 +1583,7 @@
       html += `</div>`;
     }
 
-    if (consumedRelics.length > 0) {
-      html += `<div class="inv-section-title">💀 Поглощённые наковальней</div><div class="inventory-grid">`;
-      consumedRelics.forEach(relic => {
-        html += `<div class="inventory-item consumed">
-          <div class="inv-icon">${relic.icon}</div>
-          <div class="inv-name">${relic.name}</div>
-          <div class="inv-desc">Использована в создании комбо</div>
-          <button class="inv-activate-btn" disabled>🔨 Поглощена</button>
-        </div>`;
-      });
-      html += `</div>`;
-    }
-
-    if (shopRelics.length === 0 && forgedRelics.length === 0 && consumedRelics.length === 0) {
+    if (shopRelics.length === 0 && forgedRelics.length === 0) {
       html += `<div class="inv-empty"><span class="emoji">🎒</span>Инвентарь пуст.<br><span style="font-size:12px;color:#5a6a75;">Купи реликвии в магазине 🏪 или создай их на наковальне 🔨</span></div>`;
     }
 
@@ -1666,7 +1650,6 @@
     const available = getAvailableRelics();
     const combos = getAvailableCombos();
     const readyCombos = combos.filter(c => c.canCraft);
-    const forgedCount = state.forgedRelics.length;
     let craftResult = null, canCraft = false, craftError = '';
     if (forgeState.slot1 && forgeState.slot2 && forgeState.slot1.id !== forgeState.slot2.id) {
       const ids = [forgeState.slot1.id, forgeState.slot2.id].sort();
@@ -1674,7 +1657,7 @@
       if (combo) { if (state.forgedRelics.includes(combo.id)) craftError = 'Эта реликвия уже создана'; else { craftResult = combo; canCraft = true; } }
       else craftError = 'Такая комбинация не существует';
     } else if (forgeState.slot1 && forgeState.slot2 && forgeState.slot1.id === forgeState.slot2.id) craftError = 'Нельзя соединить одинаковые';
-    let html = `<div class="forge-intro"><span class="forge-hammer">🔨</span><h3>Наковальня богов</h3><p>Соедини две реликвии, чтобы получить <b>легендарную комбинированную</b>!<br>Ингредиенты будут <b>поглощены</b> навсегда.</p></div>`;
+    let html = `<div class="forge-intro"><span class="forge-hammer">🔨</span><h3>Наковальня богов</h3><p>Соедини две реликвии, чтобы получить <b>легендарную комбинированную</b>!</p></div>`;
     html += `<div class="forge-slots-container">`;
     if (forgeState.slot1) html += `<div class="forge-slot filled has-result" data-slot="slot1"><div class="slot-icon">${forgeState.slot1.icon}</div><div class="slot-name">${forgeState.slot1.name}</div><div class="slot-boost">+${Math.round(forgeState.slot1.boost * 100)}%</div></div>`;
     else html += `<div class="forge-slot empty" data-slot="slot1"><div class="slot-icon">➕</div><div class="slot-hint">Выбрать</div></div>`;
@@ -1743,25 +1726,22 @@
     const cost = combo.legendary ? 0 : FORGE_COST;
     if (cost > 0 && state.soap < cost) { showToast(`⚠️ Нужно ${cost} 🧼`, 2500); return; }
     const costText = cost > 0 ? `\n\nСтоимость: ${cost} 🧼` : '\n\n✨ Легендарная — бесплатно!';
-    if (!confirm(`Создать "${combo.name}"?${costText}\n\n⚠️ Обе реликвии ПОГЛОЩЕНЫ!`)) return;
+    if (!confirm(`Создать "${combo.name}"?${costText}`)) return;
     if (cost > 0) { state.soap -= cost; state.stats.totalSoapSpent += cost; }
-    if (!state.consumedRelics.includes(forgeState.slot1.id)) state.consumedRelics.push(forgeState.slot1.id);
-    if (!state.consumedRelics.includes(forgeState.slot2.id)) state.consumedRelics.push(forgeState.slot2.id);
-    if (state.activeRelic === forgeState.slot1.id || state.activeRelic === forgeState.slot2.id) state.activeRelic = null;
     state.forgedRelics.push(combo.id);
     state.stats.forgedCount = (state.stats.forgedCount || 0) + 1;
     state.activeForgedRelic = combo.id; state.activeRelic = null;
     saveState();
     forgeState.slot1 = null; forgeState.slot2 = null;
     showToast(`🔨 ${combo.name} создана!`, 3000, 'forge');
-    renderForge(); render(); renderShop();
+    renderForge(); render(); renderShop(); renderInventory();
   }
 
   function resetProgress() {
     if (confirm('Сбросить весь прогресс?')) {
       localStorage.removeItem(STORAGE_KEY); localStorage.removeItem(ART_STORAGE_KEY);
       artGallery = [];
-      state = { level: 1, xp: 0, dayCounter: 0, lastResetTime: 0, completedToday: [], currentQuests: [], hardQuestUsed: false, hardQuestCompleted: false, hardQuestIndex: -1, refreshCount: 2, hardRefreshCount: 1, mode: 'balance', soap: 0, ownedRelics: [], activeRelic: null, streakShield: 0, modeLocked: false, battleHistory: [], battleRecord: { wins: 0, losses: 0, draws: 0 }, artLastRewardDate: null, forgedRelics: [], consumedRelics: [], activeForgedRelic: null, stats: { totalCompleted: 0, mindCompleted: 0, bodyCompleted: 0, hardCompleted: 0, totalXpEarned: 0, streak: 0, bestStreak: 0, activeDays: [], totalSoapEarned: 0, totalSoapSpent: 0, totalXpExchanged: 0, artPieces: 0, artLikesReceived: 0, artLikesGiven: 0, soapQuestsCompleted: 0, soapFromSoapMode: 0, forgedCount: 0 } };
+      state = { level: 1, xp: 0, dayCounter: 0, lastResetTime: 0, completedToday: [], currentQuests: [], hardQuestUsed: false, hardQuestCompleted: false, hardQuestIndex: -1, refreshCount: 2, hardRefreshCount: 1, mode: 'balance', soap: 0, ownedRelics: [], activeRelic: null, streakShield: 0, modeLocked: false, battleHistory: [], battleRecord: { wins: 0, losses: 0, draws: 0 }, artLastRewardDate: null, forgedRelics: [], activeForgedRelic: null, stats: { totalCompleted: 0, mindCompleted: 0, bodyCompleted: 0, hardCompleted: 0, totalXpEarned: 0, streak: 0, bestStreak: 0, activeDays: [], totalSoapEarned: 0, totalSoapSpent: 0, totalXpExchanged: 0, artPieces: 0, artLikesReceived: 0, artLikesGiven: 0, soapQuestsCompleted: 0, soapFromSoapMode: 0, forgedCount: 0 } };
       document.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === 'balance'));
       modeHint.textContent = MODES.balance.hint;
       modeHint.classList.remove('locked-hint', 'soap-hint');
