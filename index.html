@@ -497,7 +497,7 @@ const COOLDOWN_MS = 24 * 60 * 60 * 1000;
 const SOAP_LIMIT = 10000000;
 const SOAP_QUEST_MIN = 5;
 const SOAP_QUEST_MAX = 20;
-const FORGE_COST = 100;
+const FORGE_COST = 20;
 const IMAGE_HOST_UPLOAD = 'https://catbox.moe/user/api.php';
 const IMAGE_HOST_VIEW = 'https://files.catbox.moe/';
 
@@ -1046,7 +1046,7 @@ function render() {
 function renderShop() {
   const isMaxed = isSoapMaxedOut();
   let html = `<div class="shop-balance"><div class="shop-balance-left"><div class="shop-balance-icon">🧼</div><div><div class="shop-balance-label">Баланс</div><div class="shop-balance-text">${formatNumber(state.soap)} 🧼${isMaxed ? ' 👑' : ''}</div></div></div><div class="shop-balance-right"><div class="shop-xp-badge"><div class="xp-val">${state.xp}</div><div class="xp-lbl">Всего XP</div></div></div></div>`;
-  html += `<div class="price-update-note">📈 🔨 Наковальня доступна!</div>`;
+  html += `<div class="price-update-note">📈 🔨 Наковальня: крафт за ${FORGE_COST} 🧼</div>`;
   html += `<div class="shop-section-title">🏛️ Реликвии</div><div class="relic-category-note">⚠️ Одна активна</div>`;
   SHOP_ITEMS.relics.forEach(relic => {
     const owned = state.ownedRelics.includes(relic.id);
@@ -1564,7 +1564,7 @@ function renderForgeMain() {
   } else if (forgeState.slot1 && forgeState.slot2 && forgeState.slot1.id === forgeState.slot2.id) {
     craftError = 'Нельзя соединить одинаковые';
   }
-  let html = `<div class="forge-intro"><span class="forge-hammer">🔨</span><h3>Наковальня богов</h3><p>Соедини две реликвии, чтобы получить комбинированную!</p></div>`;
+  let html = `<div class="forge-intro"><span class="forge-hammer">🔨</span><h3>Наковальня богов</h3><p>Соедини две реликвии, чтобы получить комбинированную! Крафт — <b>${FORGE_COST} 🧼</b></p></div>`;
   html += `<div class="forge-slots-container">`;
   if (forgeState.slot1) html += `<div class="forge-slot filled has-result" data-slot="slot1"><div class="slot-icon">${forgeState.slot1.icon}</div><div class="slot-name">${forgeState.slot1.name}</div><div class="slot-boost">+${Math.round(forgeState.slot1.boost * 100)}%</div></div>`;
   else html += `<div class="forge-slot empty" data-slot="slot1"><div class="slot-icon">➕</div><div class="slot-hint">Выбрать</div></div>`;
