@@ -21,6 +21,7 @@
     .btn-header.battle-btn { background: #3a1f1f; border-color: #b03030; color: #f0a0a0; }
     .btn-header.art-btn { background: #2a1f3a; border-color: #8050b0; color: #d0a0f0; }
     .btn-header.forge-btn { background: #3a2a1a; border-color: #c08050; color: #ffc080; }
+    .btn-header.inventory-btn { background: #1f2a3a; border-color: #5080b0; color: #a0d0f0; }
     .timer-bar { display: flex; justify-content: space-between; align-items: center; background: linear-gradient(135deg, #1f2a1a, #2a3a2a); padding: 10px 16px; border-radius: 20px; border: 1px solid #4a6a3a; margin: 12px 0 0; gap: 10px; flex-wrap: wrap; }
     .timer-bar.ready { background: linear-gradient(135deg, #1f3a1a, #2a4a2a); border-color: #5a9a5a; animation: pulse-ready 2s ease-in-out infinite; }
     @keyframes pulse-ready { 0%, 100% { box-shadow: 0 0 0 0 rgba(120, 220, 120, 0); } 50% { box-shadow: 0 0 15px 2px rgba(120, 220, 120, 0.3); } }
@@ -381,6 +382,32 @@
     .forge-combo-name { font-size: 12px; font-weight: 600; color: #e0f0fa; }
     .forge-combo-formula { font-size: 10px; color: #7a8b96; display: flex; align-items: center; gap: 3px; flex-wrap: wrap; }
     .forge-combo-check { font-size: 18px; flex-shrink: 0; }
+    .inventory-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 12px; }
+    .inventory-item { background: #1b2429; border-radius: 18px; padding: 12px; border: 1px solid #2a3b44; display: flex; flex-direction: column; gap: 8px; transition: 0.2s; position: relative; }
+    .inventory-item.active { background: linear-gradient(135deg, #2a2a1a, #3a3a1a); border-color: #ffd780; box-shadow: 0 0 15px rgba(255, 215, 128, 0.25); }
+    .inventory-item.forged { border-left: 4px solid #ff8040; }
+    .inventory-item.consumed { opacity: 0.5; filter: grayscale(0.6); }
+    .inventory-item .inv-icon { font-size: 36px; text-align: center; line-height: 1; filter: drop-shadow(0 0 6px rgba(255, 215, 128, 0.3)); }
+    .inventory-item .inv-name { font-size: 13px; font-weight: 600; color: #e0f0fa; text-align: center; line-height: 1.2; }
+    .inventory-item .inv-boost { font-size: 11px; color: #ffd780; text-align: center; font-weight: 600; }
+    .inventory-item .inv-desc { font-size: 10px; color: #8a9ba5; text-align: center; line-height: 1.3; min-height: 26px; }
+    .inventory-item .inv-badge { position: absolute; top: 6px; right: 6px; background: #c0a050; color: #1a1a1a; padding: 1px 6px; border-radius: 10px; font-size: 8px; font-weight: 700; }
+    .inventory-item .inv-badge.forged-badge { background: linear-gradient(135deg, #ff8040, #ffb080); }
+    .inv-activate-btn { width: 100%; padding: 7px 10px; border-radius: 40px; font-size: 11px; font-weight: 600; cursor: pointer; transition: 0.2s; border: 1px solid; user-select: none; display: flex; align-items: center; justify-content: center; gap: 4px; }
+    .inv-activate-btn.activate { background: #2a3a2a; border-color: #5a8a5a; color: #b0e0b0; }
+    .inv-activate-btn.active { background: #3a3a1a; border-color: #ffd780; color: #ffd780; }
+    .inv-activate-btn.deactivate { background: #3a2a2a; border-color: #b05050; color: #f0a0a0; }
+    .inv-activate-btn:disabled { background: #2a2a2a; border-color: #4a4a4a; color: #6a6a6a; cursor: not-allowed; }
+    .inv-section-title { font-size: 12px; font-weight: 600; color: #8a9ba5; text-transform: uppercase; letter-spacing: 0.6px; margin: 18px 0 10px; display: flex; align-items: center; gap: 6px; }
+    .inv-section-title:first-of-type { margin-top: 4px; }
+    .inv-empty { text-align: center; padding: 30px 20px; color: #7e959f; font-size: 13px; background: #101618; border-radius: 20px; border: 1px dashed #2a3b44; }
+    .inv-empty .emoji { font-size: 42px; display: block; margin-bottom: 8px; opacity: 0.6; }
+    .inv-active-banner { background: linear-gradient(135deg, #2a2a1a, #3a3a2a); border: 1px solid #ffd780; border-radius: 20px; padding: 14px 16px; margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
+    .inv-active-banner .inv-active-icon { font-size: 40px; line-height: 1; filter: drop-shadow(0 0 10px rgba(255, 215, 128, 0.5)); }
+    .inv-active-banner .inv-active-info { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+    .inv-active-banner .inv-active-name { font-size: 15px; font-weight: 700; color: #ffd780; }
+    .inv-active-banner .inv-active-desc { font-size: 11px; color: #d0a080; line-height: 1.3; }
+    .inv-active-banner .inv-active-empty { font-size: 13px; color: #8a9ba5; font-style: italic; }
     @media (max-width: 420px) {
       body { padding: 8px; }
       .app { padding: 14px 12px; border-radius: 24px; }
@@ -392,6 +419,7 @@
       .big-number .num { font-size: 20px; }
       .battle-stat-value { font-size: 14px; }
       .art-tool-label { min-width: auto; }
+      .inventory-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -407,6 +435,7 @@
       <button class="btn-header art-btn" id="artBtn">🎨</button>
       <button class="btn-header battle-btn" id="battleBtn">⚔️</button>
       <button class="btn-header shop-btn" id="shopBtn">🏪</button>
+      <button class="btn-header inventory-btn" id="inventoryBtn">🎒</button>
       <button class="btn-header" id="statsBtn">📊</button>
     </div>
   </h1>
@@ -484,6 +513,7 @@
 <div class="modal-overlay" id="battleModal"><div class="modal"><div class="modal-header"><h2>⚔️ Поединки</h2><button class="modal-close" id="battleCloseBtn">✕</button></div><div id="battleContent"></div></div></div>
 <div class="modal-overlay" id="artModal"><div class="modal"><div class="modal-header"><h2>🎨 Арена творчества</h2><button class="modal-close" id="artCloseBtn">✕</button></div><div id="artContent"></div></div></div>
 <div class="modal-overlay" id="forgeModal"><div class="modal forge-modal"><div class="modal-header"><h2>🔨 Наковальня</h2><button class="modal-close" id="forgeCloseBtn">✕</button></div><div id="forgeContent"></div></div></div>
+<div class="modal-overlay" id="inventoryModal"><div class="modal"><div class="modal-header"><h2>🎒 Инвентарь реликвий</h2><button class="modal-close" id="inventoryCloseBtn">✕</button></div><div id="inventoryContent"></div></div></div>
 <div id="toast" class="toast"></div>
 
 <script>
@@ -636,7 +666,6 @@
   let artGallery = [];
   let forgeState = { slot1: null, slot2: null, pickerTarget: null, view: 'main' };
 
-  // DOM
   const $ = id => document.getElementById(id);
   const levelDisplay = $('levelDisplay'), xpDisplay = $('xpDisplay'), dayCounter = $('dayCounter');
   const soapDisplay = $('soapDisplay'), todayDate = $('todayDate'), questContainer = $('questContainer');
@@ -654,8 +683,8 @@
   const timerValue = $('timerValue'), timerHint = $('timerHint'), walletBar = $('walletBar');
   const soapLimitFill = $('soapLimitFill'), walletHint = $('walletHint'), actionRow = $('actionRow');
   const forgeBtn = $('forgeBtn'), forgeModal = $('forgeModal'), forgeContent = $('forgeContent'), forgeCloseBtn = $('forgeCloseBtn');
+  const inventoryBtn = $('inventoryBtn'), inventoryModal = $('inventoryModal'), inventoryContent = $('inventoryContent'), inventoryCloseBtn = $('inventoryCloseBtn');
 
-  // Утилиты
   function getSoapLimitProgress() { return Math.min(100, (state.soap / SOAP_LIMIT) * 100); }
   function isSoapMaxedOut() { return state.soap >= SOAP_LIMIT; }
   function addSoap(amount) { if (amount <= 0) return 0; const before = state.soap; state.soap = Math.min(SOAP_LIMIT, state.soap + amount); return state.soap - before; }
@@ -1484,6 +1513,142 @@
   }
   function blobToDataURL(blob) { return new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = rej; r.readAsDataURL(blob); }); }
 
+  // ИНВЕНТАРЬ РЕЛИКВИЙ
+  function openInventory() { renderInventory(); inventoryModal.classList.add('open'); }
+  function closeInventory() { inventoryModal.classList.remove('open'); }
+  function renderInventory() {
+    const shopRelics = state.ownedRelics
+      .filter(id => !state.consumedRelics.includes(id))
+      .map(id => SHOP_ITEMS.relics.find(r => r.id === id))
+      .filter(Boolean);
+    const forgedRelics = state.forgedRelics
+      .map(id => FORGED_RELICS.find(r => r.id === id))
+      .filter(Boolean);
+    const consumedRelics = state.consumedRelics
+      .map(id => SHOP_ITEMS.relics.find(r => r.id === id))
+      .filter(Boolean);
+
+    const activeRelic = getActiveRelic();
+
+    let html = '';
+
+    if (activeRelic) {
+      let boostText = `+${Math.round(activeRelic.boost * 100)}% XP`;
+      if (activeRelic.type === 'mind') boostText += ' (ум)';
+      else if (activeRelic.type === 'body') boostText += ' (тело)';
+      else if (activeRelic.type === 'balance') boostText += ' (баланс)';
+      if (activeRelic.isForged && activeRelic.special) boostText += ` • ${activeRelic.specialIcon} ${activeRelic.special}`;
+      html += `<div class="inv-active-banner"><div class="inv-active-icon">${activeRelic.icon}</div><div class="inv-active-info"><div class="inv-active-name">${activeRelic.name}${activeRelic.isForged ? ' 🔨' : ''}</div><div class="inv-active-desc">${boostText}</div></div><button class="inv-activate-btn deactivate" id="invDeactivateBtn">✕ Снять</button></div>`;
+    } else {
+      html += `<div class="inv-active-banner"><div class="inv-active-icon">💤</div><div class="inv-active-info"><div class="inv-active-empty">Нет активной реликвии</div></div></div>`;
+    }
+
+    if (shopRelics.length > 0) {
+      html += `<div class="inv-section-title">🏛️ Купленные реликвии</div><div class="inventory-grid">`;
+      shopRelics.forEach(relic => {
+        const isActive = state.activeRelic === relic.id && !state.activeForgedRelic;
+        let boostText = `+${Math.round(relic.boost * 100)}% XP`;
+        if (relic.type === 'mind') boostText += ' (ум)';
+        else if (relic.type === 'body') boostText += ' (тело)';
+        else if (relic.type === 'balance') boostText += ' (баланс)';
+        html += `<div class="inventory-item ${isActive ? 'active' : ''}">
+          <div class="inv-icon">${relic.icon}</div>
+          <div class="inv-name">${relic.name}</div>
+          <div class="inv-boost">${boostText}</div>
+          <div class="inv-desc">${relic.desc}</div>
+          ${isActive
+            ? `<button class="inv-activate-btn deactivate" data-deactivate="shop">✕ Снять</button>`
+            : `<button class="inv-activate-btn activate" data-activate-shop="${relic.id}">⚡ Активировать</button>`}
+        </div>`;
+      });
+      html += `</div>`;
+    }
+
+    if (forgedRelics.length > 0) {
+      html += `<div class="inv-section-title">🔨 Комбинированные реликвии</div><div class="inventory-grid">`;
+      forgedRelics.forEach(relic => {
+        const isActive = state.activeForgedRelic === relic.id;
+        let boostText = `+${Math.round(relic.boost * 100)}% XP`;
+        if (relic.type === 'mind') boostText += ' (ум)';
+        else if (relic.type === 'body') boostText += ' (тело)';
+        else if (relic.type === 'balance') boostText += ' (баланс)';
+        html += `<div class="inventory-item ${isActive ? 'active' : ''} forged">
+          <div class="inv-badge forged-badge">🔨 КОМБО</div>
+          <div class="inv-icon">${relic.icon}</div>
+          <div class="inv-name">${relic.name}</div>
+          <div class="inv-boost">${boostText}</div>
+          <div class="inv-desc">${relic.special ? relic.specialIcon + ' ' + relic.special : 'Комбинированная реликвия'}</div>
+          ${isActive
+            ? `<button class="inv-activate-btn deactivate" data-deactivate="forged">✕ Снять</button>`
+            : `<button class="inv-activate-btn activate" data-activate-forged="${relic.id}">⚡ Активировать</button>`}
+        </div>`;
+      });
+      html += `</div>`;
+    }
+
+    if (consumedRelics.length > 0) {
+      html += `<div class="inv-section-title">💀 Поглощённые наковальней</div><div class="inventory-grid">`;
+      consumedRelics.forEach(relic => {
+        html += `<div class="inventory-item consumed">
+          <div class="inv-icon">${relic.icon}</div>
+          <div class="inv-name">${relic.name}</div>
+          <div class="inv-desc">Использована в создании комбо</div>
+          <button class="inv-activate-btn" disabled>🔨 Поглощена</button>
+        </div>`;
+      });
+      html += `</div>`;
+    }
+
+    if (shopRelics.length === 0 && forgedRelics.length === 0 && consumedRelics.length === 0) {
+      html += `<div class="inv-empty"><span class="emoji">🎒</span>Инвентарь пуст.<br><span style="font-size:12px;color:#5a6a75;">Купи реликвии в магазине 🏪 или создай их на наковальне 🔨</span></div>`;
+    }
+
+    inventoryContent.innerHTML = html;
+
+    const deactivateBtn = document.getElementById('invDeactivateBtn');
+    if (deactivateBtn) {
+      deactivateBtn.addEventListener('click', () => {
+        state.activeRelic = null;
+        state.activeForgedRelic = null;
+        saveState(); render(); renderInventory();
+        showToast('💤 Реликвия снята', 1800);
+      });
+    }
+
+    inventoryContent.querySelectorAll('[data-activate-shop]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.activateShop;
+        const relic = SHOP_ITEMS.relics.find(r => r.id === id);
+        if (!relic) return;
+        state.activeRelic = id;
+        state.activeForgedRelic = null;
+        saveState(); render(); renderInventory();
+        showToast(`${relic.icon} ${relic.name} активирована!`, 2000);
+      });
+    });
+
+    inventoryContent.querySelectorAll('[data-activate-forged]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.activateForged;
+        const relic = FORGED_RELICS.find(r => r.id === id);
+        if (!relic) return;
+        state.activeForgedRelic = id;
+        state.activeRelic = null;
+        saveState(); render(); renderInventory();
+        showToast(`${relic.icon} ${relic.name} активирована!`, 2000, 'forge');
+      });
+    });
+
+    inventoryContent.querySelectorAll('[data-deactivate]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.activeRelic = null;
+        state.activeForgedRelic = null;
+        saveState(); render(); renderInventory();
+        showToast('💤 Реликвия снята', 1800);
+      });
+    });
+  }
+
   // НАКОВАЛЬНЯ
   function openForge() { forgeState.slot1 = null; forgeState.slot2 = null; forgeState.pickerTarget = null; forgeState.view = 'main'; renderForge(); forgeModal.classList.add('open'); }
   function closeForge() { forgeModal.classList.remove('open'); }
@@ -1603,7 +1768,7 @@
       modeSwitcher.classList.remove('locked');
       actionRow.classList.remove('hidden-in-soap');
       initDay(); render();
-      closeStats(); closeShop(); closeBattle(); closeArt(); closeForge();
+      closeStats(); closeShop(); closeBattle(); closeArt(); closeForge(); closeInventory();
       showToast('🔄 Сброшено', 1800);
     }
   }
@@ -1628,12 +1793,14 @@
     battleBtn.addEventListener('click', openBattle); battleCloseBtn.addEventListener('click', closeBattle);
     artBtn.addEventListener('click', openArt); artCloseBtn.addEventListener('click', closeArt);
     forgeBtn.addEventListener('click', openForge); forgeCloseBtn.addEventListener('click', closeForge);
+    inventoryBtn.addEventListener('click', openInventory); inventoryCloseBtn.addEventListener('click', closeInventory);
     statsModal.addEventListener('click', e => { if (e.target === statsModal) closeStats(); });
     shopModal.addEventListener('click', e => { if (e.target === shopModal) closeShop(); });
     battleModal.addEventListener('click', e => { if (e.target === battleModal) closeBattle(); });
     artModal.addEventListener('click', e => { if (e.target === artModal) closeArt(); });
     forgeModal.addEventListener('click', e => { if (e.target === forgeModal) closeForge(); });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeStats(); closeShop(); closeBattle(); closeArt(); closeForge(); } });
+    inventoryModal.addEventListener('click', e => { if (e.target === inventoryModal) closeInventory(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeStats(); closeShop(); closeBattle(); closeArt(); closeForge(); closeInventory(); } });
     document.addEventListener('visibilitychange', () => { if (!document.hidden) { updateTimerUI(); if (!isCooldownActive() && state.lastResetTime > 0) { if (tryResetQuests()) { render(); showToast('🌅 Новые квесты!', 2500); } } } });
   }
   init();
